@@ -146,6 +146,7 @@
 
 @layer base {
   html {
+    background: var(--page);
     scroll-padding-top: calc(var(--header-h) + 1.5rem);
     -webkit-text-size-adjust: 100%;
   }
@@ -157,6 +158,9 @@
   }
 
   body {
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin-inline: auto;
     background: var(--page);
     color: var(--ink);
     font-family: var(--font-sans);
@@ -199,6 +203,13 @@
 }
 
 @layer components {
+  /* Fixed navigation shares the centered page boundary on wide screens. */
+  .site-header,
+  .mobile-nav {
+    max-width: var(--site-max-width);
+    margin-inline: auto;
+  }
+
   .shell {
     width: 100%;
     max-width: calc(var(--measure) + var(--gutter) * 2);
@@ -238,7 +249,7 @@
     position: absolute;
     top: -4px;
     left: 50%;
-    width: min(calc(100% + 7px), calc(var(--measure) + var(--gutter) * 2 + 7px));
+    width: min(100%, var(--site-max-width));
     height: 7px;
     transform: translateX(-50%);
     background:
