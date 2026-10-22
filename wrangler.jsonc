@@ -1,12 +1,5 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "fxnholdings-com",
+  "name": "fxnholdings-astro-preview",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-10-01",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "vars": {
-    "OPENROUTER_MODEL": "anthropic/claude-haiku-5.5"
-  }
 }

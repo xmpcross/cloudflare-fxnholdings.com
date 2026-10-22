@@ -1,0 +1,85 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+import { pricing } from "@/config/pricing";
+import { softTone, solidTone } from "@/lib/tones";
+import Price from "./Price.astro";
+---
+
+<ul class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+  {
+    pricing.plans.map((plan) => {
+      const tone = plan.tone ?? "ink";
+      const paid = plan.monthly !== null && plan.monthly > 0;
+      const button = plan.featured ? "btn-light" : paid ? "btn-primary" : "btn-secondary";
+      return (
+        <li
+          class:list={[
+            "plan reveal relative isolate flex flex-col overflow-hidden rounded-[1.25rem] p-6 sm:p-7",
+            plan.featured ? "on-night shadow-(--shadow-window)" : "bg-surface shadow-[inset_0_0_0_1px_var(--line),var(--shadow-card)]",
+          ]}
+        >
+          {plan.featured && <span class="glow" aria-hidden="true" />}
+          <div class="flex items-center justify-between gap-4">
+            <h2 class="text-xl font-semibold tracking-[-0.03em]">{plan.name}</h2>
+            {plan.featured && <span class="rounded-md bg-violet px-2 py-0.5 text-xs font-semibold text-white">Most popular</span>}
+          </div>
+          <p class:list={["mt-2 min-h-12 text-[0.9375rem]", plan.featured ? "text-night-muted" : "text-muted"]}>{plan.description}</p>
+
+          <p class="mt-7 flex min-h-13 items-end gap-2">
+            <Price plan={plan} class="text-[3rem] leading-none font-semibold tracking-tighter tabular" />
+            {paid && (
+              <span class:list={["pb-1 text-sm leading-tight", plan.featured ? "text-night-muted" : "text-muted"]} data-billed>
+                per seat / month
+              </span>
+            )}
+            {plan.monthly === 0 && <span class:list={["pb-1 text-sm", plan.featured ? "text-night-muted" : "text-muted"]}>forever</span>}
+          </p>
+          {plan.seats && <p class:list={["mt-3 text-sm font-medium", plan.featured ? "text-night-ink" : "text-ink-soft"]}>{plan.seats}</p>}
+
+          <a href={plan.cta.href} class:list={["btn mt-6 w-full", button]}>
+            {plan.cta.label}
+          </a>
+
+          <div class:list={["mt-7 border-t pt-6", plan.featured ? "border-night-line" : "border-line"]}>
+            {plan.includes && <p class:list={["mb-3.5 text-sm font-medium", plan.featured ? "text-night-muted" : "text-muted"]}>{plan.includes}</p>}
+            <ul class="grid gap-3 text-[0.9375rem]">
+              {plan.highlights.map((item) => (
+                <li class="flex gap-2.5">
+                  <span class:list={["mt-0.5 grid size-5 shrink-0 place-items-center rounded-full", plan.featured ? solidTone[tone] : softTone[tone]]}>
+                    <Icon name="check" class="size-3" stroke={3} />
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .glow {
+    position: absolute;
+    inset: -40% -30% auto auto;
+    z-index: -1;
+    width: 26rem;
+    height: 22rem;
+    background:
+      radial-gradient(closest-side, rgb(124 77 255 / 0.45), transparent),
+      radial-gradient(closest-side at 30% 70%, rgb(47 107 255 / 0.3), transparent);
+    filter: blur(24px);
+    pointer-events: none;
+  }
+
+  .plan.on-night::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+import { siteConfig } from "@/config/site";
+
+interface Props {
+  class?: string;
+  /** Fade the bottom of the screen below `lg`, where views run past the window. */
+  fade?: boolean;
+}
+
+const { class: className, fade = false } = Astro.props;
+const address = `app.${siteConfig.name.toLowerCase()}.com`;
+---
+
+<div class:list={["app-window glass relative overflow-hidden rounded-[1.25rem] p-1.5 text-left text-ink select-none sm:p-2", className]} aria-hidden="true">
+  <div class="chrome grid h-7 grid-cols-[1fr_auto_1fr] items-center gap-3 px-1.5 sm:h-8">
+    <span class="flex items-center gap-1.5">
+      <span class="light"></span>
+      <span class="light"></span>
+      <span class="light"></span>
+      <Icon name="panel-left" class="ml-4 hidden size-4 sm:inline-grid" />
+      <Icon name="chevron-left" class="ml-2 hidden size-4 sm:inline-grid" />
+      <Icon name="chevron-right" class="hidden size-4 sm:inline-grid" />
+    </span>
+    <span class="address flex h-6 w-[min(22rem,48vw)] items-center justify-center gap-1.5 rounded-lg px-2.5 text-[0.75rem] font-medium">
+      <Icon name="lock" class="size-3" stroke={2.25} />
+      {address}
+      <Icon name="rotate-cw" class="ml-auto hidden size-3 sm:inline-grid" stroke={2.25} />
+    </span>
+    <span class="hidden items-center justify-end gap-3 sm:flex">
+      <Icon name="plus" class="size-4" />
+      <Icon name="copy" class="size-3.5" />
+    </span>
+  </div>
+  <div class:list={["mt-1 overflow-hidden rounded-[0.875rem] bg-surface ring-1 ring-black/6 sm:mt-1.5", fade && "fade"]}>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .glass {
+    background: rgb(255 255 255 / 0.3);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.55),
+      0 0 0 1px rgb(12 12 14 / 0.06),
+      var(--shadow-window);
+    backdrop-filter: blur(24px) saturate(1.4);
+  }
+
+  .chrome {
+    color: rgb(12 12 14 / 0.55);
+  }
+
+  .light {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.85);
+    box-shadow: 0 0 0 1px rgb(12 12 14 / 0.08);
+  }
+
+  @media (width < 64rem) {
+    .fade {
+      mask-image: linear-gradient(#000 calc(100% - 6rem), transparent);
+    }
+  }
+
+  .address {
+    justify-self: center;
+    max-width: 100%;
+    background: rgb(255 255 255 / 0.45);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.5);
+    color: rgb(12 12 14 / 0.62);
+  }
+</style>

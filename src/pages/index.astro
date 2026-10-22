@@ -1,0 +1,9 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FxnHero from '@/components/home/FxnHero.astro';
+import FxnSections from '@/components/home/FxnSections.astro';
+import Faq from '@/components/home/Faq.astro';
+import LatestPosts from '@/components/home/LatestPosts.astro';
+import {faq} from '@/config/home';
+---
+<BaseLayout transparentHeader><FxnHero /><FxnSections /><Faq {...faq} /><LatestPosts /></BaseLayout>

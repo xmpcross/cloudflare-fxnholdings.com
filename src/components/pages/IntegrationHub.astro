@@ -1,0 +1,87 @@
+---
+import AppIcon from "@/components/ui/AppIcon.astro";
+import Logomark from "@/components/ui/Logomark.astro";
+
+interface Props {
+  /** Six icon names: three on the left, three on the right. */
+  icons?: string[];
+  class?: string;
+}
+
+const { icons = ["gmail", "googlecalendar", "zoom", "stripe", "slack", "hubspot"], class: className } = Astro.props;
+const rows = [40, 120, 200];
+const nodes = icons.slice(0, 6).map((name, index) => {
+  const left = index < 3;
+  return { name, x: left ? 70 : 530, y: rows[index % 3], left };
+});
+const path = (node: (typeof nodes)[number]) =>
+  node.left
+    ? `M${node.x + 30} ${node.y} C ${node.x + 110} ${node.y}, 180 120, 258 120`
+    : `M${node.x - 30} ${node.y} C ${node.x - 110} ${node.y}, 420 120, 342 120`;
+---
+
+<div class:list={["hub relative mx-auto aspect-[600/240] w-full max-w-2xl", className]} aria-hidden="true">
+  <svg viewBox="0 0 600 240" class="absolute inset-0 size-full" fill="none">
+    {
+      nodes.map((node, index) => (
+        <>
+          <path d={path(node)} stroke="var(--line-strong)" stroke-width="1.5" />
+          <path d={path(node)} class="pulse" stroke={index % 2 ? "var(--violet)" : "var(--blue)"} stroke-width="2" stroke-linecap="round" style={`--d:${index * -0.55}s`} />
+        </>
+      ))
+    }
+  </svg>
+  {
+    nodes.map((node) => (
+      <span class="tile absolute" style={`left:${(node.x / 600) * 100}%;top:${(node.y / 240) * 100}%`}>
+        <AppIcon name={node.name} class="size-full rounded-[28%] shadow-(--shadow-card)" />
+      </span>
+    ))
+  }
+  <span class="hub-core absolute">
+    <Logomark class="size-full shadow-(--shadow-float)" />
+  </span>
+</div>
+
+<style>
+  .tile {
+    width: 10%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+  }
+
+  .tile :global(.app-icon) {
+    background: var(--surface);
+  }
+
+  .hub-core {
+    left: 50%;
+    top: 50%;
+    width: 14%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 28%;
+    box-shadow:
+      0 0 0 8px var(--page),
+      0 0 0 9px var(--line);
+  }
+
+  .pulse {
+    stroke-dasharray: 18 260;
+    stroke-dashoffset: 278;
+    animation: pulse 3.2s linear infinite;
+    animation-delay: var(--d);
+  }
+
+  @keyframes pulse {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+import AppIcon from "@/components/ui/AppIcon.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import { sync } from "@/config/home";
+
+const { id, eyebrow, title, accent, points } = sync;
+
+const emails: { from: string; subject: string; time: string; record: string; isNew?: boolean }[] = [
+  { from: "Ava Lindqvist", subject: "Re: Security questionnaire and DPA", time: "10:42", record: "Lumen Labs" },
+  { from: "Daniel Price", subject: "Intro: Copperline x Kitebird", time: "09:15", record: "Copperline" },
+  { from: "Mei Tanaka", subject: "Pricing for 300 seats?", time: "Yesterday", record: "New contact", isNew: true },
+  { from: "Jonas Weber", subject: "Notes from the Gridline call", time: "Yesterday", record: "Gridline" },
+];
+
+const team = [
+  { name: "Maya Chen", strength: 4, note: "14 emails · 3 calls" },
+  { name: "Leo Brandt", strength: 2, note: "2 emails" },
+  { name: "Priya Nair", strength: 1, note: "Met once" },
+];
+---
+
+<section id={id} class="ruled section" aria-labelledby={`${id}-title`}>
+  <div class="shell">
+    <SectionHead id={`${id}-title`} eyebrow={eyebrow} title={title} accent={accent} />
+  </div>
+
+  <div class="frame mt-12 lg:mt-16">
+    <div class="split grid lg:grid-cols-2">
+      <div class="cell">
+        <div class="visual">
+          <div class="w-full max-w-[30rem] overflow-hidden rounded-xl bg-surface shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
+            <p class="flex items-center gap-2 border-b border-line px-4 py-2.5 text-[0.8125rem] font-semibold">
+              <AppIcon name="gmail" class="size-4" bare />
+              Inbox
+              <span class="ml-auto inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-green-ink">
+                <span class="pulse size-1.5 rounded-full bg-green" /> Syncing
+              </span>
+            </p>
+            <ul class="divide-y divide-line">
+              {
+                emails.map((email) => (
+                  <li class="flex items-center gap-3 px-4 py-2.5 text-[0.8125rem]">
+                    <Avatar name={email.from} class="size-7" />
+                    <span class="min-w-0 flex-1">
+                      <span class="flex items-center gap-2">
+                        <span class="font-semibold">{email.from}</span>
+                        <span class="text-[0.75rem] text-faint">{email.time}</span>
+                      </span>
+                      <span class="block truncate text-muted">{email.subject}</span>
+                    </span>
+                    <span class="chip">
+                      {email.isNew && (
+                        <span class="grid size-4 place-items-center rounded-[28%] bg-green-soft text-green-ink">
+                          <Icon name="plus" class="size-2.5" stroke={3} />
+                        </span>
+                      )}
+                      {email.record}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+        <p class="copy"><strong>Every thread on the right record.</strong> Modal matches emails to people, companies and deals, and creates contacts you haven't met yet.</p>
+      </div>
+
+      <div class="cell">
+        <div class="visual">
+          <div class="grid w-full max-w-[22rem] gap-3" aria-hidden="true">
+            <div class="rounded-xl bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
+              <p class="flex items-center gap-2 text-[0.75rem] font-medium text-muted">
+                <AppIcon name="googlecalendar" class="size-4" bare /> Tue, Oct 14 · 10:30
+              </p>
+              <p class="mt-1.5 text-[0.9375rem] font-semibold">Pricing review</p>
+              <p class="mt-2 flex items-center gap-2 text-[0.8125rem]">
+                <span class="font-medium">Lumen Labs</span>
+                <span class="ml-auto flex -space-x-1.5">
+                  <Avatar name="Maya Chen" class="size-5 ring-2 ring-surface" />
+                  <Avatar name="Ava Lindqvist" class="size-5 ring-2 ring-surface" />
+                  <Avatar name="Tom Reyes" class="size-5 ring-2 ring-surface" />
+                </span>
+              </p>
+            </div>
+            <div class="rounded-xl bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
+              <p class="flex items-center gap-2 text-[0.8125rem] font-semibold">
+                <Avatar name="Ava Lindqvist" class="size-5" />
+                Who knows Ava best?
+              </p>
+              <ul class="mt-3 grid gap-2.5 text-[0.8125rem]">
+                {
+                  team.map((person) => (
+                    <li class="flex items-center gap-2">
+                      <Avatar name={person.name} class="size-5" />
+                      <span class="font-medium">{person.name}</span>
+                      <span class="text-[0.75rem] text-faint">{person.note}</span>
+                      <span class="ml-auto flex items-end gap-0.5">
+                        {[1, 2, 3, 4].map((bar) => (
+                          <span class:list={["w-[3px] rounded-[1px]", bar <= person.strength ? (person.strength > 2 ? "bg-green" : person.strength > 1 ? "bg-yellow" : "bg-orange") : "bg-line-strong"]} style={`height:${bar * 3 + 2}px`} />
+                        ))}
+                      </span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="copy"><strong>Know who to ask for the intro.</strong> Connection strength shows who on your team knows a contact best, from real emails and meetings.</p>
+      </div>
+    </div>
+
+    <ul class="points grid sm:grid-cols-3">
+      {
+        points.map((point) => (
+          <li class="reveal px-(--gutter) py-8 sm:px-8">
+            <span class="grid size-8 place-items-center rounded-lg bg-pink-soft text-pink-ink">
+              <Icon name={point.icon} class="size-4" stroke={2} />
+            </span>
+            <h3 class="mt-4 text-[1.0625rem] font-semibold tracking-[-0.02em]">{point.title}</h3>
+            <p class="mt-1 text-[0.9375rem] text-muted">{point.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .split {
+    border-block: 1px solid var(--line);
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cell + .cell {
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 64rem) {
+    .cell + .cell {
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+  }
+
+  .visual {
+    display: grid;
+    flex: 1;
+    place-items: center;
+    min-height: 22rem;
+    padding: 2.5rem var(--gutter);
+    background: linear-gradient(180deg, var(--wash), var(--surface));
+  }
+
+  .copy {
+    max-width: 34rem;
+    padding: 0 var(--gutter) 2.25rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  @media (min-width: 40rem) {
+    .copy {
+      padding-inline: 2rem;
+    }
+  }
+
+  .copy strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .points > li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 40rem) {
+    .points > li + li {
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+  }
+
+  .chip {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 0.45rem;
+    padding: 0.15rem 0.45rem 0.15rem 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--surface);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chip {
+      animation: chip-in linear both;
+      animation-timeline: view();
+      animation-range: entry 60% cover 40%;
+    }
+
+    .pulse {
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes chip-in {
+    from {
+      opacity: 0;
+      transform: translateX(8px) scale(0.9);
+    }
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.3;
+    }
+  }
+</style>

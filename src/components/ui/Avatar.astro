@@ -1,0 +1,33 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { people } from "@/config/demo";
+import { softTone } from "@/lib/tones";
+
+interface Props {
+  /** A key in `people` from `src/config/demo.ts`, or any name for initials. */
+  name: string;
+  class?: string;
+}
+
+const photos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/people/*.jpg", { eager: true });
+
+const { name, class: className = "size-6" } = Astro.props;
+const person = people[name];
+const photo = person?.photo ? photos[`/src/assets/images/people/${person.photo}.jpg`]?.default : undefined;
+const initials = name
+  .split(" ")
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join("");
+---
+
+{
+  photo ? (
+    <Image src={photo} alt="" widths={[48, 96]} sizes="1.5rem" class:list={["avatar shrink-0 rounded-full object-cover object-top", className]} />
+  ) : (
+    <span class:list={["avatar grid shrink-0 place-items-center rounded-full font-semibold [container-type:size]", softTone[person?.tone ?? "ink"], className]} aria-hidden="true">
+      <span class="text-[42cqw] leading-none tracking-[-0.02em]">{initials}</span>
+    </span>
+  )
+}

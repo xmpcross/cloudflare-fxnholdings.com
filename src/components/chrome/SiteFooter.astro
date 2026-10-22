@@ -1,0 +1,77 @@
+---
+import { businesses } from '@/config/businesses';
+import Icon from "@/components/ui/Icon.astro";
+import Wordmark from "@/components/ui/Wordmark.astro";
+import { footerNavigation, siteConfig } from "@/config/site";
+import { socialIcon } from "@/lib/socials";
+
+const { newsletter, status } = siteConfig;
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ruled bg-wash">
+  <div class="shell grid grid-cols-1 gap-14 pt-16 pb-12 lg:grid-cols-12 lg:gap-10 lg:pt-20">
+    <div class="lg:col-span-5">
+      <a href="/" class="inline-flex" aria-label={`${siteConfig.name} home`} data-logo-menu-trigger>
+        <Wordmark class="h-14" />
+      </a>
+      <p class="mt-8 max-w-sm text-xl leading-snug font-semibold tracking-[-0.03em]">{newsletter.title}</p>
+      <p class="mt-2 max-w-sm text-muted">{newsletter.description}</p>
+      <a class="mt-6 inline-block arrow-link" href="mailto:contact@fxnholdings.com">contact@fxnholdings.com</a>
+      <a class="mt-4 block text-sm underline underline-offset-4" href="/about/#businesses">UK and Australian business information</a>
+    </div>
+
+    <nav class="grid min-w-0 grid-cols-2 gap-6 sm:gap-10 sm:grid-cols-3 lg:col-span-7" aria-label="Footer">
+      {
+        footerNavigation.map((column) => (
+          <div>
+            <p class="mono-label text-[0.6875rem]">{column.title}</p>
+            <ul class="mt-4 grid gap-2.5">
+              {column.links.map((link) => (
+                <li>
+                  <a href={link.href} class="text-[0.9375rem] text-ink-soft transition-colors hover:text-ink">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="shell grid gap-6 border-t border-line py-8 md:grid-cols-2">{businesses.map(b=><div class="text-sm text-muted"><p class="font-semibold text-ink">{b.name} · {b.country}</p><p class="mt-2">{b.registration}</p>{b.tax&&<p>{b.tax}</p>}<p class="mt-2">{b.addressLabel}: {b.address}</p></div>)}</div>
+  <div class="shell">
+    <div class="flex flex-col gap-5 border-t border-line py-6 text-sm text-muted sm:flex-row sm:items-center">
+      <p>© {year} {siteConfig.name}. All rights reserved.</p>
+      {
+        status.label &&
+          (status.href ? (
+            <a href={status.href} class="inline-flex items-center gap-2 hover:text-ink">
+              <span class="size-2 rounded-full bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
+              {status.label}
+            </a>
+          ) : (
+            <p class="inline-flex items-center gap-2">
+              <span class="size-2 rounded-full bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
+              {status.label}
+            </p>
+          ))
+      }
+      <ul class="flex items-center gap-1 sm:ml-auto">
+        {
+          siteConfig.socials.map((social) => (
+            <li>
+              <a href={social.href} class="grid size-9 place-items-center rounded-lg transition-colors hover:bg-surface hover:text-ink" aria-label={social.label}>
+                <Icon name={socialIcon(social.label)} class="size-4" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+</footer>

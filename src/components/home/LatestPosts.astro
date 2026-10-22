@@ -1,0 +1,29 @@
+---
+import PostCard from "@/components/blog/PostCard.astro";
+import Icon from "@/components/ui/Icon.astro";
+import { latestPosts } from "@/config/home";
+import { getPosts } from "@/lib/posts";
+
+const posts = (await getPosts()).slice(0, 3);
+---
+
+{
+  posts.length > 0 && (
+    <section class="ruled section" aria-labelledby="latest-title">
+      <div class="shell">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <h2 id="latest-title" class="reveal text-display-md">{latestPosts.title}</h2>
+          <a href={latestPosts.cta.href} class="arrow-link reveal group">
+            {latestPosts.cta.label}
+            <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+          </a>
+        </div>
+        <div class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

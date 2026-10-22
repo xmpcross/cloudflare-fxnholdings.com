@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Gmail",
+    "src": "/img/modal/integrations/gmail.svg"
+  },
+  {
+    "name": "Google Calendar",
+    "src": "/img/modal/integrations/googlecalendar.svg"
+  },
+  {
+    "name": "Slack",
+    "src": "/img/modal/integrations/slack.svg"
+  },
+  {
+    "name": "Zoom",
+    "src": "/img/modal/integrations/zoom.svg"
+  },
+  {
+    "name": "Stripe",
+    "src": "/img/modal/integrations/stripe.svg"
+  },
+  {
+    "name": "Notion",
+    "src": "/img/modal/integrations/notion.svg"
+  },
+  {
+    "name": "Calendly",
+    "src": "/img/modal/integrations/calendly.svg"
+  },
+  {
+    "name": "Intercom",
+    "src": "/img/modal/integrations/intercom.svg"
+  },
+  {
+    "name": "Mixpanel",
+    "src": "/img/modal/integrations/mixpanel.svg"
+  },
+  {
+    "name": "Docusign",
+    "src": "/img/modal/integrations/docusign.svg"
+  },
+  {
+    "name": "Zapier",
+    "src": "/img/modal/integrations/zapier.svg"
+  },
+  {
+    "name": "Salesforce",
+    "src": "/img/modal/integrations/salesforce.svg"
+  },
+  {
+    "name": "HubSpot",
+    "src": "/img/modal/integrations/hubspot.svg"
+  },
+  {
+    "name": "Google Meet",
+    "src": "/img/modal/integrations/googlemeet.svg"
+  },
+  {
+    "name": "Aircall",
+    "src": "/img/modal/integrations/aircall.svg"
+  },
+  {
+    "name": "Loom",
+    "src": "/img/modal/integrations/loom.svg"
+  },
+  {
+    "name": "Zendesk",
+    "src": "/img/modal/integrations/zendesk.svg"
+  },
+  {
+    "name": "Typeform",
+    "src": "/img/modal/integrations/typeform.svg"
+  },
+  {
+    "name": "Webflow",
+    "src": "/img/modal/integrations/webflow.svg"
+  },
+  {
+    "name": "PostHog",
+    "src": "/img/modal/integrations/posthog.svg"
+  },
+  {
+    "name": "Snowflake",
+    "src": "/img/modal/integrations/snowflake.svg"
+  },
+  {
+    "name": "QuickBooks",
+    "src": "/img/modal/integrations/quickbooks.svg"
+  }
+]

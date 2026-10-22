@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import CompanyLogo from "@/components/ui/CompanyLogo.astro";
+import Icon from "@/components/ui/Icon.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import type { Story } from "@/config/customers";
+import type { Tone } from "@/config/site";
+import { solutionCopy } from "@/config/solutions";
+
+interface Props {
+  story: Story;
+  tone: Tone;
+}
+
+const { story, tone } = Astro.props;
+const { storyEyebrow, storiesLink } = solutionCopy;
+---
+
+<section class="ruled section" aria-labelledby="story-title">
+  <div class="shell">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <SectionHead id="story-title" eyebrow={{ label: storyEyebrow, icon: "users", tone }} title={`${story.company}.`} accent={story.summary} />
+      <a href={storiesLink.href} class="arrow-link reveal group">
+        {storiesLink.label}
+        <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+      </a>
+    </div>
+
+    <figure class="reveal mt-12 grid overflow-hidden rounded-[1.25rem] bg-wash ring-1 ring-line lg:mt-14 lg:grid-cols-12">
+      <div class="flex flex-col p-7 sm:p-10 lg:col-span-8 lg:p-12">
+        <CompanyLogo name={story.company} class="text-lg" />
+        <blockquote class="mt-8 text-[clamp(1.4rem,1.1rem+1vw,2.15rem)] leading-[1.2] font-medium tracking-[-0.035em]">
+          <p>“{story.quote}”</p>
+        </blockquote>
+        <figcaption class="mt-auto flex flex-wrap items-end justify-between gap-6 pt-10">
+          <span class="flex items-center gap-3">
+            <Image src={story.photo} alt="" widths={[96, 144]} sizes="3rem" class="size-12 rounded-full object-cover object-top lg:hidden" />
+            <span>
+              <span class="block font-semibold">{story.name}</span>
+              <span class="block text-muted">{story.role}, {story.company}</span>
+            </span>
+          </span>
+          <span class="sm:text-right">
+            <span class="block text-display-md font-semibold tabular">{story.metric.value}</span>
+            <span class="block text-sm text-muted">{story.metric.label}</span>
+          </span>
+        </figcaption>
+      </div>
+      <div class="relative hidden lg:col-span-4 lg:block">
+        <Image
+          src={story.photo}
+          alt={`${story.name}, ${story.role} at ${story.company}`}
+          widths={[400, 640, 800]}
+          sizes="25rem"
+          class="absolute inset-0 size-full object-cover object-top"
+        />
+      </div>
+    </figure>
+  </div>
+</section>

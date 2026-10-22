@@ -1,111 +1,127 @@
-# FXN Holdings — Cloudflare Pages
+# FXN Holdings — Modal preview
 
-Database-free site: Python generates HTML from shared templates and Markdown.
-Cloudflare Pages serves HTML, CSS, JavaScript, fonts and images. Only `/api/*` and explicit `/404` error URLs
-run Pages Functions. No Next.js, Payload, PostgreSQL or running Node server is
-required. Node is used locally/CI for Wrangler, bundling API dependencies and tests.
+Preview: http://51.161.208.188:8789/
 
-## Edit and build
+Uses the XOCO Modal theme with current FXN Holdings content imported on 23 October 2026 from https://fxnholdings.com/. Original SVG logo extracted from the live header into `public/fxn-holdings-logo.svg` and `src/assets/brand/logo.svg`. The production website is unchanged.
 
-- `_src/pages/*.html`: page bodies and JSON metadata comments.
-- `_src/partials/`: shared header, footer and logo.
-- `_src/posts/*.md`: articles with title, date, category and summary front matter.
-- `static/assets/site.css` and `site.js`: frontend styling and interactions.
-- `static/img/` and `static/fonts/`: media.
-- `worker/contact.js`, `worker/chat.js`: API logic reused by `functions/api/[[path]].js`.
+- `src/data/`: page content, home content and 14 portfolio entries.
+- `src/config/site.ts`: navigation, contact details and metadata.
+- `src/pages/index.astro`, `src/components/home/FxnHero.astro`, `FxnSections.astro` and `src/config/fxn.ts`: homepage adapted from the Modal reference, with FXN copy and interactive platform tabs.
+- `src/pages/about.astro` and `contact.astro`: Modal-inspired company and contact layouts. `src/pages/[...page].astro`: capability, technology and policy pages.
+- `src/content/blog/`: seven existing FXN articles, served at `/insights/`.
+- Contact follows the Modal layout and prepares a draft in the visitor’s email app. The existing live web form remains linked; no email is sent automatically and no preview email credentials or chat service are configured.
 
-Requirements: Python 3, Node 22 or newer, npm.
+Business disclosures are centralized in `src/config/businesses.ts`. UK details were supplied by the owner; name, company number and registered office were checked against Companies House. VAT is owner-supplied. The existing Australian website operator and policy responsibilities remain in place; do not infer platform operator assignments or joint data controllers from the shared brand. Confirm the Australian legal holder and each platform’s operator before adding entity-specific labels.
 
-```sh
-npm ci
-python3 _src/build.py    # builds dist; no Node needed for page generation
-npm run dev             # builds and previews Pages + API locally
-npm test
-npm run check:pages     # verifies Cloudflare bundling
+Run `npm run release:check` to validate and build. Run `npm run preview:pages` to serve port 8789. Preview pages carry a noindex header. Global logo-derived colours and the 1366px maximum container width live in `src/styles/global.css`.
+
+---
+
+# Modal - Astro SaaS Theme
+
+[![Modal theme preview](./preview.webp)](https://modal.xocoweb.workers.dev/)
+
+[![Astro 7](https://img.shields.io/badge/Astro-7-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build/)
+[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Configured-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: Commercial](https://img.shields.io/badge/License-Commercial-84cc16?style=for-the-badge)](./LICENSE)
+
+**Live preview:** https://modal.xocoweb.workers.dev/
+
+Modal is a premium Astro theme for SaaS and product companies. Black and white with bright accents, hairline grid rails and a crisp grotesk give it a calm, precise feel, and soft grain gradients behind the product give it warmth. The product is shown through app screens built in HTML and CSS, so they stay sharp at any size, and the output is fully static.
+
+## Features
+
+- A soft grain gradient behind the product windows, cards, and closing call to action, cropped from one image so the colours stay consistent
+- A tabbed product window in a frosted browser frame, with dashboard, records, pipeline, and activity screens
+- Product UI built in HTML and CSS (dashboard, records table, pipeline board, record timeline, reports, AI answer panel) that stays sharp at every size
+- A full-width mega menu with colour-coded icon tiles and a featured card per menu, plus a full-screen mobile menu
+- Hairline grid rails down the page with square markers where sections meet
+- A colour system of seven accents, each with a tint and a text-safe shade, used for product areas, tags and topics
+- A data model bento grid, an inbox sync split, a dark AI section, automation cards and a reports dashboard on the homepage
+- An integrations marquee of real connector icons in their brand colours, with 27 connectors included
+- Customer stories with a large feature quote and metric cards
+- A pricing page with a billing toggle, four per-seat plans, and a sticky comparison table with a one-plan view on phones
+- Four solution pages from one template, each with its own product screen, templates, story and FAQ
+- A filterable, searchable integrations page
+- Customers, about, careers, and contact pages
+- A blog with a lead post, colour-coded topics, a table of contents with scroll-spy, a reading-progress bar, co-authored bylines, and a share sheet
+- Client-side blog search as a keyboard palette (`/` or `⌘K`) and a results page
+- Canonical URLs, sitemap, RSS, `robots.txt`, Open Graph, Twitter/X cards, and JSON-LD
+- Self-hosted Onest and JetBrains Mono, Lucide icons, and colour, radius, and type tokens in one stylesheet
+- Static output with no framework islands; every animation settles under `prefers-reduced-motion`
+- Skip link, landmarks, labelled controls, visible focus states, and keyboard support for every menu, tab set, and dialog
+
+## Tech Stack
+
+- Astro 7 with MDX
+- Tailwind CSS 4 via the Vite plugin
+- Vite 8, TypeScript, Astro content collections
+- `@astrojs/sitemap`, `@astrojs/rss`, Sharp
+- Self-hosted Onest and JetBrains Mono, Lucide and Bootstrap Icons, Simple Icons for integrations, each with its license notice
+
+## Requirements
+
+- Node.js `22.12.0` or newer
+- npm
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
 
-Set `draft: true` in article front matter to exclude unpublished posts. Use
-`python3 _src/build.py --drafts` for an isolated `.dist-preview` build. Never
-upload that directory to production. Bump `VERSION` in `_src/build.py` when
-changing site CSS/JS. Optional article `updated: YYYY-MM-DD` records a genuine
-correction. Keep dates accurate; builds omit uncertain sitemap lastmod values.
+Build for production:
 
-## Publishing
-
-The GitHub-connected Pages project is now **fxnholdings-com**, serving
-https://fxnholdings-com.pages.dev. Pushes to **migrate/cloudflare-pages** deploy
-automatically. The custom domain has not been switched. OpenRouter's model is
-tracked in `wrangler.jsonc`; its API key is an encrypted Cloudflare secret.
-
-### Git integration setup reference
-
-Push this directory as a repository to GitHub/GitLab, then create a Cloudflare
-Pages project connected to it. Use production branch `main` (or the branch you
-choose), framework preset **None**, build command `npm run build`, output `dist`,
-and repository root as root directory. Pages bundles the `functions` directory.
-Merge changes to the production branch to publish; other branches get previews.
-Configure API secrets before switching the custom domain.
-
-Alternatively, for a Direct Upload project:
-
-```sh
-npx wrangler login
-npx wrangler pages project create fxnholdings-com --production-branch main
-npm run deploy -- --branch migration-preview
-# After preview verification and production secrets configuration:
-npm run deploy -- --branch main
+```bash
+npm run build
 ```
 
-Choose Git integration or Direct Upload when creating the project. A Direct
-Upload project cannot later be converted to Git integration in place. If using
-another project name, update `name` in wrangler.jsonc before deployment.
-`deploy.sh` is now a Pages deploy wrapper; it never restarts host services.
+Preview the production build locally:
 
-## API settings (no database)
-
-Set settings in Cloudflare Pages > Settings > Variables and Secrets for the
-appropriate Production/Preview environment. For local tests copy
-`.dev.vars.example` to `.dev.vars` and fill it privately. Never commit secrets.
-
-| Setting | Purpose |
-| --- | --- |
-| `SMTP_HOST` | `smtp.gmail.com` for Google Workspace authenticated SMTP |
-| `SMTP_PORT` | `465` for implicit TLS, or `587` for STARTTLS |
-| `SMTP_USER` | Sending mailbox |
-| `SMTP_PASS` | Mailbox app password; secret |
-| `MAIL_FROM` | Optional authorized sender; defaults to SMTP_USER |
-| `CONTACT_TO` | Destination; defaults to contact@fxnholdings.com |
-| `ANTHROPIC_API_KEY` | Optional direct Anthropic API key; secret |
-| `OPENROUTER_API_KEY` | Existing OpenRouter key; secret (used when no Anthropic key is set) |
-| `OPENROUTER_MODEL` | Required model ID when using OpenRouter |
-| `CHAT_MODEL` | Optional model supported by the provider account |
-
-The old server's IP-authenticated SMTP relay cannot be reused from Cloudflare's
-changing outbound IPs. Configure authenticated SMTP before cutover, or adapt the
-email helper to an HTTP email provider. Chat supports the existing OpenRouter account via its Messages API. Without an API key it gives a contact
-fallback. Conversations remain in the browser; requests include recent history.
-Email delivery and AI usage have their own provider costs. Contact errors do not
-pretend delivery succeeded. Existing honeypot, size limits, origin checks and
-best-effort per-isolate throttling remain. Stronger throttling belongs in Cloudflare.
-
-## Cutover and rollback
-
-1. Verify published content is still current; freeze CMS edits for final export.
-2. Deploy a preview, verify pages, 404s, slash redirects, assets and API behavior.
-3. Configure email/AI credentials and verify actual delivery and chat deliberately.
-4. Add fxnholdings.com and www.fxnholdings.com as Pages custom domains, then follow
-   Cloudflare's DNS setup. Preserve mail DNS records. Add a Cloudflare Redirect Rule
-   for hostname www.fxnholdings.com to https://fxnholdings.com, preserving path
-   and query string (301). This avoids invoking a Function for static pages.
-5. Verify HTTPS, canonical URLs and all routes on the public domain.
-6. Retain the prior DNS values, Payload app and database backup for rollback.
-   Stop their services only after the Pages cutover is verified.
-
-The Pages preview is deployed; live domain DNS and legacy services remain unchanged. The current
-Payload site remains in `../app`. Public content export is in
-`../backups/static-migration-20261023/published-pages.json` (outside this repository).
-Validate a fresh build against that export with:
-
-```sh
-npm run verify:content -- ../backups/static-migration-20261023/published-pages.json
+```bash
+npm run preview
 ```
+
+Before shipping a change, run type checking, the production build, and the formatter check together:
+
+```bash
+npm run release:check
+```
+
+## Customization
+
+See [CUSTOMIZATION.md](./CUSTOMIZATION.md) for site settings, the dropdown menu, the background gradient, homepage sections, the product UI and its demo data, customers, solution pages, integrations, pricing, the contact, about and careers pages, the blog, sharing, search, feeds, the newsletter form, and the theme's design tokens.
+
+Set `siteConfig.siteUrl` in [src/config/site.ts](./src/config/site.ts) before building — canonical URLs, share images, the sitemap, and the feed are all derived from it. The build is static, so any host that serves a directory works: `wrangler.jsonc` is included for Cloudflare Workers, and Netlify, Vercel, GitHub Pages, and object storage behind a CDN need no configuration beyond `npm run build`.
+
+## Content
+
+Posts live in [src/content/blog](./src/content/blog). Each post is a folder with an `index.md` (or `index.mdx`) and a cover image beside it, validated by the schema in [src/content.config.ts](./src/content.config.ts). Authors and topics are defined in [src/config/blog.ts](./src/config/blog.ts).
+
+The bundled demo content is fictional — the company, the authors, the customers, the quotes, and the figures are invented, so **replace them before launch.** The customer and team portraits are stock placeholders of people with no connection to the names and quotes beside them, and the customer logos are fictional marks.
+
+The product UI shows a fictional app with demo data in [src/config/demo.ts](./src/config/demo.ts); replace its data or swap it for screenshots of your own product.
+
+The integration icons come from [Simple Icons](https://simpleicons.org/) under CC0. The brands are trademarks of their owners, appear as placeholder content only, and imply no endorsement or partnership.
+
+Demo photography comes from [Pexels](https://www.pexels.com/) under its license, credited in [src/config/customers.ts](./src/config/customers.ts), [src/config/about.ts](./src/config/about.ts), [src/config/careers.ts](./src/config/careers.ts), and [src/config/blog.ts](./src/config/blog.ts). Blog cover photos are credited under each post.
+
+## Support
+
+See [SUPPORT.md](./SUPPORT.md) for what a license includes, and [CHANGELOG.md](./CHANGELOG.md) for release history.
+
+## License
+
+Commercial license. See [LICENSE](./LICENSE) for complete terms.
+
+## Credits
+
+- [Onest](https://github.com/googlefonts/onest) by the Onest Project Authors, under the SIL Open Font License
+- [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) by JetBrains, under the SIL Open Font License
+- The fictional company logos are set in Fraunces, Space Grotesk, Syne, Archivo Black, Outfit, DM Serif Display, Sora, Unbounded, Manrope, and IBM Plex Mono, all under the SIL Open Font License, converted to outlines
+- [Lucide](https://lucide.dev/), under the ISC License
+- [Bootstrap Icons](https://icons.getbootstrap.com/), under the MIT License
+- [Simple Icons](https://simpleicons.org/), under CC0
+- Photography from Pexels, credited per image

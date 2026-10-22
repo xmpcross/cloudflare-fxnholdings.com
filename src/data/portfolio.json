@@ -1,0 +1,100 @@
+[
+  {
+    "name": "originfacts.com",
+    "href": "https://originfacts.com/",
+    "category": "Travel & booking",
+    "description": "The facts behind places worth visiting, plus news and guides on flights, hotels, airlines and airports.",
+    "platforms": ["Next.js", "React", "Headless CMS", "Server-rendered"]
+  },
+  {
+    "name": "nxt.deals",
+    "href": "https://nxt.deals/",
+    "category": "Price comparison & deals",
+    "description": "Verified deals, coupon codes and honest price comparison.",
+    "platforms": ["Next.js", "React", "Headless CMS", "Retailer data feeds"]
+  },
+  {
+    "name": "nxtdiscount.com",
+    "href": "https://nxtdiscount.com/",
+    "category": "Price comparison & deals",
+    "description": "Promo codes and discounted products, read daily from retailers' own pages and priced in your currency.",
+    "platforms": ["Next.js", "React", "Headless CMS", "Retailer data feeds"]
+  },
+  {
+    "name": "nxt.bargains",
+    "href": "https://nxt.bargains/",
+    "category": "Price comparison & deals",
+    "description": "Side-by-side product comparisons, honest reviews and smart deals.",
+    "platforms": ["Next.js", "React", "Headless CMS", "Retailer data feeds"]
+  },
+  {
+    "name": "nxtsmarthome.com.au",
+    "href": "https://nxtsmarthome.com.au/",
+    "category": "Content & publishing · Australia",
+    "description": "Smart home buying guides and advice for Australian homes.",
+    "platforms": ["Next.js", "React", "Headless CMS", "Product catalogue"]
+  },
+  {
+    "name": "nxtsmart.homes",
+    "href": "https://nxtsmart.homes/",
+    "category": "Content & publishing",
+    "description": "Smart home guides, honest device reviews, comparisons and how-to walkthroughs.",
+    "platforms": ["Next.js", "React", "Headless CMS"]
+  },
+  {
+    "name": "bestlooking.skin",
+    "href": "https://www.bestlooking.skin/",
+    "category": "Content & publishing",
+    "description": "Honest skincare reviews and guides for radiant, healthy skin.",
+    "platforms": ["Next.js", "React", "Headless CMS"]
+  },
+  {
+    "name": "furfunshop.com",
+    "href": "https://furfunshop.com/",
+    "category": "E-commerce",
+    "description": "Toys, beds, treats and care for dogs and cats.",
+    "platforms": ["WordPress", "WooCommerce", "Online store"]
+  },
+  {
+    "name": "furryfriendfacts.com",
+    "href": "https://furryfriendfacts.com/",
+    "category": "E-commerce",
+    "description": "Smart gadgets for pets, from smart feeders to tracking devices.",
+    "platforms": ["FreshStore", "Hosted store"]
+  },
+  {
+    "name": "mysecure.homes",
+    "href": "https://mysecure.homes/",
+    "category": "E-commerce",
+    "description": "Smart home security products, from cameras to alarms.",
+    "platforms": ["FreshStore", "Hosted store"]
+  },
+  {
+    "name": "nxtvitality.com",
+    "href": "https://nxtvitality.com/",
+    "category": "E-commerce",
+    "description": "Supplements and wellness products.",
+    "platforms": ["FreshStore", "Hosted store"]
+  },
+  {
+    "name": "ohmnook.com",
+    "href": "https://ohmnook.com/",
+    "category": "Content & publishing",
+    "description": "Independent home office and work-from-home tech guides, with shops listed by region.",
+    "platforms": ["Next.js", "React", "Payload CMS"]
+  },
+  {
+    "name": "solostack.au",
+    "href": "https://solostack.au/",
+    "category": "Content & publishing · Australia",
+    "description": "Tech stacks, software and hardware reviews, and AI automation guides for solo operators and remote founders.",
+    "platforms": ["Next.js", "React", "Payload CMS"]
+  },
+  {
+    "name": "fxnseo.com",
+    "href": "https://fxnseo.com/",
+    "category": "Free online tools",
+    "description": "Free browser-based SEO tools for keywords, backlinks, meta tags, schema and more. No sign-up needed.",
+    "platforms": ["Browser-based tools", "Headless CMS"]
+  }
+]

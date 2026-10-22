@@ -1,0 +1,14 @@
+---
+import Icon from "@/components/ui/Icon.astro";
+
+interface Props {
+  icon?: string;
+  class?: string;
+}
+
+const { icon = "building-2", class: className = "size-10 rounded-xl" } = Astro.props;
+---
+
+<span class:list={["grid shrink-0 place-items-center bg-wash text-muted ring-1 ring-line", className]} aria-hidden="true">
+  <Icon name={icon} class="size-[45%]" />
+</span>

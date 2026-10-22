@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import CompanyLogo from "@/components/ui/CompanyLogo.astro";
+import Icon from "@/components/ui/Icon.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import { storyFor, type CompanyName } from "@/config/customers";
+import { storiesSection } from "@/config/home";
+
+interface Props {
+  /** The story shown large, then up to three cards. */
+  featured?: CompanyName;
+  cards?: CompanyName[];
+}
+
+const { featured = "Tidewater", cards = ["Fernway", "Quillo", "Halden"] } = Astro.props;
+const lead = storyFor(featured);
+const rest = cards.map(storyFor).filter((story) => story !== undefined);
+---
+
+<section id="customers" class="ruled section" aria-labelledby="stories-title">
+  <div class="shell">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <SectionHead id="stories-title" eyebrow={storiesSection.eyebrow} title={storiesSection.title} accent={storiesSection.accent} />
+      <a href={storiesSection.cta.href} class="arrow-link reveal group">
+        {storiesSection.cta.label}
+        <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+      </a>
+    </div>
+
+    {
+      lead && (
+        <figure class="reveal mt-12 grid overflow-hidden rounded-[1.25rem] bg-wash ring-1 ring-line lg:mt-14 lg:grid-cols-12">
+          <div class="flex flex-col p-7 sm:p-10 lg:col-span-8 lg:p-12">
+            <CompanyLogo name={lead.company} class="text-lg" />
+            <blockquote class="mt-8 text-[clamp(1.4rem,1.1rem+1vw,2.15rem)] leading-[1.2] font-medium tracking-[-0.035em]">
+              <p>“{lead.quote}”</p>
+            </blockquote>
+            <figcaption class="mt-auto flex flex-wrap items-end justify-between gap-6 pt-10">
+              <span class="flex items-center gap-3">
+                <Image src={lead.photo} alt="" widths={[96, 144]} sizes="3rem" class="size-12 rounded-full object-cover object-top lg:hidden" />
+                <span>
+                  <span class="block font-semibold">{lead.name}</span>
+                  <span class="block text-muted">{lead.role}, {lead.company}</span>
+                </span>
+              </span>
+              <span class="text-right">
+                <span class="block text-display-md font-semibold tabular">{lead.metric.value}</span>
+                <span class="block text-sm text-muted">{lead.metric.label}</span>
+              </span>
+            </figcaption>
+          </div>
+          <div class="relative hidden lg:col-span-4 lg:block">
+            <Image
+              src={lead.photo}
+              alt={`${lead.name}, ${lead.role} at ${lead.company}`}
+              widths={[400, 640, 800]}
+              sizes="25rem"
+              class="absolute inset-0 size-full object-cover object-top"
+            />
+          </div>
+        </figure>
+      )
+    }
+
+    <ul class="mt-4 grid gap-4 md:grid-cols-3">
+      {
+        rest.map((story) => (
+          <li class="card reveal flex flex-col p-7">
+            <CompanyLogo name={story.company} class="text-[1.05rem]" />
+            <p class="mt-10 text-display-md font-semibold tabular">{story.metric.value}</p>
+            <p class="mt-1 text-muted">{story.metric.label}</p>
+            <p class="mt-6 border-t border-line pt-5 text-[0.9375rem]">“{story.quote}”</p>
+            <p class="mt-auto pt-5 text-sm">
+              <span class="font-semibold">{story.name}</span> <span class="text-muted">· {story.role}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

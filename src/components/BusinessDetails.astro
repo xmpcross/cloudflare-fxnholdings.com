@@ -1,0 +1,9 @@
+---
+import { businesses, brandDescription } from '@/config/businesses';
+---
+<div>
+  <p class="text-muted">{brandDescription}</p>
+  <div class="mt-6 grid gap-6 md:grid-cols-2">
+    {businesses.map(b=><article class="min-w-0 rounded-xl border border-line p-6"><p class="text-sm text-blue-ink">{b.country}</p><h3 class="mt-3 text-title">{b.name}</h3><p class="mt-4 text-sm text-muted">{b.registration}</p>{b.tax&&<p class="mt-2 text-sm text-muted">{b.tax}</p>}<p class="mt-4 text-sm text-muted"><strong>{b.addressLabel}</strong><br />{b.address}</p></article>)}
+  </div>
+</div>

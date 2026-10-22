@@ -1,0 +1,144 @@
+---
+import { pricing, type Plan } from "@/config/pricing";
+import { solidTone } from "@/lib/tones";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const { label, min, max, initial } = pricing.calculator;
+const plans = pricing.calculator.plans
+  .map((id) => pricing.plans.find((plan) => plan.id === id))
+  .filter((plan): plan is Plan => plan !== undefined && plan.monthly !== null && plan.annual !== null);
+const money = (value: number) => `$${value.toLocaleString("en-US")}`;
+---
+
+<div class:list={["card p-5 sm:p-6", className]} data-calculator>
+  <div class="flex items-baseline justify-between gap-4">
+    <label for="seat-count" class="font-medium">{label}</label>
+    <output for="seat-count" class="text-[1.5rem] font-semibold tracking-[-0.04em] tabular" data-seat-value>{initial}</output>
+  </div>
+  <input
+    id="seat-count"
+    type="range"
+    min={min}
+    max={max}
+    value={initial}
+    class="seat-range mt-3 w-full"
+    style={`--fill:${((initial - min) / (max - min)) * 100}%`}
+    data-seat-input
+  />
+  <div class="mt-1 flex justify-between text-[0.75rem] text-faint tabular" aria-hidden="true">
+    <span>{min}</span>
+    <span>{max}</span>
+  </div>
+
+  <dl class="mt-5 grid gap-2">
+    {
+      plans.map((plan) => (
+        <div class="flex items-center gap-3 rounded-xl bg-wash px-4 py-3 ring-1 ring-line">
+          <dt class="flex items-center gap-2 font-medium">
+            <span class:list={["size-2 rounded-full", solidTone[plan.tone ?? "ink"]]} aria-hidden="true" />
+            {plan.name}
+          </dt>
+          <dd class="ml-auto text-right">
+            <span class="block font-semibold tabular" data-total data-monthly-price={plan.monthly} data-annual-price={plan.annual}>
+              {money((plan.monthly ?? 0) * initial)}
+            </span>
+            <span class="block text-[0.75rem] text-muted" data-total-note>
+              a month
+            </span>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+  <p class="mt-4 text-[0.8125rem] text-muted">Before tax. Viewers are not counted.</p>
+</div>
+
+<style>
+  .seat-range {
+    appearance: none;
+    height: 1.5rem;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .seat-range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(var(--ink), var(--ink)) 0 / var(--fill) 100% no-repeat, var(--sunken);
+  }
+
+  .seat-range::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(var(--ink), var(--ink)) 0 / var(--fill) 100% no-repeat, var(--sunken);
+  }
+
+  .seat-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: calc(3px - 0.625rem);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px var(--line-strong),
+      0 2px 6px rgb(12 12 14 / 0.18);
+  }
+
+  .seat-range::-moz-range-thumb {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px var(--line-strong),
+      0 2px 6px rgb(12 12 14 / 0.18);
+  }
+
+  .seat-range:focus-visible {
+    outline: none;
+  }
+
+  .seat-range:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px var(--blue);
+  }
+
+  .seat-range:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 0 4px var(--blue);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-calculator]").forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>("[data-seat-input]");
+    const value = root.querySelector<HTMLElement>("[data-seat-value]");
+    if (!input) return;
+
+    const update = () => {
+      const seats = Number(input.value);
+      const annual = document.querySelector<HTMLInputElement>("[data-billing]:checked")?.value === "annual";
+      const share = ((seats - Number(input.min)) / (Number(input.max) - Number(input.min))) * 100;
+      input.style.setProperty("--fill", `${share}%`);
+      if (value) value.textContent = String(seats);
+      root.querySelectorAll<HTMLElement>("[data-total]").forEach((total) => {
+        const price = Number(annual ? total.dataset.annualPrice : total.dataset.monthlyPrice);
+        total.textContent = `$${(price * seats).toLocaleString("en-US")}`;
+      });
+      root.querySelectorAll<HTMLElement>("[data-total-note]").forEach((note) => {
+        note.textContent = annual ? "a month, billed yearly" : "a month";
+      });
+    };
+
+    input.addEventListener("input", update);
+    document.querySelectorAll("[data-billing]").forEach((radio) => radio.addEventListener("change", update));
+  });
+</script>

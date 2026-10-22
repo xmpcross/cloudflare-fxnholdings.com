@@ -1,0 +1,24 @@
+---
+import type { Tone } from "@/config/site";
+import { dotTone, softTone } from "@/lib/tones";
+
+interface Props {
+  tone: Tone;
+  /** Draws a coloured dot before the label instead of tinting the pill. */
+  dot?: boolean;
+  class?: string;
+}
+
+const { tone, dot = false, class: className } = Astro.props;
+---
+
+<span
+  class:list={[
+    "inline-flex shrink-0 items-center gap-1.5 rounded-md px-1.5 py-px text-[0.75rem] leading-[1.35rem] font-medium whitespace-nowrap",
+    dot ? "bg-surface text-ink shadow-[inset_0_0_0_1px_var(--line)]" : softTone[tone],
+    className,
+  ]}
+>
+  {dot && <span class:list={["size-1.5 rounded-full", dotTone[tone]]} />}
+  <slot />
+</span>

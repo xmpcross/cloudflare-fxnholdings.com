@@ -1,0 +1,9 @@
+---
+interface Props { position?: string; eager?: boolean; class?: string; }
+const {position="50% 50%",class:className}=Astro.props;
+---
+<div class:list={["brand-gradient pointer-events-none absolute overflow-hidden",className]} style={`background-position:${position}`} aria-hidden="true"></div>
+<style>
+.brand-gradient{background-color:#e8f1ff;background-image:radial-gradient(ellipse at 10% 15%,#0062de40,transparent 65%),radial-gradient(ellipse at 95% 85%,#ff51494d,transparent 65%),linear-gradient(125deg,#edf5ff,#ffffff88 50%,#fff0ee);background-size:cover}
+.brand-gradient::after{content:"";position:absolute;inset:0;opacity:.16;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.4' filter='url(%23n)'/%3E%3C/svg%3E")}
+</style>
