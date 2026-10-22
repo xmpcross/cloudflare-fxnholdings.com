@@ -9,7 +9,7 @@ base = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:8796'
 root = Path(__file__).resolve().parents[1]
 def get(path):
     try:
-        return urllib.request.urlopen(base + path)
+        return urllib.request.urlopen(urllib.request.Request(base + path, headers={'User-Agent': 'Mozilla/5.0 (compatible; FXNMigrationCheck/1.0)'}))
     except urllib.error.HTTPError as error:
         return error
 pages = list((root / 'dist').rglob('*.html'))
@@ -23,7 +23,7 @@ for page in pages:
 for path, status in [('/missing-migration-page',404),('/api/health',200),('/api/contact',405),('/api/chat',405),('/api/no-such-endpoint',404),('/assets/site.css',200),('/sitemap.xml',200),('/insights/feed.xml',200)]:
     assert get(path).status == status, path
 assert get('/about').url.endswith('/about/')
-request = urllib.request.Request(base + '/api/contact', data=b'{"name":""}', headers={'Content-Type':'application/json'}, method='POST')
+request = urllib.request.Request(base + '/api/contact', data=b'{"name":""}', headers={'Content-Type':'application/json', 'User-Agent':'Mozilla/5.0 (compatible; FXNMigrationCheck/1.0)'}, method='POST')
 try:
     urllib.request.urlopen(request)
     raise AssertionError('Expected validation failure')
