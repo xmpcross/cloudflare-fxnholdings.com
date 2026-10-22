@@ -30,7 +30,14 @@ upload that directory to production. Bump `VERSION` in `_src/build.py` when
 changing site CSS/JS. Optional article `updated: YYYY-MM-DD` records a genuine
 correction. Keep dates accurate; builds omit uncertain sitemap lastmod values.
 
-## Publish with Git integration (recommended)
+## Publishing
+
+The GitHub-connected Pages project is now **fxnholdings-com**, serving
+https://fxnholdings-com.pages.dev. Pushes to **migrate/cloudflare-pages** deploy
+automatically. The custom domain has not been switched. OpenRouter's model is
+tracked in `wrangler.jsonc`; its API key is an encrypted Cloudflare secret.
+
+### Git integration setup reference
 
 Push this directory as a repository to GitHub/GitLab, then create a Cloudflare
 Pages project connected to it. Use production branch `main` (or the branch you
@@ -94,7 +101,7 @@ best-effort per-isolate throttling remain. Stronger throttling belongs in Cloudf
 6. Retain the prior DNS values, Payload app and database backup for rollback.
    Stop their services only after the Pages cutover is verified.
 
-No live DNS or services have been changed by preparing this checkout. The current
+The Pages preview is deployed; live domain DNS and legacy services remain unchanged. The current
 Payload site remains in `../app`. Public content export is in
 `../backups/static-migration-20261023/published-pages.json` (outside this repository).
 Validate a fresh build against that export with:

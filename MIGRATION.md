@@ -31,14 +31,20 @@ python3 scripts/smoke-pages.py
 
 ## Remaining deployment requirements
 
-Wrangler OAuth authentication is now confirmed. No Pages project
-has been created, deployed or attached to the domain.
+Wrangler OAuth authentication is now confirmed. The GitHub-connected Pages project `fxnholdings-com` is deployed at
+https://fxnholdings-com.pages.dev from branch `migrate/cloudflare-pages`.
+All 26 pages and safe API HTTP checks pass on the public deployment.
+No custom domain is attached yet.
 
 The running legacy API has an OpenRouter key and model configured; the migrated
 chat now supports these settings (mocked provider tests pass). The mail relay is
 IP-authenticated and has no mailbox credentials. Cloudflare still needs
 SMTP_USER/SMTP_PASS or an adapted email API for email delivery. Configure and deliberately verify delivery/chat before cutover.
 
-Choose Git integration before creating the Pages project for automatic publishing.
+Git integration is enabled for automatic publishing.
 See README.md for settings, domain cutover and rollback. Keep the existing live
 app/database until the new deployment is confirmed; don't delete the backup.
+
+The chat disclosure and privacy page now name OpenRouter and its model providers
+to match the configured API. These are deliberate changes after the original
+content-parity check.
