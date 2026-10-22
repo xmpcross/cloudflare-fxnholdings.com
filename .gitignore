@@ -10,3 +10,11 @@ __pycache__/
 seo-reports/*/lighthouse/
 
 .seo-cache/
+
+.pages-check/
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+!.env.example
+!.dev.vars.example

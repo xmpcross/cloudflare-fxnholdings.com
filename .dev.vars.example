@@ -1,0 +1,12 @@
+# Copy to .dev.vars for local API testing. Never commit real credentials.
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=
+SMTP_PASS=
+CONTACT_TO=contact@fxnholdings.com
+ANTHROPIC_API_KEY=
+# CHAT_MODEL may be set to a model supported by your provider account.
+
+# Alternatively use the existing OpenRouter account:
+OPENROUTER_API_KEY=
+OPENROUTER_MODEL=
