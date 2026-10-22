@@ -1,107 +1,104 @@
-# fxnholdings.com
+# FXN Holdings — Cloudflare Pages
 
-Website for FXN Holdings (Perth, WA · ABN 53 274 423 748), served on this host by **nginx from `dist/`**, with a Node API (`fxnholdings-api.service`) on `127.0.0.1:4330`. A Cloudflare Worker configuration is also maintained for alternative hosting. Canonical address: `https://fxnholdings.com` (no `www`).
+Database-free site: Python generates HTML from shared templates and Markdown.
+Cloudflare Pages serves HTML, CSS, JavaScript, fonts and images. Only `/api/*` and explicit `/404` error URLs
+run Pages Functions. No Next.js, Payload, PostgreSQL or running Node server is
+required. Node is used locally/CI for Wrangler, bundling API dependencies and tests.
 
-## Layout
+## Edit and build
 
-| Path | What it is |
+- `_src/pages/*.html`: page bodies and JSON metadata comments.
+- `_src/partials/`: shared header, footer and logo.
+- `_src/posts/*.md`: articles with title, date, category and summary front matter.
+- `static/assets/site.css` and `site.js`: frontend styling and interactions.
+- `static/img/` and `static/fonts/`: media.
+- `worker/contact.js`, `worker/chat.js`: API logic reused by `functions/api/[[path]].js`.
+
+Requirements: Python 3, Node 22 or newer, npm.
+
+```sh
+npm ci
+python3 _src/build.py    # builds dist; no Node needed for page generation
+npm run dev             # builds and previews Pages + API locally
+npm test
+npm run check:pages     # verifies Cloudflare bundling
+```
+
+Set `draft: true` in article front matter to exclude unpublished posts. Use
+`python3 _src/build.py --drafts` for an isolated `.dist-preview` build. Never
+upload that directory to production. Bump `VERSION` in `_src/build.py` when
+changing site CSS/JS. Optional article `updated: YYYY-MM-DD` records a genuine
+correction. Keep dates accurate; builds omit uncertain sitemap lastmod values.
+
+## Publish with Git integration (recommended)
+
+Push this directory as a repository to GitHub/GitLab, then create a Cloudflare
+Pages project connected to it. Use production branch `main` (or the branch you
+choose), framework preset **None**, build command `npm run build`, output `dist`,
+and repository root as root directory. Pages bundles the `functions` directory.
+Merge changes to the production branch to publish; other branches get previews.
+Configure API secrets before switching the custom domain.
+
+Alternatively, for a Direct Upload project:
+
+```sh
+npx wrangler login
+npx wrangler pages project create fxnholdings-com --production-branch main
+npm run deploy -- --branch migration-preview
+# After preview verification and production secrets configuration:
+npm run deploy -- --branch main
+```
+
+Choose Git integration or Direct Upload when creating the project. A Direct
+Upload project cannot later be converted to Git integration in place. If using
+another project name, update `name` in wrangler.jsonc before deployment.
+`deploy.sh` is now a Pages deploy wrapper; it never restarts host services.
+
+## API settings (no database)
+
+Set settings in Cloudflare Pages > Settings > Variables and Secrets for the
+appropriate Production/Preview environment. For local tests copy
+`.dev.vars.example` to `.dev.vars` and fill it privately. Never commit secrets.
+
+| Setting | Purpose |
 | --- | --- |
-| `_src/pages/*.html` | Page content, each with a `<!--meta {...} -->` block (title, description, path, nav) |
-| `_src/partials/` | Shared header, footer (incl. cookie notice and chat widget) and logo |
-| `_src/build.py` | Builds the site into `dist/`, or `BUILD_OUT` when set |
-| `server/api.mjs` | Node API behind nginx; `GET /api/health` checks process readiness |
-| `deploy.sh` | Host deployment, API health check and static-site rollback |
-| `static/` | Copied into `dist/` as is: `assets/` (CSS, JS, self-hosted Font Awesome), `fonts/`, `img/`, icons, `robots.txt`, `_headers` (`sitemap.xml` is generated) |
-| `worker/index.js` | Worker entry: `/api/*` goes to the handlers, everything else to the static assets in `dist/` |
-| `worker/contact.js`, `worker/chat.js` | `POST /api/contact` and `POST /api/chat` |
-| `worker/lib/` | `http.js` helpers and `email.js` (Google Workspace SMTP) |
-| `wrangler.jsonc` | Worker config: build command, assets directory, routing |
+| `SMTP_HOST` | `smtp.gmail.com` for Google Workspace authenticated SMTP |
+| `SMTP_PORT` | `465` for implicit TLS, or `587` for STARTTLS |
+| `SMTP_USER` | Sending mailbox |
+| `SMTP_PASS` | Mailbox app password; secret |
+| `MAIL_FROM` | Optional authorized sender; defaults to SMTP_USER |
+| `CONTACT_TO` | Destination; defaults to contact@fxnholdings.com |
+| `ANTHROPIC_API_KEY` | Optional direct Anthropic API key; secret |
+| `OPENROUTER_API_KEY` | Existing OpenRouter key; secret (used when no Anthropic key is set) |
+| `OPENROUTER_MODEL` | Required model ID when using OpenRouter |
+| `CHAT_MODEL` | Optional model supported by the provider account |
 
-`dist/` is generated and not committed.
+The old server's IP-authenticated SMTP relay cannot be reused from Cloudflare's
+changing outbound IPs. Configure authenticated SMTP before cutover, or adapt the
+email helper to an HTTP email provider. Chat supports the existing OpenRouter account via its Messages API. Without an API key it gives a contact
+fallback. Conversations remain in the browser; requests include recent history.
+Email delivery and AI usage have their own provider costs. Contact errors do not
+pretend delivery succeeded. Existing honeypot, size limits, origin checks and
+best-effort per-isolate throttling remain. Stronger throttling belongs in Cloudflare.
 
-## Insights (posts)
+## Cutover and rollback
 
-Posts are Markdown files in `_src/posts/`; the file name is the URL (`_src/posts/my-post.md` → `/insights/my-post/`). Each starts with:
+1. Verify published content is still current; freeze CMS edits for final export.
+2. Deploy a preview, verify pages, 404s, slash redirects, assets and API behavior.
+3. Configure email/AI credentials and verify actual delivery and chat deliberately.
+4. Add fxnholdings.com and www.fxnholdings.com as Pages custom domains, then follow
+   Cloudflare's DNS setup. Preserve mail DNS records. Add a Cloudflare Redirect Rule
+   for hostname www.fxnholdings.com to https://fxnholdings.com, preserving path
+   and query string (301). This avoids invoking a Function for static pages.
+5. Verify HTTPS, canonical URLs and all routes on the public domain.
+6. Retain the prior DNS values, Payload app and database backup for rollback.
+   Stop their services only after the Pages cutover is verified.
 
-```markdown
----
-title: Post title
-date: 2026-10-09
-category: technology-ai
-summary: One or two sentences for listings and search results.
-draft: true
----
+No live DNS or services have been changed by preparing this checkout. The current
+Payload site remains in `../app`. Public content export is in
+`../backups/static-migration-20261023/published-pages.json` (outside this repository).
+Validate a fresh build against that export with:
+
+```sh
+npm run verify:content -- ../backups/static-migration-20261023/published-pages.json
 ```
-
-The body supports `##`/`###` headings, paragraphs, `-` and `1.` lists, `>` quotes, `---` rules, `**bold**`, `*italic*`, `` `code` `` and `[links](/path/)`. Categories are defined in `_src/insights.py`: `technology-ai`, `company-news`, `start-a-business`, `market-gaps`. Front matter uses plain, unquoted values; put comments on separate lines.
-
-The build creates `/insights/`, a page per category, a page per post, `/insights/feed.xml` (RSS) and adds published posts to `sitemap.xml`. Drafts are left out of the live build; `python3 _src/build.py --drafts` includes them, marked "Draft", for previews.
-
-For a substantive article correction, add optional `updated: YYYY-MM-DD` front matter with the actual update date. It controls the visible updated date and `dateModified`; `date` and RSS publication dates stay unchanged. Update dates cannot precede publication or be in the future. Sitemap `lastmod` uses trusted Git dates including shared rendering dependencies; dates are omitted when local changes or untracked sources make that history uncertain, rather than substituting each build's date.
-
-## Build and preview
-
-```bash
-BUILD_OUT=/tmp/fxnholdings-preview PYTHONDONTWRITEBYTECODE=1 python3 _src/build.py
-python3 _src/build.py --drafts   # writes .dist-preview/, includes draft posts
-```
-
-`dist/` is the live nginx document root on this host. Use a separate `BUILD_OUT` for checks; use `./deploy.sh` to publish. The default build replaces `dist/`.
-
-Bump `VERSION` in `_src/build.py` whenever CSS or JS changes, so browsers fetch the new files.
-
-## Deploying
-
-For the current nginx/Node host:
-
-```bash
-./deploy.sh          # deploy the working tree
-./deploy.sh --pull   # first pull with --ff-only
-```
-
-Deployment builds into `.dist-build/`, swaps it into `dist/`, restarts the API service, and requires `GET /api/health` to return 200. A failed restart or health check exits nonzero and restores the previous static site. `.dist-old/` remains as the previous static build after success. This does not roll back API source or installed dependencies; inspect the service logs if API startup fails. Deployments are serialised with `flock`.
-
-The systemd unit loads `.env.local`. Keep it private and out of git. For isolated API development, use a free `API_PORT` and explicitly supply the required environment. `npm test` uses isolated processes and no live email/AI credentials.
-
-The alternative Cloudflare path is `npx wrangler deploy` (also `npm run deploy`). `wrangler.jsonc` builds and uploads static assets with the Worker. On this live host, set `BUILD_OUT` and `--assets` together for an isolated dry-run:
-
-```bash
-BUILD_OUT=/tmp/fxnholdings-worker-check npx wrangler deploy --dry-run --assets /tmp/fxnholdings-worker-check
-```
-
-For Worker hosting, configure variables and secrets in its Cloudflare settings. `keep_vars` preserves dashboard variables. For Node hosting, configure them through the service environment.
-
-| Name | Type | Purpose |
-| --- | --- | --- |
-| `SMTP_USER` | text | Workspace mailbox that sends the notifications, e.g. `website@fxnholdings.com` |
-| `SMTP_PASS` | secret | App Password for that mailbox |
-| `SMTP_HOST` | text, optional | default `smtp.gmail.com` |
-| `SMTP_PORT` | text, optional | default `465` (implicit TLS); `587` uses STARTTLS |
-| `CONTACT_TO` | text, optional | default `contact@fxnholdings.com` |
-| `MAIL_FROM` | text, optional | default `SMTP_USER`; must be that mailbox or one of its aliases |
-| `ANTHROPIC_API_KEY` | secret | Website assistant. Without it the chat shows a "use the contact form" message |
-| `CHAT_MODEL` | text, optional | default `claude-haiku-5-5` |
-
-## Email (contact form and assistant enquiries)
-
-Both endpoints use Google Workspace SMTP over TLS. Node uses nodemailer and supports the IP-authenticated Workspace relay via `SMTP_HOST=smtp-relay.gmail.com` without login credentials. The Worker uses TLS sockets and requires `SMTP_USER`/`SMTP_PASS` because its outbound IPs are not fixed. Messages go to `CONTACT_TO` with Reply-To set to the visitor.
-
-Set up the sending mailbox once:
-
-1. In Google Admin, allow 2-Step Verification and App Passwords for the user (Security → Authentication).
-2. Sign in as the mailbox, turn on 2-Step Verification, then create an App Password (Google Account → Security → App passwords).
-3. Put the mailbox in `SMTP_USER` and the App Password in `SMTP_PASS`.
-
-## Website assistant (AI chat)
-
-`worker/chat.js` answers visitors with Claude through the Anthropic SDK (`@anthropic-ai/sdk`, pinned in `package.json`). It answers only from the facts in `KNOWLEDGE` in that file (keep them in step with the site copy) and can email an enquiry, with the chat transcript, to the team.
-
-- Create a dedicated API key with a monthly spend limit in the Anthropic Console.
-- Origin checks accept the production, www and preview site origins, plus same-origin localhost/Workers/Pages previews. API request bodies are capped at 64 KiB.
-- For a hard per-visitor limit, add a Cloudflare WAF rate-limiting rule on `/api/*`; the function's own limit is best effort.
-- To show a WhatsApp link in the chat panel, put the number (with country code) in `data-whatsapp` on the `.chat` element in `_src/partials/footer.html`.
-- The Privacy Policy (`#ai-assistant`), Cookie Policy and Terms (section 8) describe the assistant; update them if its behaviour changes.
-
-## DNS
-
-The canonical host is `fxnholdings.com`. Keep DNS and redirects for `www` aligned with the current hosting configuration.

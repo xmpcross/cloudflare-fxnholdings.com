@@ -99,9 +99,19 @@ const TOOLS = [
 let client;
 let clientKey;
 function getClient(env) {
-  if (!client || clientKey !== env.ANTHROPIC_API_KEY) {
-    client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, baseURL: env.ANTHROPIC_BASE_URL || undefined, timeout: 20_000, maxRetries: 1 });
-    clientKey = env.ANTHROPIC_API_KEY;
+  const openRouter = !env.ANTHROPIC_API_KEY && Boolean(env.OPENROUTER_API_KEY);
+  const key = openRouter ? env.OPENROUTER_API_KEY : env.ANTHROPIC_API_KEY;
+  const baseURL = openRouter ? "https://openrouter.ai/api" : env.ANTHROPIC_BASE_URL;
+  const identity = JSON.stringify([key, baseURL, openRouter]);
+  if (!client || clientKey !== identity) {
+    client = new Anthropic({
+      apiKey: openRouter ? null : key,
+      authToken: openRouter ? key : undefined,
+      baseURL: baseURL || undefined,
+      timeout: 20_000,
+      maxRetries: 1,
+    });
+    clientKey = identity;
   }
   return client;
 }
@@ -149,7 +159,7 @@ async function submitEnquiry(env, input, transcript) {
 
 export async function onRequestPost({ request, env }) {
   if (!allowedOrigin(request)) return json(403, { error: "Forbidden" });
-  if (!env.ANTHROPIC_API_KEY) {
+  if (!env.ANTHROPIC_API_KEY && !env.OPENROUTER_API_KEY) {
     return json(503, { error: "not_configured", reply: "The assistant isn't available yet. Please use the contact form at /contact/ or email contact@fxnholdings.com." });
   }
   if (rateLimited(`chat:${clientIp(request)}`, 30, 10 * 60 * 1000)) {
@@ -167,7 +177,9 @@ export async function onRequestPost({ request, env }) {
   if (!transcript) return json(400, { error: "Send a conversation that ends with a visitor message." });
 
   const anthropic = getClient(env);
-  const model = env.CHAT_MODEL || "claude-haiku-5-5";
+  const openRouter = !env.ANTHROPIC_API_KEY && Boolean(env.OPENROUTER_API_KEY);
+  const model = env.CHAT_MODEL || (openRouter ? env.OPENROUTER_MODEL : "claude-haiku-5-5");
+  if (!model) return json(503, { error: "not_configured", reply: "Please email contact@fxnholdings.com while the assistant is being configured." });
   const messages = transcript.map((m) => ({ role: m.role, content: m.content }));
   let enquirySent = false;
 
@@ -176,7 +188,7 @@ export async function onRequestPost({ request, env }) {
       const response = await anthropic.messages.create({
         model,
         max_tokens: 4000,
-        output_config: { effort: "low" },
+        ...(openRouter ? {} : { output_config: { effort: "low" } }),
         system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
         tools: TOOLS,
         messages,
@@ -215,7 +227,7 @@ export async function onRequestPost({ request, env }) {
       return json(429, { error: "busy", reply: "I'm getting a lot of questions right now. Please try again in a minute, or email contact@fxnholdings.com." });
     }
     if (error instanceof Anthropic.AuthenticationError) {
-      console.error("chat: Anthropic authentication failed - check ANTHROPIC_API_KEY");
+      console.error("chat: provider authentication failed - check configured API key");
     } else if (error instanceof Anthropic.APIError) {
       console.error(`chat: Anthropic API error ${error.status}: ${error.message}`);
     } else {
