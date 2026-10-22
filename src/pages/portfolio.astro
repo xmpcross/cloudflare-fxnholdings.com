@@ -8,5 +8,3 @@ const groups=[{id:'ecommerce',title:'E-commerce',prefix:'E-commerce'},{id:'trave
 {groups.map(g=><section id={g.id} class="ruled section"><div class="shell"><h2 class="text-display-md">{g.title}</h2><div class="mt-9 grid gap-5 md:grid-cols-2">{portfolio.filter(p=>p.category.startsWith(g.prefix)).map(p=><article class="min-w-0 rounded-[8px] border border-line p-7"><p class="text-sm text-muted">{p.category}</p><h3 class="mt-2 break-words text-title"><a href={p.href}>{p.name}</a></h3><p class="mt-4 text-muted">{p.description}</p><a href={p.href} class="arrow-link mt-6 inline-flex">Visit website <span aria-hidden="true">↗</span></a></article>)}</div></div></section>)}
 
 </BaseLayout>
-
-<style>h1{font-size:4rem;}</style>

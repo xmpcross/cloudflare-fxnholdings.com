@@ -11,7 +11,7 @@ Uses the XOCO Modal theme with current FXN Holdings content imported on 23 Octob
 - `src/pages/index.astro`, `src/components/home/FxnHero.astro`, `FxnSections.astro` and `src/config/fxn.ts`: homepage adapted from the Modal reference, with FXN copy and interactive platform tabs.
 - `src/pages/about.astro` and `contact.astro`: Modal-inspired company and contact layouts. `src/pages/[...page].astro`: capability, technology and policy pages.
 - `src/content/blog/`: seven existing FXN articles, served at `/insights/`.
-- Contact follows the Modal layout and prepares a draft in the visitor’s email app. No email is sent automatically; no email credentials or chat service are configured.
+- Contact submits to `/api/contact`, a Cloudflare Pages Function that sends enquiries through Google Workspace SMTP. The sender is `kritin@fxnholdings.com`, the recipient is `contact@fxnholdings.com`, and replies go to the visitor. Delivery requires the `SMTP_PASS` secret.
 
 Business disclosures are centralized in `src/config/businesses.ts`. UK details were supplied by the owner; name, company number and registered office were checked against Companies House. VAT is owner-supplied. The existing Australian website operator and policy responsibilities remain in place; do not infer platform operator assignments or joint data controllers from the shared brand. Confirm the Australian legal holder and each platform’s operator before adding entity-specific labels.
 
@@ -127,3 +127,15 @@ Commercial license. See [LICENSE](./LICENSE) for complete terms.
 - [Bootstrap Icons](https://icons.getbootstrap.com/), under the MIT License
 - [Simple Icons](https://simpleicons.org/), under CC0
 - Photography from Pexels, credited per image
+
+## Contact email configuration
+
+The static Astro build uses `functions/api/contact.js` for server-side submissions, with Nodemailer and the `nodejs_compat` flag. Keep the `functions/` directory in the Cloudflare Pages project root. Google Workspace SMTP is configured in `wrangler.jsonc` using `smtp.gmail.com:465` with TLS; `SMTP_PASS` must be a Google app password for `kritin@fxnholdings.com`, not the normal account password. If app passwords are unavailable under the Workspace policy, an administrator must configure a supported authentication method before delivery can be enabled.
+
+- Local preview: copy `.dev.vars.example` to `.dev.vars`, enter `SMTP_PASS`, restrict the file permissions, and restart `npm run preview:pages`. Never commit the secret file.
+- Production: set the `SMTP_PASS` encrypted secret in the Cloudflare Pages project settings, or run `npx wrangler pages secret put SMTP_PASS --project-name fxnholdings-com`. Configure the preview environment separately if it needs to send mail. Deploy after changing bindings or secrets.
+- Sender and recipient are server-controlled. Visitors cannot select a recipient, and their address is used only as Reply-To.
+- The endpoint validates fields, limits request size, checks browser origin, and uses a honeypot plus a best-effort per-instance limit of five attempts per ten minutes. For a distributed limit, configure a Cloudflare rate-limiting rule for POST `/api/contact`.
+- `npm run test:contact` checks validation, failure handling and submission behaviour using a fake delivery function; it does not send email. A successful SMTP response confirms server acceptance, not final inbox placement.
+
+Setup references: [Google Workspace app mail settings](https://support.google.com/a/answer/176600), [Google app passwords](https://support.google.com/mail/answer/185833), and [Nodemailer SMTP](https://nodemailer.com/smtp/).

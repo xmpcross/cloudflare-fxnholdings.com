@@ -2,4 +2,10 @@
   "name": "fxnholdings-com",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "SMTP_HOST": "smtp.gmail.com",
+    "SMTP_PORT": "465",
+    "CONTACT_TO": "contact@fxnholdings.com",
+  },
 }

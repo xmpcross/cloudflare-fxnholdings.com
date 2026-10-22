@@ -19,7 +19,7 @@ const { title, description, topic } = Astro.props;
           <Icon name="newspaper" class="size-3.5" stroke={2.1} />
           {topic ? "Topic" : "Blog"}
         </p>
-        <h1 class="rise text-display-xl" style={`--i:1;${!topic ? "font-size:4rem;" : ""}`}>{title}</h1>
+        <h1 class="rise text-display-xl" style="--i:1">{title}</h1>
         <p class="rise mt-5 text-lead text-muted" style="--i:2">{description}</p>
       </div>
       <button

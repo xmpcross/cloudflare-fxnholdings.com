@@ -52,7 +52,7 @@ The articles complement the main pages by allowing more detail. A portfolio entr
 
 ## Get in touch with the right context
 
-The [contact page](/contact/) provides a way to prepare an enquiry in your email application. You can review the message before sending it. Opening the email draft does not send the enquiry automatically.
+The [contact page](/contact/) lets you send an enquiry directly to the FXN team. It confirms when a message has been sent and explains if delivery is unavailable. You can also use the email address shown on the page.
 
 For a project or partnership, describe the audience, the problem you want to address and any existing website or material we should understand. If you have timing or scope constraints, include those too. You do not need a complete technical specification to explain the opportunity.
 

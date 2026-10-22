@@ -1,0 +1,6 @@
+# Copy to .dev.vars and set a Google Workspace app password. Never commit .dev.vars.
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=kritin@fxnholdings.com
+SMTP_PASS=
+CONTACT_TO=contact@fxnholdings.com
