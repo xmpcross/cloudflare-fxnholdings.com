@@ -4,7 +4,7 @@ export const siteConfig = {
   title: "FXN Holdings | Websites, Web Applications & Digital Platforms",
   description:
     "Meet FXN Holdings, a shared UK and Australian business brand. Explore the websites, web applications and digital platforms we build and manage.",
-  siteUrl: "http://51.161.208.188:8789",
+  siteUrl: "https://fxnholdings.com",
   language: "en",
   locale: "en_AU",
   dateLocale: "en-AU",

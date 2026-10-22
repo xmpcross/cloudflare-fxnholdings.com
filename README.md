@@ -1,19 +1,21 @@
-# FXN Holdings — Modal preview
+# FXN Holdings — Astro website
 
-Preview: http://51.161.208.188:8789/
+Production: https://fxnholdings.com/
 
-Uses the XOCO Modal theme with current FXN Holdings content imported on 23 October 2026 from https://fxnholdings.com/. Original SVG logo extracted from the live header into `public/fxn-holdings-logo.svg` and `src/assets/brand/logo.svg`. The production website is unchanged.
+Cloudflare Pages project: `fxnholdings-com`. Production deploys from `main`, with the repository root as the build directory, `npm run build` as the build command, and `dist` as output. `.node-version` pins Node.js 24.18.1 for the Astro build.
+
+Uses the XOCO Modal theme with current FXN Holdings content imported on 23 October 2026 from https://fxnholdings.com/. Original SVG logo extracted from the live header into `public/fxn-holdings-logo.svg` and `src/assets/brand/logo.svg`.
 
 - `src/data/`: page content, home content and 14 portfolio entries.
 - `src/config/site.ts`: navigation, contact details and metadata.
 - `src/pages/index.astro`, `src/components/home/FxnHero.astro`, `FxnSections.astro` and `src/config/fxn.ts`: homepage adapted from the Modal reference, with FXN copy and interactive platform tabs.
 - `src/pages/about.astro` and `contact.astro`: Modal-inspired company and contact layouts. `src/pages/[...page].astro`: capability, technology and policy pages.
 - `src/content/blog/`: seven existing FXN articles, served at `/insights/`.
-- Contact follows the Modal layout and prepares a draft in the visitor’s email app. The existing live web form remains linked; no email is sent automatically and no preview email credentials or chat service are configured.
+- Contact follows the Modal layout and prepares a draft in the visitor’s email app. No email is sent automatically; no email credentials or chat service are configured.
 
 Business disclosures are centralized in `src/config/businesses.ts`. UK details were supplied by the owner; name, company number and registered office were checked against Companies House. VAT is owner-supplied. The existing Australian website operator and policy responsibilities remain in place; do not infer platform operator assignments or joint data controllers from the shared brand. Confirm the Australian legal holder and each platform’s operator before adding entity-specific labels.
 
-Run `npm run release:check` to validate and build. Run `npm run preview:pages` to serve port 8789. Preview pages carry a noindex header. Global logo-derived colours and the 1366px maximum container width live in `src/styles/global.css`.
+Run `npm run release:check` to validate and build. Run `npm run preview:pages` to serve port 8789. Production pages allow search indexing. Global logo-derived colours and the 1366px maximum container width live in `src/styles/global.css`.
 
 ---
 
