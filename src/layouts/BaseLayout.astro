@@ -54,6 +54,7 @@ const onBlog = Astro.url.pathname.startsWith("/insights/");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="/fonts/inter/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/onest/onest-latin.woff2" as="font" type="font/woff2" crossorigin />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />

@@ -3,9 +3,9 @@ title: "Starting a US business from overseas"
 description: "Learn how to start a US business from overseas, covering entity formation, EIN applications, IRS reporting, and sales tax to ensure legal compliance."
 date: "2026-10-09"
 topic: "Starting a Business"
-author: "FXN Holdings"
+author: "K. Curtis"
 cover: "./cover.webp"
-coverAlt: "Illustration of a remote workspace setup showing documents and digital tools used to run a company from overseas."
+coverAlt: "A blue globe connects to a laptop beside business documents and a US flag."
 cta: false
 updated: "2026-10-09"
 ---

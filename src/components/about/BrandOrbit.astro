@@ -1,39 +1,169 @@
 ---
-const nodes = Array.from({ length: 14 }, (_, index) => {
-  const angle = (index / 14) * Math.PI * 2;
-  return { x: 300 + Math.cos(angle) * 163, y: 210 + Math.sin(angle) * 163, accent: index % 4 === 0 };
-});
+import Icon from '@/components/ui/Icon.astro';
+const platforms = [
+  { name: 'Commerce', icon: 'briefcase-business', detail: 'Discover & shop' },
+  { name: 'Travel', icon: 'globe', detail: 'Explore & plan' },
+  { name: 'Publishing', icon: 'newspaper', detail: 'Read & discover' },
+  { name: 'Comparison', icon: 'sliders-horizontal', detail: 'Compare & choose' },
+  { name: 'Online tools', icon: 'code', detail: 'Solve & create' },
+];
 ---
-<figure class="brand-orbit mt-12" data-brand-orbit>
-  <div class="orbit-top"><span>THE FXN CONNECTION</span><span>01 BRAND / 02 COUNTRIES</span></div>
-  <div class="orbit-stage">
-    <div class="country country-uk"><span class="country-code">UK<span class="country-dot"></span></span><span class="country-name">United Kingdom</span><span class="country-note">FXN Holdings Limited</span></div>
-    <svg class="orbit-art" viewBox="0 0 600 420" role="img" aria-labelledby="orbit-title orbit-description">
-      <title id="orbit-title">FXN Holdings: a shared brand connecting digital platforms</title>
-      <desc id="orbit-description">Fourteen dots orbit the FXN Holdings logo, representing its managed platforms. The UK and Australian businesses appear alongside the shared brand.</desc>
-      <circle cx="300" cy="210" r="193" fill="none" stroke="#e5e9ef" stroke-dasharray="2 7" />
-      <circle cx="300" cy="210" r="163" fill="none" stroke="#d4deec" />
-      <circle cx="300" cy="210" r="128" fill="none" stroke="#e5e9ef" />
-      <path d="M0 210H137M463 210H600" stroke="#d4deec" fill="none" />
-      <g class="orbit-nodes">
-        {nodes.map(n=><g><circle cx={n.x} cy={n.y} r="11" fill="#f8fafc"/><circle cx={n.x} cy={n.y} r="5" fill={n.accent?'#ff5149':'#0062de'}/></g>)}
-      </g>
-      <g class="inner-orbit"><circle cx="300" cy="82" r="3" fill="#a8b8cd"/><circle cx="300" cy="338" r="3" fill="#a8b8cd"/></g>
-      <circle cx="300" cy="210" r="98" fill="white" stroke="#e0e6ee" />
-      <image href="/fxn-holdings-logo.svg" x="235" y="174" width="130" height="58" />
-      <text x="300" y="254" text-anchor="middle" fill="#667389" font-size="10" letter-spacing="2">SHARED AMBITION</text>
-    </svg>
-    <div class="country country-au"><span class="country-code">AU<span class="country-dot"></span></span><span class="country-name">Australia</span><span class="country-note">FXN Holdings</span></div>
+
+<figure class="brand-network mt-12" aria-labelledby="brand-network-caption">
+  <div class="network-intro">
+    <p>Connected by ambition.</p>
+    <span>Built for different audiences.</span>
   </div>
-  <figcaption><div><p class="orbit-message">Different markets. A shared ambition.</p><p class="orbit-description">Two businesses under common ownership. Fourteen managed platforms.</p></div><button type="button" data-orbit-toggle aria-pressed="false" aria-label="Pause brand animation"><span data-orbit-symbol aria-hidden="true">Ⅱ</span><span data-orbit-label>Pause</span></button></figcaption>
+  <div class="business-network">
+    <div class="business business-uk">
+      <span class="location-mark"><Icon name="map-pin" class="size-5" /></span>
+      <p class="country-name">United Kingdom</p>
+      <p class="business-name">FXN Holdings Limited</p>
+      <span class="country-code" aria-hidden="true">UK</span>
+    </div>
+    <div class="brand-centre">
+      <div class="brand-tile">
+        <img src="/fxn-holdings-logo.svg" width="180" height="80" alt="FXN Holdings" />
+        <span>A shared brand</span>
+      </div>
+      <span class="ownership">Common ownership</span>
+    </div>
+    <div class="business business-au">
+      <span class="location-mark"><Icon name="map-pin" class="size-5" /></span>
+      <p class="country-name">Australia</p>
+      <p class="business-name">FXN Holdings</p>
+      <span class="country-code" aria-hidden="true">AU</span>
+    </div>
+  </div>
+  <div class="platform-network">
+    <p class="platform-label">Our digital platforms</p>
+    <ul class="platform-types">
+      {platforms.map(platform => (
+        <li>
+          <span class="platform-icon"><Icon name={platform.icon} class="size-6" /></span>
+          <span class="platform-name">{platform.name}</span>
+          <span class="platform-detail">{platform.detail}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <figcaption id="brand-network-caption">
+    <span class="caption-mark" aria-hidden="true"></span>
+    UK and Australian businesses. Individual platforms. Shared experience.
+  </figcaption>
 </figure>
+
 <style>
-.brand-orbit{overflow:hidden;border:1px solid var(--line);border-radius:1.5rem;background:#f8fafc}.orbit-top{display:flex;justify-content:space-between;gap:1rem;padding:1.5rem 2rem;color:#67758a;font:500 .65rem monospace;letter-spacing:.1em}.orbit-stage{display:grid;grid-template-columns:1fr minmax(0,2.5fr) 1fr;align-items:center;padding:0 3rem}.orbit-art{display:block;width:100%;height:auto;overflow:visible}.country{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.5rem;position:relative}.country-code{display:flex;align-items:flex-start;gap:.5rem;font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.06em;font-weight:500;line-height:1.1}.country-dot{width:6px;height:6px;margin-top:.3rem;background:var(--blue);border-radius:50%}.country-au .country-dot{background:var(--orange)}.country-name{font-size:.875rem;font-weight:500}.country-note{font-size:.7rem;color:var(--muted)}.orbit-nodes,.inner-orbit{transform-origin:300px 210px}figcaption{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;border-top:1px solid var(--line);padding:1.5rem 2rem;background:#ffffff80}.orbit-message{font-size:1.1rem;font-weight:500;letter-spacing:-.02em}.orbit-description{font-size:.8rem;color:var(--muted);margin-top:.35rem}button{display:inline-flex;align-items:center;gap:.45rem;flex-shrink:0;min-height:36px;padding:.4rem .7rem;border:1px solid var(--line);border-radius:7px;background:white;font-size:.75rem;color:var(--muted)}button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
-@media(prefers-reduced-motion:no-preference){.orbit-nodes{animation:orbit-turn 90s linear infinite}.inner-orbit{animation:orbit-turn 65s linear infinite reverse}.brand-orbit[data-paused] :is(.orbit-nodes,.inner-orbit){animation-play-state:paused}}@keyframes orbit-turn{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){button{display:none}}
-@media(max-width:639px){.orbit-top{padding:1.25rem;font-size:.55rem;letter-spacing:.03em}.orbit-stage{grid-template-columns:1fr 1fr;padding:0 1.25rem 1.75rem;row-gap:.5rem}.orbit-art{grid-column:1/-1;grid-row:1}.country-code{font-size:2rem}.country-name{font-size:.8rem}.country-note{font-size:.65rem}figcaption{padding:1.25rem;align-items:flex-start;gap:1rem}.orbit-message{font-size:.95rem}.orbit-description{font-size:.75rem;max-width:24ch}}
+  .brand-network {
+    --network-blue: #0062de;
+    --network-coral: #ff5149;
+    overflow: hidden;
+    border: 1px solid #d8e3f2;
+    border-radius: 1.5rem;
+    background: #f5f8fd;
+  }
+  .network-intro {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.75rem 2.5rem;
+    border-bottom: 1px solid #e1e8f2;
+    background: white;
+    font-size: .875rem;
+  }
+  .network-intro p { font-weight: 600; }
+  .network-intro > span { color: #606c7d; }
+  .business-network {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1040px;
+    padding: 3.5rem 2.5rem 2.75rem;
+    margin: auto;
+    position: relative;
+  }
+  .business-network::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - .5rem);
+    left: 18%;
+    right: 18%;
+    height: 1px;
+    background: #b9cce6;
+  }
+  .business { position: relative; padding: 1.5rem; background: #f5f8fd; }
+  .location-mark { display: inline-flex; color: var(--network-blue); margin-bottom: .9rem; }
+  .country-name { font-size: 1.15rem; font-weight: 600; letter-spacing: -.025em; }
+  .business-name { font-size: .75rem; color: #606c7d; margin-top: .35rem; }
+  .country-code {
+    display: block;
+    font-size: 3.75rem;
+    line-height: 1;
+    letter-spacing: -.065em;
+    color: #bfd4f0;
+    margin-top: 1.25rem;
+    font-weight: 600;
+  }
+  .business-au { text-align: right; }
+  .business-au .location-mark { color: #ca3d35; }
+  .business-au .country-code { color: #f3c7c3; }
+  .brand-centre { position: relative; text-align: center; }
+  .brand-tile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 204px;
+    padding: 2rem;
+    background: white;
+    border: 1px solid #d8e3f2;
+    border-radius: 1.25rem;
+    box-shadow: 0 12px 35px #294b7a0a;
+  }
+  .brand-tile img { width: 180px; max-width: 100%; height: auto; }
+  .brand-tile > span { font-size: .75rem; color: #606c7d; margin-top: 1.25rem; }
+  .ownership { display: block; margin-top: 1rem; color: #606c7d; font-size: .75rem; }
+  .platform-network { padding: 0 2.5rem 2.5rem; }
+  .platform-label { text-align: center; color: #606c7d; font-size: .75rem; }
+  .platform-label::before { content: ''; display: block; height: 1.75rem; width: 1px; background: #b9cce6; margin: 0 auto .75rem; }
+  .platform-types {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-top: 1.5rem;
+    border: 1px solid #d8e3f2;
+    border-radius: 1rem;
+    background: white;
+    padding-block: 1.75rem;
+  }
+  .platform-types li { display: flex; align-items: center; flex-direction: column; gap: .45rem; padding: .25rem 1rem; text-align: center; }
+  .platform-types li + li { border-left: 1px solid #e1e8f2; }
+  .platform-icon { color: var(--network-blue); margin-bottom: .4rem; }
+  .platform-name { font-size: .875rem; font-weight: 600; }
+  .platform-detail { font-size: .7rem; color: #606c7d; }
+  figcaption { display: flex; align-items: center; justify-content: center; gap: .75rem; padding: 1.25rem 2rem; border-top: 1px solid #d8e3f2; font-size: .8rem; color: #526175; background: white; }
+  .caption-mark { width: 7px; height: 7px; background: var(--network-blue); border-radius: 50%; flex-shrink: 0; }
+  @media (max-width: 760px) {
+    .network-intro { padding: 1.25rem; flex-direction: column; gap: .25rem; }
+    .business-network { grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1.75rem 1.25rem 0; }
+    .brand-centre { grid-column: 1 / -1; grid-row: 1; width: min(100%, 250px); justify-self: center; }
+    .brand-tile { min-height: 160px; padding: 1.5rem; }
+    .brand-tile img { width: 150px; }
+    .business-network::before { display: none; }
+    .business { padding: 1rem 0; text-align: center; }
+    .country-name { font-size: .95rem; }
+    .business-name { font-size: .65rem; }
+    .country-code { font-size: 2.5rem; margin-top: .75rem; }
+    .location-mark { margin-bottom: .5rem; }
+    .platform-network { padding: 0 1.25rem 1.5rem; }
+    .platform-types { grid-template-columns: 1fr; padding: .5rem 1rem; }
+    .platform-types li { display: grid; grid-template-columns: 1.5rem 1fr auto; text-align: left; padding: 1rem 0; gap: .75rem; }
+    .platform-types li + li { border-left: 0; border-top: 1px solid #e1e8f2; }
+    .platform-icon { margin: 0; }
+    .platform-name { font-size: .8rem; }
+    .platform-detail { font-size: .65rem; }
+    figcaption { padding: 1.25rem; align-items: flex-start; font-size: .75rem; }
+    .caption-mark { margin-top: .35rem; }
+  }
+  @media (max-width: 360px) { .platform-detail { display: none; } }
 </style>
-<script>
-const orbit=document.querySelector<HTMLElement>('[data-brand-orbit]');
-const button=orbit?.querySelector<HTMLButtonElement>('[data-orbit-toggle]');
-button?.addEventListener('click',()=>{if(!orbit)return;const paused=orbit.toggleAttribute('data-paused');button.setAttribute('aria-pressed',String(paused));button.setAttribute('aria-label',`${paused?'Resume':'Pause'} brand animation`);const label=button.querySelector('[data-orbit-label]');const symbol=button.querySelector('[data-orbit-symbol]');if(label)label.textContent=paused?'Resume':'Pause';if(symbol)symbol.textContent=paused?'▷':'Ⅱ';});
-</script>

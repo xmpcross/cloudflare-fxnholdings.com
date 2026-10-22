@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { postAuthors, postHref, type Post } from "@/lib/posts";
+import { authorOf, postAuthors, postHref, type Post } from "@/lib/posts";
 
 const absolute = (path: string) => new URL(path, siteConfig.siteUrl).toString();
 
@@ -40,7 +40,12 @@ export const articleSchema = (post: Post, image: string) => ({
       image: absolute(image),
       datePublished: post.data.date.toISOString(),
       dateModified: (post.data.updated ?? post.data.date).toISOString(),
-      author: postAuthors(post).map((name) => ({ "@type": "Organization", name })),
+      author: postAuthors(post).map((name) => ({
+        "@type": authorOf(name)?.type ?? "Person",
+        name,
+        description: authorOf(name)?.bio,
+        sameAs: authorOf(name)?.profileUrl,
+      })),
       publisher: organization,
       articleSection: post.data.topic,
       keywords: post.data.tags.join(", ") || undefined,

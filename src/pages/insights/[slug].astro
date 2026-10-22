@@ -161,7 +161,7 @@ const url = new URL(postHref(post), siteConfig.siteUrl).toString();
 
         {
           (newer || older) && (
-            <nav aria-label="More posts" class="mt-12 grid gap-8 border-t border-line pt-8 sm:grid-cols-2">
+            <nav aria-label="More posts" class="mt-12 grid gap-8 pt-8 sm:grid-cols-2">
               {older ? (
                 <a href={postHref(older)} class="group">
                   <span class="flex items-center gap-2 text-sm text-muted">

@@ -15,7 +15,8 @@ const role = names.length === 1 ? authorOf(names[0])?.role : undefined;
   <span class="flex">
     {
       names.map((name, i) => {
-        const photo = authorOf(name)?.photo;
+        const author = authorOf(name);
+        const photo = author?.photo;
         return (
           <span
             class:list={["byline-avatar relative size-10 overflow-hidden rounded-full", i > 0 && "-ml-3"]}
@@ -23,6 +24,8 @@ const role = names.length === 1 ? authorOf(names[0])?.role : undefined;
           >
             {photo ? (
               <Image src={photo} alt="" widths={[80, 120]} sizes="2.5rem" loading="eager" class="size-full object-cover object-top" />
+            ) : author?.initials ? (
+              <span class="grid size-full place-items-center bg-blue-soft text-sm font-semibold text-blue-ink" aria-hidden="true">{author.initials}</span>
             ) : (
               <Logomark class="size-full" />
             )}

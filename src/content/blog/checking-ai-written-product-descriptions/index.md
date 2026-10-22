@@ -3,9 +3,9 @@ title: "Checking AI-written product descriptions"
 description: "Check AI-written product descriptions for accurate specifications, unsupported claims and useful detail before publishing."
 date: "2026-10-09"
 topic: "Technology & AI"
-author: "FXN Holdings"
+author: "K. Curtis"
 cover: "./cover.webp"
-coverAlt: "Illustration of a person at a desk ticking off a page printed by a friendly robot-like machine"
+coverAlt: "A blue magnifying glass examines a product description beside a desk lamp and checklist."
 cta: false
 ---
 

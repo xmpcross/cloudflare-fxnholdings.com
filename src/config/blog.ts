@@ -21,11 +21,22 @@ export const topicDescriptions: Record<Topic, string> = {
 };
 export interface Author {
   role: string;
+  type: "Person" | "Organization";
+  bio?: string;
+  initials?: string;
+  profileUrl?: string;
   photo?: ImageMetadata;
   credit?: { name: string; url: string };
 }
 export const authors: Record<string, Author> = {
-  "FXN Holdings": { role: "Explore. Build. Launch." },
+  "FXN Holdings": { role: "Explore. Build. Launch.", type: "Organization" },
+  "K. Curtis": {
+    role: "Author at FXN Holdings",
+    type: "Person",
+    initials: "KC",
+    profileUrl: "https://www.linkedin.com/in/kritincurtis/",
+    bio: "K. Curtis writes for FXN Holdings about digital platforms, technology and AI, business setup, and market opportunities. The articles explain practical considerations for building, managing, and improving online businesses.",
+  },
 };
 export const blogDescription =
   "Notes on technology, new markets and building useful digital platforms.";

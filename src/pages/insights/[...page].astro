@@ -34,7 +34,7 @@ const description = blogDescription;
     {lead && <PostCard post={lead} variant="lead" headingLevel="h2" eager />}
     {
       rest.length > 0 && (
-        <div class:list={["grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3", lead && "mt-16 border-t border-line pt-12"]}>
+        <div class:list={["grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3", lead && "mt-16 pt-12"]}>
           {rest.map((post, i) => post && <PostCard post={post} headingLevel="h2" eager={!lead && i < 3} />)}
         </div>
       )

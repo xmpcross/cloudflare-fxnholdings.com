@@ -39,3 +39,6 @@ test-results
 # Local AI assistant instructions
 CLAUDE.md
 .claude/
+
+# Local SEO review evidence
+.seo-cache/

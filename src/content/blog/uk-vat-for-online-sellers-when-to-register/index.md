@@ -3,9 +3,9 @@ title: "UK VAT for online sellers: when to register"
 description: "Understand UK VAT registration for online sellers. Learn domestic thresholds, overseas nil rules, and marketplace obligations to keep your store compliant."
 date: "2026-10-09"
 topic: "Starting a Business"
-author: "FXN Holdings"
+author: "K. Curtis"
 cover: "./cover.webp"
-coverAlt: "Illustration of an office workspace with shipping parcels, a digital ledger on a laptop screen, and accounting tools."
+coverAlt: "A parcel, calculator and invoices beside a UK flag and coral percentage symbol."
 cta: false
 updated: "2026-10-09"
 ---

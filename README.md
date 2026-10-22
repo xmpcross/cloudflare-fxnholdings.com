@@ -15,7 +15,7 @@ Uses the XOCO Modal theme with current FXN Holdings content imported on 23 Octob
 
 Business disclosures are centralized in `src/config/businesses.ts`. UK details were supplied by the owner; name, company number and registered office were checked against Companies House. VAT is owner-supplied. The existing Australian website operator and policy responsibilities remain in place; do not infer platform operator assignments or joint data controllers from the shared brand. Confirm the Australian legal holder and each platform’s operator before adding entity-specific labels.
 
-Run `npm run release:check` to validate and build. Run `npm run preview:pages` to serve port 8789. Production pages allow search indexing. Global logo-derived colours and the 1366px maximum container width live in `src/styles/global.css`.
+Run `npm run release:check` to validate and build. Run `npm run preview:pages` to serve port 8789. Production pages allow search indexing. Global logo-derived colours and the 1366px maximum container width live in `src/styles/global.css`. Headings (H1–H6) and title styles use self-hosted Inter at weight 700; body text uses Onest. Inter font files and the SIL Open Font License are in `public/fonts/inter/`.
 
 ---
 

@@ -3,9 +3,9 @@ title: "Shared content without identical websites"
 description: "Explore shared content architecture: consistent records, distinct website experiences and checks for changes that affect several sites."
 date: "2026-10-09"
 topic: "Technology & AI"
-author: "FXN Holdings"
+author: "K. Curtis"
 cover: "./cover.webp"
-coverAlt: "Illustration of a new website surrounded by cards representing shopping, travel, publishing, price comparison and online tool platforms"
+coverAlt: "A shared content library connects three distinct publishing, shopping and online tool interfaces."
 cta: false
 ---
 
