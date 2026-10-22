@@ -92,18 +92,51 @@ async function readBody(request) {
   );
 }
 
+// Log only allowlisted protocol codes, never raw SMTP responses or message data.
+export function smtpFailureDetails(error) {
+  const codes = [
+    "EAUTH",
+    "ECONNECTION",
+    "ECONNRESET",
+    "ETIMEDOUT",
+    "ESOCKET",
+    "EDNS",
+    "EENVELOPE",
+    "EMESSAGE",
+    "ESTREAM",
+    "ETLS",
+  ];
+  const stages = ["CONN", "EHLO", "HELO", "STARTTLS", "AUTH", "MAIL", "RCPT", "DATA"];
+  const stage = typeof error?.command === "string" ? error.command.split(" ")[0] : "";
+  return {
+    code: codes.includes(error?.code) ? error.code : "UNKNOWN",
+    responseCode:
+      Number.isInteger(error?.responseCode) &&
+      error.responseCode >= 400 &&
+      error.responseCode <= 599
+        ? error.responseCode
+        : null,
+    stage: stages.includes(stage) ? stage : "UNKNOWN",
+  };
+}
+
 // Per-instance protection; configure a Cloudflare rate-limit rule for a distributed limit.
 export function createContactHandler(send = deliver) {
   const attempts = new Map();
   return async ({ request, env }) => {
+    const reference = crypto.randomUUID();
     const wantsJson =
       request.headers.get("accept")?.includes("application/json") ||
       request.headers.get("content-type")?.includes("application/json");
     const reply = (status, message) => {
-      const headers = { "cache-control": "no-store", "x-content-type-options": "nosniff" };
+      const headers = {
+        "cache-control": "no-store",
+        "x-content-type-options": "nosniff",
+        "x-contact-reference": reference,
+      };
       if (status === 429) headers["retry-after"] = "600";
       if (wantsJson)
-        return Response.json(status === 200 ? { ok: true } : { error: message }, {
+        return Response.json(status === 200 ? { ok: true } : { error: message, reference }, {
           status,
           headers,
         });
@@ -180,9 +213,14 @@ export function createContactHandler(send = deliver) {
       if (!(await send(env, fields)))
         return reply(502, "Your message could not be sent. Please try again or email us directly.");
       return reply(200);
-    } catch {
-      // Never log credentials, SMTP response details or visitors' messages.
-      console.error("Contact email delivery failed.");
+    } catch (error) {
+      console.error(
+        JSON.stringify({
+          event: "contact_delivery_failed",
+          reference,
+          ...smtpFailureDetails(error),
+        }),
+      );
       return reply(502, "Your message could not be sent. Please try again or email us directly.");
     }
   };

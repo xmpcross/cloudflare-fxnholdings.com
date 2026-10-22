@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createContactHandler, smtpOptions, deliver } from "../server/contact.mjs";
+import {
+  createContactHandler,
+  smtpOptions,
+  deliver,
+  smtpFailureDetails,
+} from "../server/contact.mjs";
 
 const env = { SMTP_USER: "kritin@fxnholdings.com", SMTP_PASS: "test-app-password" };
 const data = {
@@ -123,4 +128,19 @@ test("Google SMTP uses TLS and rejects unsupported hosts and ports", () => {
 
 test("delivery refuses invalid server-side destination without connecting", async () => {
   assert.equal(await deliver({ ...env, CONTACT_TO: "bad\r\naddress" }, data), false);
+});
+
+test("SMTP diagnostics expose only safe protocol codes", () => {
+  const result = smtpFailureDetails({
+    code: "EAUTH",
+    responseCode: 535,
+    command: "AUTH PLAIN secret-token",
+    response: "private SMTP reply",
+    message: "private visitor data",
+  });
+  assert.deepEqual(result, { code: "EAUTH", responseCode: 535, stage: "AUTH" });
+  assert.deepEqual(
+    smtpFailureDetails({ code: "secret-token", command: "private-address", responseCode: 999 }),
+    { code: "UNKNOWN", responseCode: null, stage: "UNKNOWN" },
+  );
 });
