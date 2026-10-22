@@ -1,0 +1,38 @@
+---
+import { stats } from "@/config/home";
+import { siteConfig } from "@/config/site";
+
+interface Props {
+  items?: { value: string; label: string }[];
+  class?: string;
+}
+
+const { items = stats, class: className } = Astro.props;
+const columns = items.length === 3 ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-2 lg:grid-cols-4";
+---
+
+<section class:list={["ruled", className]} aria-label={`${siteConfig.name} in numbers`}>
+  <dl class:list={["stats frame grid", columns]}>
+    {
+      items.map((item) => (
+        <div class="reveal flex flex-col px-(--gutter) py-10 sm:px-8 sm:py-12">
+          <dt class="order-2 mt-2 max-w-60 text-[0.9375rem] text-muted">{item.label}</dt>
+          <dd class="order-1 text-display-md font-semibold tabular">{item.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  .stats > div {
+    box-shadow:
+      1px 0 0 var(--line),
+      0 1px 0 var(--line);
+  }
+
+  .stats {
+    overflow: hidden;
+    margin-bottom: -1px;
+  }
+</style>

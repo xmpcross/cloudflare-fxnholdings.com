@@ -1,0 +1,4 @@
+Source: https://modal.xocoweb.workers.dev/
+Captured 23 October 2026.
+Automation and report images are screenshots of the source theme HTML/CSS illustrations. All displayed metrics and people are fictional sample data from that theme.
+Integration SVGs extracted from the reference homepage. Brand marks remain the property of their respective owners; display does not imply endorsement.

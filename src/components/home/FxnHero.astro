@@ -1,0 +1,16 @@
+---
+import DevelopmentVisual from './DevelopmentVisual.astro';
+import Icon from '@/components/ui/Icon.astro';
+import {venture} from '@/config/fxn';
+---
+<section class="opening" aria-labelledby="hero-title">
+<div class="shell hero-grid">
+  <div class="hero-copy"><p class="eyebrow bg-blue-soft text-blue-ink"><Icon name="globe" class="size-3.5" />FXN Holdings · UK & Australia</p><h1 id="hero-title">{venture.hero.title}</h1><p class="mt-7 text-lead text-muted">{venture.hero.lead}</p><div class="mt-9 flex flex-wrap gap-3"><a class="btn btn-primary btn-lg" href="/portfolio/">Explore our platforms <Icon name="arrow-right" class="size-4" /></a><a class="btn btn-secondary btn-lg" href="/about/">Meet FXN Holdings</a></div><ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">{['Open-source foundations','Built for each market'].map(t=><li class="flex items-center gap-2"><Icon name="circle-check" class="size-4 text-blue-ink" />{t}</li>)}</ul></div>
+  <DevelopmentVisual />
+</div>
+</section>
+<style>
+.opening{background:radial-gradient(circle at 1px 1px,#0062de0d 1px,transparent 0);background-size:20px 20px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;gap:3rem;padding-block:4rem 5rem}.hero-copy{min-width:0}h1{font-size:clamp(2.65rem,4.8vw,4.6rem);line-height:1.03;letter-spacing:-.055em;margin-top:1.5rem;max-width:13ch}
+@media(min-width:64rem){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4rem}}
+</style>

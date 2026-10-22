@@ -1,0 +1,43 @@
+---
+import CompanyLogo from "@/components/ui/CompanyLogo.astro";
+import { logoRow } from "@/config/home";
+
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = logoRow.title, class: className } = Astro.props;
+---
+
+<section class:list={["ruled", className]} aria-labelledby="logos-title">
+  <div class="frame">
+    <h2 id="logos-title" class="mono-label px-(--gutter) pt-10 text-center sm:pt-12">{title}</h2>
+    <ul class="logo-grid mt-8 grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8">
+      {
+        logoRow.items.map((name) => (
+          <li class="flex h-20 items-center justify-center px-4 text-[0.85rem] text-ink/75 transition-colors hover:text-ink sm:text-[0.95rem] xl:text-[0.85rem]">
+            <CompanyLogo name={name} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .logo-grid {
+    border-top: 1px solid var(--line);
+  }
+
+  .logo-grid > li {
+    box-shadow:
+      1px 0 0 var(--line),
+      0 1px 0 var(--line);
+  }
+
+  .logo-grid {
+    overflow: hidden;
+    margin-bottom: -1px;
+  }
+</style>

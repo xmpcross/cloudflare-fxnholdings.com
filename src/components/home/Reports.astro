@@ -1,0 +1,40 @@
+---
+import AppWindow from "@/components/app/AppWindow.astro";
+import ReportsView from "@/components/app/ReportsView.astro";
+import Sidebar from "@/components/app/Sidebar.astro";
+import Gradient from "@/components/ui/Gradient.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import { reports } from "@/config/home";
+
+const { id, eyebrow, title, accent, points } = reports;
+---
+
+<section id={id} class="ruled section overflow-x-clip" aria-labelledby={`${id}-title`}>
+  <div class="shell">
+    <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+      <SectionHead id={`${id}-title`} eyebrow={eyebrow} title={title} accent={accent} class="lg:col-span-7" />
+      <dl class="grid grid-cols-3 gap-4 lg:col-span-5 lg:pb-1">
+        {
+          points.map((point) => (
+            <div class="reveal border-l border-line-strong pl-3">
+              <dt class="text-[1.0625rem] font-semibold tracking-[-0.02em]">{point.value}</dt>
+              <dd class="mt-0.5 text-sm text-muted">{point.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="reveal relative isolate mt-12 overflow-hidden rounded-[1.75rem] px-2.5 py-5 ring-1 ring-black/6 sm:px-8 sm:py-8 lg:mt-16 lg:px-14 lg:py-12" data-active>
+      <Gradient position="15% 80%" class="inset-0 -z-10" />
+      <AppWindow fade class="mx-auto max-w-[68rem]">
+        <div class="flex h-[29rem] min-w-0 sm:h-[31rem]">
+          <div class="hidden lg:flex">
+            <Sidebar active="Home" />
+          </div>
+          <ReportsView />
+        </div>
+      </AppWindow>
+    </div>
+  </div>
+</section>

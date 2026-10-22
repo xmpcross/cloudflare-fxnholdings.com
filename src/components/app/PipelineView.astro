@@ -1,0 +1,107 @@
+---
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import { deals, stages } from "@/config/demo";
+import { dotTone } from "@/lib/tones";
+import Pill from "./Pill.astro";
+
+const columns = stages.map((stage) => {
+  const items = deals.filter((deal) => deal.stage === stage.name);
+  const total = items.reduce((sum, deal) => sum + Number(deal.value.replace(/[^0-9]/g, "")), 0);
+  return { ...stage, items, total: `$${Math.round(total / 1000)}k` };
+});
+---
+
+<div class="pipeline flex min-w-0 flex-1 flex-col">
+  <div class="flex h-11 items-center gap-2 border-b border-line px-4">
+    <span class="size-2.5 rounded-[3px] bg-orange"></span>
+    <span class="text-[0.875rem] font-semibold tracking-[-0.01em]">Sales pipeline</span>
+    <span class="rounded-md bg-sunken px-1.5 text-[0.75rem] font-medium text-muted">Board</span>
+    <span class="ml-auto hidden items-center gap-3 text-[0.8125rem] text-muted sm:flex">
+      <span>Weighted <span class="font-semibold text-ink tabular">$214,800</span></span>
+      <span class="flex -space-x-1.5">
+        <Avatar name="Maya Chen" class="size-5 ring-2 ring-surface" />
+        <Avatar name="Leo Brandt" class="size-5 ring-2 ring-surface" />
+        <Avatar name="Priya Nair" class="size-5 ring-2 ring-surface" />
+      </span>
+    </span>
+  </div>
+  <div class="board flex gap-2.5 overflow-hidden bg-[#fafafb] p-3">
+    {
+      columns.map((column, c) => (
+        <div class="column flex w-[13.25rem] shrink-0 flex-col gap-2 rounded-xl bg-sunken/60 p-1.5">
+          <div class="flex items-center gap-1.5 px-1.5 pt-1 text-[0.8125rem] font-semibold">
+            <span class:list={["size-2 rounded-full", dotTone[column.tone]]} />
+            {column.name}
+            <span class="font-normal text-faint tabular">{column.items.length}</span>
+            <span class="ml-auto text-[0.75rem] font-medium text-muted tabular">{column.total}</span>
+          </div>
+          {column.items.map((deal, d) => {
+            return (
+              <div class="deal rounded-lg bg-surface p-2.5 shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--d:${c * 90 + d * 60}ms`}>
+                <span class="block truncate text-[0.8125rem] font-semibold">{deal.company}</span>
+                <p class="mt-1 truncate text-[0.75rem] text-muted">{deal.title}</p>
+                <div class="mt-2 flex items-center gap-1.5">
+                  <span class="text-[0.8125rem] font-semibold tabular">{deal.value}</span>
+                  {deal.tag && (
+                    <Pill tone={deal.tag.tone} class="ml-auto">
+                      {deal.tag.label}
+                    </Pill>
+                  )}
+                </div>
+                <div class="mt-2 flex items-center gap-1.5 border-t border-line pt-2 text-[0.6875rem] text-muted">
+                  <Avatar name={deal.owner} class="size-4" />
+                  <span class="truncate">{deal.owner}</span>
+                  <span class="ml-auto inline-flex items-center gap-1 tabular">
+                    <Icon name="calendar" class="size-3" /> {deal.close}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+          <span class="flex items-center gap-1.5 px-1.5 pb-1 text-[0.75rem] text-faint">
+            <Icon name="plus" class="size-3" /> Add deal
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .pipeline {
+    container-type: inline-size;
+  }
+
+  .board {
+    flex: 1;
+    align-items: flex-start;
+    mask-image: linear-gradient(90deg, #000 88%, transparent);
+  }
+
+  @container (max-width: 30rem) {
+    .board {
+      flex-direction: column;
+      align-items: stretch;
+      mask-image: none;
+    }
+
+    .column {
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global([data-active]) .deal {
+      animation: deal-in 0.6s var(--ease-out-expo) both;
+      animation-delay: calc(var(--d) + 120ms);
+    }
+  }
+
+  @keyframes deal-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import AppIcon from "@/components/ui/AppIcon.astro";
+import Icon from "@/components/ui/Icon.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import { integration } from "@/config/integrations";
+import type { Tone } from "@/config/site";
+import { solutionCopy } from "@/config/solutions";
+
+interface Props {
+  tone: Tone;
+  accent: string;
+  items: string[];
+}
+
+const { tone, accent, items } = Astro.props;
+const { appsEyebrow, appsTitle, appsLink } = solutionCopy;
+---
+
+<section class="ruled section pb-0" aria-labelledby="apps-title">
+  <div class="shell flex flex-wrap items-end justify-between gap-6">
+    <SectionHead id="apps-title" eyebrow={{ label: appsEyebrow, icon: "blocks", tone }} title={appsTitle} accent={accent} />
+    <a href={appsLink.href} class="arrow-link reveal group">
+      {appsLink.label}
+      <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+    </a>
+  </div>
+
+  <ul class="apps frame mt-12 grid grid-cols-2 lg:mt-16 lg:grid-cols-4">
+    {
+      items.map((name) => {
+        const app = integration(name);
+        return (
+          <li class="reveal">
+            <a href={appsLink.href} class="group flex h-full flex-col px-(--gutter) py-7 transition-colors hover:bg-wash sm:px-8 sm:py-8">
+              <span class="flex items-center gap-3">
+                <AppIcon name={name} class="size-10 sm:size-11" />
+                <span class="font-semibold tracking-[-0.01em]">{app?.name ?? name}</span>
+                <Icon name="arrow-right" class="ml-auto hidden size-4 text-faint transition-[color,translate] group-hover:translate-x-0.5 group-hover:text-ink sm:inline-grid" stroke={2} />
+              </span>
+              {app && <span class="mt-4 hidden text-[0.9375rem] text-muted sm:block">{app.description}</span>}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
+
+<style>
+  .apps {
+    border-top: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .apps > li {
+    box-shadow:
+      1px 0 0 var(--line),
+      0 1px 0 var(--line);
+  }
+</style>

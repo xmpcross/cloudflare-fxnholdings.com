@@ -1,0 +1,157 @@
+---
+import AppWindow from "@/components/app/AppWindow.astro";
+import Pill from "@/components/app/Pill.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import { workspace } from "@/config/demo";
+import type { Tone } from "@/config/site";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const members: { name: string; email: string; role: string; tone: Tone; seat: boolean; active: string }[] = [
+  { name: "Maya Chen", email: "maya@kitebird.com", role: "Admin", tone: "violet", seat: true, active: "Now" },
+  { name: "Leo Brandt", email: "leo@kitebird.com", role: "Member", tone: "blue", seat: true, active: "2m ago" },
+  { name: "Priya Nair", email: "priya@kitebird.com", role: "Member", tone: "blue", seat: true, active: "1h ago" },
+  { name: "Sam Okafor", email: "sam@kitebird.com", role: "Member", tone: "blue", seat: true, active: "Today" },
+  { name: "Jonas Weber", email: "jonas@kitebird.com", role: "Member", tone: "blue", seat: true, active: "Yesterday" },
+  { name: "Ines Duarte", email: "ines@kitebird.com", role: "Viewer", tone: "ink", seat: false, active: "3d ago" },
+  { name: "Ava Lindqvist", email: "ava@kitebird.com", role: "Viewer", tone: "ink", seat: false, active: "1w ago" },
+];
+const used = members.filter((member) => member.seat).length;
+---
+
+<AppWindow class={className}>
+  <div class="seats flex min-w-0 text-[0.8125rem]">
+    <nav class="hidden w-44 shrink-0 flex-col gap-0.5 border-r border-line bg-[#fbfbfc] p-2.5 sm:flex">
+      <p class="px-2 pt-1 pb-2 text-[0.6875rem] font-medium text-faint">Workspace</p>
+      {
+        [
+          { label: "General", icon: "settings" },
+          { label: "Members", icon: "users", active: true },
+          { label: "Billing", icon: "coins" },
+          { label: "Objects", icon: "database" },
+          { label: "Security", icon: "shield-check" },
+        ].map((item) => (
+          <span class:list={["flex items-center gap-2 rounded-md px-2 py-1.5 font-medium", item.active ? "bg-sunken text-ink" : "text-ink-soft"]}>
+            <Icon name={item.icon} class="size-3.5 text-muted" stroke={2} />
+            {item.label}
+          </span>
+        ))
+      }
+    </nav>
+
+    <div class="min-w-0 flex-1">
+      <div class="flex h-11 items-center gap-2 border-b border-line px-4">
+        <span class="font-semibold tracking-[-0.01em]">Members</span>
+        <span class="text-faint tabular">{members.length}</span>
+        <span class="ml-auto inline-flex h-7 items-center gap-1.5 rounded-md bg-ink px-2.5 font-medium text-white">
+          <Icon name="plus" class="size-3.5" stroke={2.25} /> Invite
+        </span>
+      </div>
+
+      <div class="grid gap-3 border-b border-line p-4 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div>
+          <p class="flex items-center gap-2 font-medium">
+            {workspace.name} · {workspace.plan}
+            <Pill tone="violet">Yearly</Pill>
+          </p>
+          <p class="mt-2 flex items-center gap-2 text-muted">
+            <span class="flex h-1.5 w-40 overflow-hidden rounded-full bg-sunken">
+              <span class="bg-violet" style={`width:${(used / 6) * 100}%`}></span>
+            </span>
+            <span class="tabular">{used} of 6 seats used</span>
+          </p>
+        </div>
+        <p class="text-muted sm:text-right">
+          <span class="block text-[1.125rem] font-semibold tracking-[-0.03em] text-ink tabular">$354 / mo</span>
+          Next invoice Nov 1
+        </p>
+      </div>
+
+      <div class="members">
+        <div class="row head">
+          <span class="cell">Name</span>
+          <span class="cell c-role">Role</span>
+          <span class="cell c-seat">Seat</span>
+          <span class="cell c-active">Last active</span>
+        </div>
+        {
+          members.map((member) => (
+            <div class="row">
+              <span class="cell">
+                <Avatar name={member.name} class="size-6" />
+                <span class="min-w-0">
+                  <span class="block truncate font-medium">{member.name}</span>
+                  <span class="block truncate text-[0.75rem] text-muted">{member.email}</span>
+                </span>
+              </span>
+              <span class="cell c-role">
+                <Pill tone={member.tone} dot={!member.seat}>
+                  {member.role}
+                </Pill>
+              </span>
+              <span class="cell c-seat">
+                {member.seat ? (
+                  <span class="grid size-4 place-items-center rounded-full bg-ink text-white">
+                    <Icon name="check" class="size-2.5" stroke={3.5} />
+                  </span>
+                ) : (
+                  <span class="font-medium text-green-ink">Free</span>
+                )}
+              </span>
+              <span class="cell c-active text-muted">{member.active}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</AppWindow>
+
+<style>
+  .members {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 6rem 4rem 6rem;
+  }
+
+  .row {
+    display: contents;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    height: 3rem;
+    padding: 0 0.85rem;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .head .cell {
+    height: 2.1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: #fbfbfc;
+  }
+
+  .row:last-child .cell {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 30rem) {
+    .members {
+      grid-template-columns: minmax(0, 1fr) 5.5rem 3.25rem;
+    }
+
+    .c-active {
+      display: none;
+    }
+  }
+</style>

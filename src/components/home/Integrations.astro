@@ -1,0 +1,70 @@
+---
+import AppIcon from "@/components/ui/AppIcon.astro";
+import Icon from "@/components/ui/Icon.astro";
+import SectionHead from "@/components/ui/SectionHead.astro";
+import { integrationsSection } from "@/config/home";
+import { integration } from "@/config/integrations";
+
+const { eyebrow, title, accent, rows, cta } = integrationsSection;
+const names = rows.flat().map((icon) => integration(icon)?.name ?? icon);
+---
+
+<section class="ruled section overflow-x-clip" aria-labelledby="integrations-title">
+  <div class="shell">
+    <SectionHead id="integrations-title" eyebrow={eyebrow} title={title} accent={accent} align="center" />
+    <p class="sr-only">Includes {names.join(", ")}.</p>
+  </div>
+
+  <div class="marquee mt-12 grid gap-4 lg:mt-14" aria-hidden="true">
+    {
+      rows.map((row, index) => (
+        <div class="track" style={`--dir:${index % 2 === 0 ? "normal" : "reverse"}`}>
+          {[0, 1].map(() => (
+            <ul class="flex shrink-0 gap-4 pr-4">
+              {row.map((icon) => (
+                <li class="flex h-[4.5rem] items-center gap-3 rounded-2xl bg-surface py-3 pr-5 pl-3 shadow-[inset_0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.04)]">
+                  <AppIcon name={icon} class="size-11" />
+                  <span class="text-[0.9375rem] font-medium whitespace-nowrap">{integration(icon)?.name}</span>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mt-12 text-center">
+    <a href={cta.href} class="btn btn-secondary">
+      {cta.label}
+      <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+    </a>
+  </div>
+</section>
+
+<style>
+  .marquee {
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .track {
+      animation: marquee 60s linear infinite var(--dir);
+    }
+
+    .marquee:hover .track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+</style>

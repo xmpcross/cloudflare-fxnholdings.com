@@ -1,0 +1,13 @@
+---
+import BusinessDetails from '@/components/BusinessDetails.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import pages from '@/data/pages.json';
+export function getStaticPaths(){return pages.filter(p=>!['/','/about/','/portfolio/','/contact/','/sitemap/','/technology/'].includes(p.path)).map(page=>({params:{page:page.path.replace(/^\/|\/$/g,'')},props:{page}}));}
+const {page}=Astro.props;
+---
+<BaseLayout title={page.heading} description={page.description}>
+<header class="shell pt-16 pb-12 sm:pt-24"><h1 class="max-w-4xl text-display-lg">{page.heading}</h1>{page.intro&&<p class="mt-6 max-w-3xl text-lead text-muted">{page.intro}</p>}</header>
+{page.path==='/legal-notice/'&&<section class="shell pb-12"><h2 class="text-title mb-6">Businesses represented on this website</h2><BusinessDetails /><p class="mt-6 text-muted">This website introduces both businesses. The existing website operator is identified below. The responsible business for each platform or transaction is identified in that platform’s legal information or the relevant agreement.</p></section>}
+<div class="shell fxn-content pb-20" set:html={page.sections.join('\n')} />
+
+</BaseLayout>

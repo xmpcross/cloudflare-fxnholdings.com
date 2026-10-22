@@ -1,0 +1,72 @@
+---
+import AppWindow from "@/components/app/AppWindow.astro";
+import PipelineView from "@/components/app/PipelineView.astro";
+import Sidebar from "@/components/app/Sidebar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Gradient from "@/components/ui/Gradient.astro";
+import { siteConfig } from "@/config/site";
+import type { SolutionPage } from "@/config/solutions";
+import { softTone } from "@/lib/tones";
+import DealFlowView from "./DealFlowView.astro";
+import PartnersView from "./PartnersView.astro";
+import RenewalsView from "./RenewalsView.astro";
+
+interface Props {
+  page: SolutionPage;
+}
+
+const { page } = Astro.props;
+const { view } = page;
+const { primary, secondary } = siteConfig.actions;
+---
+
+<section class="relative isolate overflow-hidden pt-10 sm:pt-14" aria-labelledby="solution-title">
+  <div class="shell">
+    <nav aria-label="Breadcrumb" class="rise">
+      <ol class="flex items-center gap-1.5 text-sm text-muted">
+        <li><a href="/" class="transition-colors hover:text-ink">Home</a></li>
+        <li aria-hidden="true"><Icon name="chevron-right" class="size-3.5 text-faint" /></li>
+        <li>Solutions</li>
+        <li aria-hidden="true"><Icon name="chevron-right" class="size-3.5 text-faint" /></li>
+        <li><a href={`/solutions/${page.slug}/`} aria-current="page" class="font-medium text-ink">{page.name}</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 grid gap-8 sm:mt-14 lg:grid-cols-12 lg:items-end lg:gap-10">
+      <div class="lg:col-span-7">
+        <p class:list={["eyebrow rise", softTone[page.tone]]} style="--i:1">
+          <Icon name={page.icon} class="size-3.5" stroke={2.1} />
+          {page.name}
+        </p>
+        <h1 id="solution-title" class="rise mt-5 max-w-[17ch] text-display-lg" style="--i:2">{page.title}</h1>
+      </div>
+      <div class="lg:col-span-5 lg:pb-1">
+        <p class="rise text-lead text-muted" style="--i:3">{page.lead}</p>
+        <div class="rise mt-7 flex flex-wrap gap-3" style="--i:4">
+          <a href={primary.href} class="btn btn-primary btn-lg">
+            {primary.label}
+            <Icon name="arrow-right" class="btn-arrow" stroke={2} />
+          </a>
+          <a href={secondary.href} class="btn btn-secondary btn-lg">{secondary.label}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell mt-14 pb-16 sm:mt-20 sm:pb-24">
+    <div class="rise relative isolate overflow-hidden rounded-[1.75rem] px-2.5 py-5 ring-1 ring-black/6 sm:px-8 sm:py-8 lg:px-14 lg:py-12" style="--i:5" data-active>
+      <Gradient eager position="60% 20%" class="inset-0 -z-10" />
+      <AppWindow fade class="mx-auto max-w-[68rem]">
+        <div class="flex max-h-120 min-w-0 lg:h-130 lg:max-h-none">
+          <div class="hidden lg:flex">
+            <Sidebar active={page.sidebar} />
+          </div>
+          {view.kind === "pipeline" && <PipelineView />}
+          {view.kind === "renewals" && <RenewalsView title={view.title} count={view.count} rows={view.rows} />}
+          {view.kind === "partners" && <PartnersView title={view.title} count={view.count} rows={view.rows} />}
+          {view.kind === "dealflow" && <DealFlowView title={view.title} deployed={view.deployed} columns={view.columns} />}
+        </div>
+      </AppWindow>
+    </div>
+  </div>
+</section>

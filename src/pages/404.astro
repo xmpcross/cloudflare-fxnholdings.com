@@ -1,0 +1,80 @@
+---
+import CompanyMark from "@/components/app/CompanyMark.astro";
+import Pill from "@/components/app/Pill.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const fields = [
+  { label: "Status", icon: "circle-dot" },
+  { label: "Last seen", icon: "clock" },
+  { label: "Owner", icon: "user-round" },
+  { label: "Next step", icon: "arrow-right" },
+];
+---
+
+<BaseLayout title="Page not found" description="The page you were looking for does not exist or has moved." noindex>
+  <section class="shell grid min-h-[calc(100svh-var(--header-h))] content-center justify-items-center py-20 text-center sm:py-24">
+    <div class="rise relative w-full max-w-sm" aria-hidden="true">
+      <span class="absolute inset-x-8 -bottom-3 h-full rounded-2xl bg-surface ring-1 ring-line"></span>
+      <span class="absolute inset-x-4 -bottom-1.5 h-full rounded-2xl bg-surface ring-1 ring-line"></span>
+      <div class="relative rounded-2xl bg-surface p-1.5 text-left shadow-(--shadow-float) ring-1 ring-black/5">
+        <p class="flex items-center gap-2 px-2.5 pt-1.5 pb-2 text-[0.75rem] text-muted">
+          <Icon name="link-2" class="size-3.5" stroke={2} />
+          <span class="truncate font-mono" data-missing-path>/this-page/</span>
+          <Pill tone="pink" class="ml-auto">404</Pill>
+        </p>
+        <div class="rounded-xl bg-wash p-4 ring-1 ring-line">
+          <p class="flex items-center gap-3">
+            <CompanyMark icon="circle-alert" class="size-9 rounded-[28%]" />
+            <span class="leading-tight">
+              <span class="block font-semibold tracking-[-0.02em]">Page not found</span>
+              <span class="block text-[0.8125rem] text-muted">No record matches this link</span>
+            </span>
+          </p>
+          <dl class="mt-4 grid gap-px overflow-hidden rounded-lg bg-line text-[0.8125rem] ring-1 ring-line">
+            {
+              fields.map((field) => (
+                <div class="flex h-9 items-center gap-2 bg-surface px-3">
+                  <dt class="flex w-24 items-center gap-2 text-muted">
+                    <Icon name={field.icon} class="size-3.5" stroke={2} />
+                    {field.label}
+                  </dt>
+                  <dd class="flex min-w-0 items-center gap-1.5 font-medium">
+                    {field.label === "Status" && (
+                      <Pill tone="pink" dot>
+                        Missing
+                      </Pill>
+                    )}
+                    {field.label === "Last seen" && <span class="text-muted">Never</span>}
+                    {field.label === "Owner" && (
+                      <>
+                        <Avatar name="Maya Chen" class="size-5" />
+                        Maya Chen
+                      </>
+                    )}
+                    {field.label === "Next step" && <Pill tone="blue">Go back home</Pill>}
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <p class="rise mt-14 mono-label" style="--i:1">Error 404</p>
+    <h1 class="rise mt-3 text-display-lg" style="--i:1">This record doesn’t exist</h1>
+    <p class="rise mt-4 max-w-md text-lead text-muted" style="--i:2">The page may have moved, or the link was mistyped. Try the homepage, the blog or get in touch.</p>
+    <div class="rise mt-9 flex flex-wrap justify-center gap-3" style="--i:3">
+      <a href="/" class="btn btn-primary">Back home <Icon name="arrow-right" class="btn-arrow" stroke={2} /></a>
+      <a href="/insights/" class="btn btn-secondary">Read the blog</a>
+      <a href="/contact/" class="btn btn-secondary">Contact us</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const path = document.querySelector<HTMLElement>("[data-missing-path]");
+  if (path) path.textContent = window.location.pathname;
+</script>

@@ -1,0 +1,199 @@
+---
+import Pill from "@/components/app/Pill.astro";
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import type { Tone } from "@/config/site";
+import type { PartnerRow } from "@/config/solutions";
+import ViewHeader from "./ViewHeader.astro";
+
+interface Props {
+  title: string;
+  count: string;
+  rows: PartnerRow[];
+}
+
+const { title, count, rows } = Astro.props;
+
+const typeTone: Record<PartnerRow["type"], Tone> = {
+  Reseller: "blue",
+  Referral: "green",
+  Technology: "violet",
+  Agency: "orange",
+};
+const amount = (value: string) => Number(value.replace(/[^0-9]/g, ""));
+const max = Math.max(...rows.map((row) => amount(row.sourced)));
+const total = rows.reduce((sum, row) => sum + amount(row.sourced), 0);
+---
+
+<div class="partners flex min-w-0 flex-1 flex-col">
+  <ViewHeader title={title} tone="teal" count={count} views={["All partners", "Gold tier", "EMEA", "Needs a QBR"]}>
+    <span>Sourced this year <span class="font-semibold text-ink tabular">${(total / 1_000_000).toFixed(2)}M</span></span>
+  </ViewHeader>
+
+  <div class="table text-[0.8125rem]">
+    <div class="row head">
+      <span class="cell c-name">Partner</span>
+      <span class="cell c-type">Type</span>
+      <span class="cell c-tier">Tier</span>
+      <span class="cell c-manager">Manager</span>
+      <span class="cell c-sourced">Sourced pipeline</span>
+      <span class="cell c-deals justify-end">Deals</span>
+      <span class="cell c-won justify-end">Won</span>
+      <span class="cell c-activity">Last activity</span>
+    </div>
+    {
+      rows.map((row, index) => (
+        <div class:list={["row", index === 0 && "is-selected"]}>
+          <span class="cell c-name">
+            <span class="truncate font-medium">{row.name}</span>
+          </span>
+          <span class="cell c-type">
+            <Pill tone={typeTone[row.type]}>{row.type}</Pill>
+          </span>
+          <span class="cell c-tier">
+            <span class:list={["tier", `tier-${row.tier.toLowerCase()}`]}>
+              <Icon name={row.tier === "Registered" ? "badge-check" : "star"} class="size-3" stroke={2.2} />
+              {row.tier}
+            </span>
+          </span>
+          <span class="cell c-manager">
+            <Avatar name={row.manager} class="size-5" />
+            <span class="truncate">{row.manager}</span>
+          </span>
+          <span class="cell c-sourced">
+            <span class="w-[4.75rem] shrink-0 text-right font-medium tabular">{row.sourced}</span>
+            <span class="bar">
+              <span class="fill" style={`width:${Math.max((amount(row.sourced) / max) * 100, 4)}%;--d:${index * 70}ms`} />
+            </span>
+          </span>
+          <span class="cell c-deals justify-end text-muted tabular">{row.deals}</span>
+          <span class="cell c-won justify-end font-medium tabular">{row.won}</span>
+          <span class="cell c-activity text-muted">{row.activity}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .partners {
+    container-type: inline-size;
+  }
+
+  .table {
+    display: grid;
+    grid-template-columns: minmax(11rem, 1.4fr) 7rem 7rem minmax(8rem, 1fr) minmax(11rem, 1.2fr) 4rem 6rem 6.5rem;
+  }
+
+  .row {
+    display: contents;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0 0.85rem;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .cell + .cell {
+    border-left: 1px solid var(--line);
+  }
+
+  .head .cell {
+    height: 2.1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: #fbfbfc;
+  }
+
+  .is-selected .cell {
+    background: #effafb;
+  }
+
+  .tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 500;
+  }
+
+  .tier-gold :global(.icon) {
+    color: #e0a400;
+  }
+
+  .tier-silver :global(.icon) {
+    color: #9a9aa6;
+  }
+
+  .tier-registered {
+    color: var(--muted);
+  }
+
+  .bar {
+    flex: 1;
+    height: 0.375rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--sunken);
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--teal);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global([data-active]) .fill {
+      transform-origin: left;
+      animation: grow 0.9s var(--ease-out-expo) both;
+      animation-delay: calc(var(--d) + 200ms);
+    }
+  }
+
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @container (max-width: 68rem) {
+    .table {
+      grid-template-columns: minmax(10rem, 1.4fr) 7rem 7rem minmax(8rem, 1fr) minmax(11rem, 1.2fr) 6rem;
+    }
+
+    .c-deals,
+    .c-activity {
+      display: none;
+    }
+  }
+
+  @container (max-width: 52rem) {
+    .table {
+      grid-template-columns: minmax(10rem, 1.4fr) 7rem minmax(11rem, 1.2fr);
+    }
+
+    .c-tier,
+    .c-manager,
+    .c-won {
+      display: none;
+    }
+  }
+
+  @container (max-width: 34rem) {
+    .table {
+      grid-template-columns: minmax(8.5rem, 1fr) minmax(9rem, 1fr);
+    }
+
+    .c-type {
+      display: none;
+    }
+  }
+</style>

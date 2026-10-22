@@ -1,0 +1,97 @@
+---
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Logomark from "@/components/ui/Logomark.astro";
+import { workspace } from "@/config/demo";
+import type { Tone } from "@/config/site";
+import { dotTone } from "@/lib/tones";
+
+interface Props {
+  /** The label of the highlighted item. */
+  active?: string;
+}
+
+const { active = "Companies" } = Astro.props;
+
+const rail = ["home", "inbox", "check-check", "chart-line", "users", "layers"];
+const main = [
+  { label: "Home", icon: "layout-dashboard" },
+  { label: "Inbox", icon: "inbox", count: 4 },
+  { label: "Tasks", icon: "check-check", count: 9 },
+  { label: "Ask Modal", icon: "sparkles" },
+];
+const records = [
+  { label: "Companies", icon: "building-2" },
+  { label: "People", icon: "user-round" },
+  { label: "Deals", icon: "circle-dot" },
+];
+const lists: { label: string; tone: Tone }[] = [
+  { label: "Sales pipeline", tone: "orange" },
+  { label: "Renewals Q4", tone: "pink" },
+  { label: "Partners", tone: "teal" },
+  { label: "Hiring", tone: "violet" },
+];
+const item = "flex h-7 items-center gap-2.5 rounded-lg px-2 text-[0.8125rem]";
+---
+
+<div class="sidebar flex shrink-0 border-r border-line">
+  <div class="flex w-12 flex-col items-center gap-4 border-r border-line py-3 text-muted">
+    <Logomark class="size-7" />
+    <span class="mt-2 grid gap-3.5">
+      {rail.map((icon, index) => <Icon name={icon} class:list={["size-4", index === 0 && "text-ink"]} />)}
+    </span>
+    <span class="mt-auto grid gap-3.5">
+      <Icon name="life-buoy" class="size-4" />
+      <Icon name="settings" class="size-4" />
+    </span>
+  </div>
+
+  <div class="flex w-50 flex-col p-2.5">
+    <div class="flex items-center gap-2 px-2 pt-1 pb-0.5">
+      <span class="text-[0.8125rem] font-semibold">{workspace.name}</span>
+      <Icon name="chevrons-up-down" class="size-3.5 text-faint" />
+      <Icon name="layout-grid" class="ml-auto size-3.5 text-faint" />
+    </div>
+    <ul class="mt-3 grid gap-px">
+      {
+        main.map((link) => (
+          <li class:list={[item, link.label === active ? "bg-wash font-medium text-ink ring-1 ring-line" : "text-ink-soft"]}>
+            <Icon name={link.icon} class="size-3.5 text-muted" />
+            {link.label}
+            {link.count && <span class="ml-auto text-[0.6875rem] text-faint tabular">{link.count}</span>}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-4 px-2 font-mono text-[0.625rem] tracking-[0.04em] text-faint uppercase">Records</p>
+    <ul class="mt-1.5 grid gap-px">
+      {
+        records.map((link) => (
+          <li class:list={[item, link.label === active ? "bg-wash font-medium text-ink ring-1 ring-line" : "text-ink-soft"]}>
+            <Icon name={link.icon} class="size-3.5 text-muted" />
+            {link.label}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-4 px-2 font-mono text-[0.625rem] tracking-[0.04em] text-faint uppercase">Lists</p>
+    <ul class="mt-1.5 grid gap-px">
+      {
+        lists.map((link) => (
+          <li class:list={[item, link.label === active ? "bg-wash font-medium text-ink ring-1 ring-line" : "text-ink-soft"]}>
+            <span class:list={["mx-[0.2rem] size-1.5 rounded-full", dotTone[link.tone]]} />
+            {link.label}
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-auto flex items-center gap-2.5 px-1 pt-3">
+      <Avatar name="Maya Chen" class="size-7" />
+      <span class="min-w-0 leading-tight">
+        <span class="block text-[0.75rem] font-semibold">Maya Chen</span>
+        <span class="block truncate text-[0.6875rem] text-muted">maya@{workspace.name.toLowerCase()}.com</span>
+      </span>
+      <Icon name="ellipsis-vertical" class="ml-auto size-3.5 text-faint" />
+    </div>
+  </div>
+</div>

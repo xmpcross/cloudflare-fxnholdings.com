@@ -1,0 +1,63 @@
+{
+  "title": "We find the gap, build the platform, and launch it.",
+  "intro": "We build five types of platform: e-commerce stores, travel and booking sites, content and publishing sites, price comparison sites and free online tools. Starting from open-source foundations keeps our costs down, and every project is set up for the rules of the market it launches in.",
+  "steps": [
+    {
+      "title": "Explore opportunities",
+      "description": "We look for markets with steady demand and a clear gap: products, prices or information that people struggle to find in one place."
+    },
+    {
+      "title": "Build on open source",
+      "description": "We build on proven open-source frameworks and our own reusable templates, so a new platform needs less custom work and costs less to run."
+    },
+    {
+      "title": "Launch locally",
+      "description": "Each platform launches for a specific market, set up for its language, currency, privacy rules and consumer law from day one."
+    },
+    {
+      "title": "Privacy & data protection",
+      "description": "Each platform follows the privacy and data-protection law of its market, with clear policies and only the data it needs."
+    },
+    {
+      "title": "Advertising & consumer law",
+      "description": "Commercial links and sponsored content are labelled, and prices and claims meet local consumer and advertising rules."
+    },
+    {
+      "title": "Local company & tax",
+      "description": "Where a market requires it, we operate through the right local business structure and meet its tax obligations."
+    }
+  ],
+  "verticals": [
+    {
+      "title": "E-commerce",
+      "description": "Online stores, each set up with the right supplier, storefront and local trading rules for the region it sells into.",
+      "href": "/portfolio/#ecommerce",
+      "icon": "tabler:shopping-cart"
+    },
+    {
+      "title": "Travel & booking",
+      "description": "Destination guides plus flight and hotel search, with bookings handled by trusted partners.",
+      "href": "/portfolio/#travel",
+      "icon": "tabler:plane"
+    },
+    {
+      "title": "Content & publishing",
+      "description": "Editorial sites that answer real questions clearly enough for readers to come back.",
+      "href": "/portfolio/#content",
+      "icon": "tabler:news"
+    },
+    {
+      "title": "Price comparison & deals",
+      "description": "Comparison and deal platforms that pull offers from many retailers into one place, so shoppers see the best price at a glance.",
+      "href": "/portfolio/#comparison",
+      "icon": "tabler:arrows-sort"
+    },
+    {
+      "title": "Free online tools",
+      "description": "Useful tools that visitors can use for free, such as calculators, converters and checkers, with no sign-up needed.",
+      "href": "/portfolio/",
+      "icon": "tabler:tools"
+    }
+  ],
+  "faqs": []
+}

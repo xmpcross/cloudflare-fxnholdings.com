@@ -1,0 +1,244 @@
+---
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import type { RenewalRow } from "@/config/solutions";
+import ViewHeader from "./ViewHeader.astro";
+
+interface Props {
+  title: string;
+  count: string;
+  rows: RenewalRow[];
+}
+
+const { title, count, rows } = Astro.props;
+
+const sum = (items: RenewalRow[]) => items.reduce((total, row) => total + Number(row.arr.replace(/[^0-9]/g, "")), 0);
+const atRisk = rows.filter((row) => row.health < 50);
+const money = (value: number) => `$${Math.round(value / 1000)}k`;
+
+const band = (health: number) => (health >= 70 ? "good" : health >= 50 ? "fair" : "poor");
+
+/* A 64x20 sparkline of weekly users. */
+const spark = (values: number[]) => {
+  const min = Math.min(...values);
+  const range = Math.max(...values) - min || 1;
+  return values.map((value, index) => [(index / (values.length - 1)) * 60 + 2, 18 - ((value - min) / range) * 15]);
+};
+---
+
+<div class="renewals flex min-w-0 flex-1 flex-col">
+  <ViewHeader title={title} tone="pink" count={count} views={["All renewals", "At risk", "Next 30 days", "Enterprise"]}>
+    <span>Up for renewal <span class="font-semibold text-ink tabular">{money(sum(rows))}</span></span>
+    <span>At risk <span class="font-semibold text-pink-ink tabular">{money(sum(atRisk))}</span></span>
+  </ViewHeader>
+
+  <div class="table text-[0.8125rem]">
+    <div class="row head">
+      <span class="cell c-name">Account</span>
+      <span class="cell c-health">Health</span>
+      <span class="cell c-renews">Renews</span>
+      <span class="cell c-arr justify-end">ARR</span>
+      <span class="cell c-usage">Weekly users</span>
+      <span class="cell c-csm">CSM</span>
+      <span class="cell c-tickets justify-end">Tickets</span>
+      <span class="cell c-ai"><Icon name="sparkles" class="size-3.5" stroke={2} /> Signal</span>
+    </div>
+    {
+      rows.map((row, index) => {
+        const points = spark(row.usage);
+        const last = points[points.length - 1];
+        const rising = row.usage[row.usage.length - 1] >= row.usage[0];
+        return (
+          <div class="row">
+            <span class="cell c-name">
+              <span class="truncate font-medium">{row.company}</span>
+            </span>
+            <span class="cell c-health">
+              <span class:list={["score", band(row.health)]}>{row.health}</span>
+              <span class="meter">
+                <span class:list={["fill", band(row.health)]} style={`width:${row.health}%`} />
+              </span>
+            </span>
+            <span class="cell c-renews text-muted tabular">{row.renews}</span>
+            <span class="cell c-arr justify-end font-medium tabular">{row.arr}</span>
+            <span class="cell c-usage">
+              <svg viewBox="0 0 64 20" class="h-5 w-16" role="presentation">
+                <polyline points={points.map((point) => point.join(",")).join(" ")} fill="none" stroke={rising ? "var(--green)" : "var(--pink)"} stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+                <circle cx={last[0]} cy={last[1]} r="2" fill={rising ? "var(--green)" : "var(--pink)"} />
+              </svg>
+              <span class:list={["text-[0.75rem] font-medium tabular", rising ? "text-green-ink" : "text-pink-ink"]}>
+                {rising ? "+" : "−"}
+                {Math.abs(Math.round(((row.usage[row.usage.length - 1] - row.usage[0]) / row.usage[0]) * 100))}%
+              </span>
+            </span>
+            <span class="cell c-csm">
+              <Avatar name={row.csm} class="size-5" />
+              <span class="truncate">{row.csm}</span>
+            </span>
+            <span class:list={["cell c-tickets justify-end tabular", row.tickets > 3 ? "font-semibold text-pink-ink" : "text-muted"]}>{row.tickets}</span>
+            <span class="cell c-ai">
+              <span class="ai-value truncate" style={`--d:${index * 140}ms`}>
+                {row.signal}
+              </span>
+            </span>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .renewals {
+    container-type: inline-size;
+  }
+
+  .table {
+    display: grid;
+    grid-template-columns: minmax(9.5rem, 1.3fr) 7.5rem 5.5rem 6.25rem 7.5rem minmax(8rem, 1fr) 4.5rem minmax(11rem, 1.4fr);
+  }
+
+  .row {
+    display: contents;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    height: 2.5rem;
+    padding: 0 0.85rem;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .cell + .cell {
+    border-left: 1px solid var(--line);
+  }
+
+  .head .cell {
+    height: 2.1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: #fbfbfc;
+  }
+
+  .head .c-ai {
+    color: var(--violet-ink);
+  }
+
+  .score {
+    width: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .score.good {
+    color: var(--green-ink);
+  }
+
+  .score.fair {
+    color: var(--yellow-ink);
+  }
+
+  .score.poor {
+    color: var(--pink-ink);
+  }
+
+  .meter {
+    flex: 1;
+    height: 0.3rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--sunken);
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  .fill.good {
+    background: var(--green);
+  }
+
+  .fill.fair {
+    background: var(--yellow);
+  }
+
+  .fill.poor {
+    background: var(--pink);
+  }
+
+  .ai-value {
+    display: inline-block;
+    max-width: 100%;
+    border-radius: 0.35rem;
+    padding: 0 0.4rem;
+    background: var(--violet-soft);
+    color: var(--violet-ink);
+    font-weight: 500;
+    line-height: 1.35rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global([data-active]) .ai-value {
+      animation: ai-fill 0.6s var(--ease-out-expo) both;
+      animation-delay: calc(var(--d) + 500ms);
+    }
+
+    :global([data-active]) .fill {
+      transform-origin: left;
+      animation: meter 0.9s var(--ease-out-expo) 0.2s both;
+    }
+  }
+
+  @keyframes ai-fill {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateX(-4px);
+    }
+  }
+
+  @keyframes meter {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @container (max-width: 66rem) {
+    .table {
+      grid-template-columns: minmax(9.5rem, 1.3fr) 7.5rem 5.5rem 6.25rem 7.5rem minmax(8rem, 1fr) minmax(11rem, 1.4fr);
+    }
+
+    .c-tickets {
+      display: none;
+    }
+  }
+
+  @container (max-width: 54rem) {
+    .table {
+      grid-template-columns: minmax(9rem, 1.3fr) 7.5rem 5.5rem 6rem minmax(10rem, 1.4fr);
+    }
+
+    .c-usage,
+    .c-csm {
+      display: none;
+    }
+  }
+
+  @container (max-width: 36rem) {
+    .table {
+      grid-template-columns: minmax(7.5rem, 1fr) 6.5rem 6rem;
+    }
+
+    .c-renews,
+    .c-ai {
+      display: none;
+    }
+  }
+</style>

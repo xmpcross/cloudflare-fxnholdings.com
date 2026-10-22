@@ -1,22 +1,62 @@
 {
-  "name": "fxnholdings-com",
-  "private": true,
+  "name": "modal-astro-theme",
+  "description": "An Astro theme for SaaS and product sites: a grain gradient hero, product UI built in HTML and CSS, a full-width mega menu, solution pages, pricing, and a blog.",
   "type": "module",
-  "description": "Database-free static FXN Holdings website on Cloudflare Pages",
+  "version": "1.0.1",
+  "author": "Andrei Alba",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true,
+  "keywords": [
+    "astro-theme",
+    "astro",
+    "saas",
+    "crm",
+    "startup",
+    "landing-page",
+    "marketing",
+    "pricing",
+    "blog",
+    "product",
+    "mega-menu",
+    "tailwindcss"
+  ],
+  "homepage": "https://modal.xocoweb.workers.dev/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xocothemes/modal.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "build": "python3 _src/build.py",
-    "dev": "npm run build && wrangler pages dev dist",
-    "deploy": "npm run build && npm test && wrangler pages deploy dist",
-    "test": "node --test tests/*.test.mjs",
-    "check:pages": "wrangler pages functions build functions --outdir=.pages-check",
-    "verify:content": "python3 scripts/verify-content.py"
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "release:check": "npm run check && npm run build && npm run format:check",
+    "preview": "astro preview",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview:pages": "wrangler pages dev dist --ip 0.0.0.0 --port 8789"
+  },
+  "overrides": {
+    "yaml": "^2.8.3"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.128.0",
-    "@openrouter/sdk": "^1.4.25",
-    "nodemailer": "10.0.10"
+    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.1",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.11",
+    "@types/node": "^24.19.2",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5",
     "wrangler": "4.149.0"
   }
 }

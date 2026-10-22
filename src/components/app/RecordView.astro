@@ -1,0 +1,185 @@
+---
+import Avatar from "@/components/ui/Avatar.astro";
+import Icon from "@/components/ui/Icon.astro";
+import AppIcon from "@/components/ui/AppIcon.astro";
+import CompanyMark from "./CompanyMark.astro";
+import Pill from "./Pill.astro";
+
+const tabs = [
+  { label: "Activity" },
+  { label: "Emails", count: 24 },
+  { label: "Calls", count: 6 },
+  { label: "Notes", count: 3 },
+  { label: "Tasks", count: 2 },
+];
+const attributes = [
+  { label: "Domain", value: "lumenlabs.io", icon: "globe" },
+  { label: "Owner", value: "Maya Chen", icon: "user-round", avatar: true },
+  { label: "ARR", value: "$84,000", icon: "dollar-sign" },
+  { label: "Employees", value: "120", icon: "users-round" },
+  { label: "Location", value: "Amsterdam, NL", icon: "map-pin" },
+  { label: "Next step", value: "Send redlines", icon: "target" },
+];
+---
+
+<div class="record flex min-w-0 flex-1 flex-col">
+  <div class="flex h-11 items-center gap-1.5 border-b border-line px-4 text-[0.8125rem]">
+    <Icon name="building-2" class="size-3.5 text-muted" stroke={2} />
+    <span class="text-muted">Companies</span>
+    <Icon name="chevron-right" class="size-3 text-faint" />
+    <span class="font-medium">Lumen Labs</span>
+    <span class="ml-auto hidden items-center gap-1.5 sm:flex">
+      <Icon name="star" class="size-3.5 text-yellow" stroke={2} />
+      <span class="rounded-md px-2 py-1 font-medium ring-1 ring-line">Compose email</span>
+    </span>
+  </div>
+
+  <div class="flex min-h-0 flex-1">
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-3 px-5 pt-5">
+        <CompanyMark class="size-11 rounded-xl" />
+        <div class="min-w-0">
+          <p class="flex items-center gap-2 text-[1.125rem] font-semibold tracking-[-0.02em]">
+            Lumen Labs <Pill tone="yellow" dot>Negotiation</Pill>
+          </p>
+          <p class="text-[0.8125rem] text-muted">Developer tools · Series B · 120 people</p>
+        </div>
+      </div>
+
+      <!-- Tabs that don't fit wrap onto a hidden second line. -->
+      <div class="mt-4 flex h-7.5 flex-wrap gap-x-4 gap-y-4 overflow-hidden border-b border-line px-5 text-[0.8125rem]">
+        {
+          tabs.map((tab, index) => (
+            <span class:list={["flex items-center gap-1 pb-2 font-medium", index === 0 ? "text-ink shadow-[inset_0_-1.5px_0_var(--ink)]" : "text-muted"]}>
+              {tab.label}
+              {tab.count && <span class="text-faint tabular">{tab.count}</span>}
+            </span>
+          ))
+        }
+      </div>
+
+      <ol class="timeline px-5 py-4 text-[0.8125rem]">
+        <li class="event">
+          <span class="dot bg-pink-soft text-pink-ink"><Icon name="mail" class="size-3" stroke={2.2} /></span>
+          <div class="min-w-0 flex-1 rounded-lg p-2.5 ring-1 ring-line">
+            <p class="flex items-center gap-1.5">
+              <Avatar name="Ava Lindqvist" class="size-4" />
+              <span class="font-semibold">Ava Lindqvist</span>
+              <span class="text-muted">replied</span>
+              <span class="ml-auto text-[0.75rem] text-faint">2h</span>
+            </p>
+            <p class="mt-1 font-medium">Re: Security questionnaire and DPA</p>
+            <p class="truncate text-muted">Thanks Maya, legal is happy with the DPA. Can you send the redlines by Friday so we can…</p>
+          </div>
+        </li>
+        <li class="event">
+          <span class="dot bg-teal-soft text-teal-ink"><Icon name="video" class="size-3" stroke={2.2} /></span>
+          <div class="min-w-0 flex-1 rounded-lg p-2.5 ring-1 ring-line">
+            <p class="flex items-center gap-1.5">
+              <AppIcon name="googlemeet" class="size-4" bare />
+              <span class="font-semibold">Pricing review</span>
+              <span class="text-muted">· 45 min</span>
+              <span class="ml-auto flex -space-x-1">
+                <Avatar name="Maya Chen" class="size-4 ring-2 ring-surface" />
+                <Avatar name="Ava Lindqvist" class="size-4 ring-2 ring-surface" />
+                <Avatar name="Tom Reyes" class="size-4 ring-2 ring-surface" />
+              </span>
+            </p>
+            <p class="mt-1.5 flex gap-1.5 rounded-md bg-violet-soft/70 px-2 py-1.5 text-violet-ink">
+              <Icon name="sparkles" class="mt-0.5 size-3" stroke={2.2} />
+              <span>Agreed on 120 seats. Blocker: SSO on the Pro plan. Next step: redlines by Friday.</span>
+            </p>
+          </div>
+        </li>
+        <li class="event">
+          <span class="dot bg-orange-soft text-orange-ink"><Icon name="arrow-right" class="size-3" stroke={2.4} /></span>
+          <p class="flex flex-1 flex-wrap items-center gap-1.5 py-0.5">
+            <span class="actor font-semibold">Maya Chen</span>
+            <span class="actor text-muted">moved the deal</span>
+            <Pill tone="orange" dot>Proposal</Pill>
+            <Icon name="arrow-right" class="size-3 text-faint" />
+            <Pill tone="yellow" dot>Negotiation</Pill>
+            <span class="ml-auto text-[0.75rem] text-faint">1d</span>
+          </p>
+        </li>
+      </ol>
+    </div>
+
+    <aside class="attrs hidden w-[15.5rem] shrink-0 border-l border-line bg-[#fbfbfc] p-4 sm:block">
+      <p class="text-[0.75rem] font-medium text-muted">Attributes</p>
+      <dl class="mt-2 grid gap-0.5 text-[0.8125rem]">
+        {
+          attributes.map((item) => (
+            <div class="flex h-7 items-center gap-2">
+              <dt class="flex w-24 shrink-0 items-center gap-1.5 text-muted">
+                <Icon name={item.icon} class="size-3.5" />
+                {item.label}
+              </dt>
+              <dd class="flex min-w-0 items-center gap-1.5 truncate font-medium">
+                {item.avatar && <Avatar name={item.value} class="size-4" />}
+                {item.value}
+              </dd>
+            </div>
+          ))
+        }
+        <div class="flex h-7 items-center gap-2">
+          <dt class="flex w-24 shrink-0 items-center gap-1.5 text-violet-ink">
+            <Icon name="sparkles" class="size-3.5" />
+            Funding
+          </dt>
+          <dd class="truncate font-medium text-violet-ink">Series B · $42M</dd>
+        </div>
+      </dl>
+      <p class="mt-4 text-[0.75rem] font-medium text-muted">People</p>
+      <ul class="mt-2 grid gap-2 text-[0.8125rem]">
+        <li class="flex items-center gap-2"><Avatar name="Ava Lindqvist" class="size-5" /><span class="font-medium">Ava Lindqvist</span><span class="ml-auto text-[0.75rem] text-muted">CTO</span></li>
+        <li class="flex items-center gap-2"><Avatar name="Tom Reyes" class="size-5" /><span class="font-medium">Tom Reyes</span><span class="ml-auto text-[0.75rem] text-muted">Finance</span></li>
+      </ul>
+    </aside>
+  </div>
+</div>
+
+<style>
+  .record {
+    container-type: inline-size;
+  }
+
+  @container (max-width: 30rem) {
+    .actor {
+      display: none;
+    }
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .event {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .event:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 0.6875rem;
+    top: 1.6rem;
+    bottom: -0.75rem;
+    width: 1px;
+    background: var(--line-strong);
+  }
+
+  .dot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    flex: none;
+    border-radius: 999px;
+    box-shadow: 0 0 0 3px var(--surface);
+  }
+</style>
