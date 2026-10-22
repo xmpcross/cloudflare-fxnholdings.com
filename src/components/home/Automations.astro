@@ -30,17 +30,17 @@ const actions = [
     <div class="mt-12 grid gap-4 lg:mt-16 lg:grid-cols-2">
       <article class="card reveal grid overflow-hidden lg:row-span-2 lg:grid-rows-subgrid">
         <div class="stage dot-grid">
-          <div class="w-full max-w-[24rem] rounded-xl bg-surface shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
+          <div class="w-full max-w-[24rem] rounded-[8px] bg-surface shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
             <p class="flex items-center gap-2 border-b border-line px-4 py-3 text-[0.875rem] font-semibold">
-              <span class="grid size-6 place-items-center rounded-md bg-yellow-soft text-yellow-ink"><Icon name="zap" class="size-3.5" stroke={2.2} /></span>
+              <span class="grid size-6 place-items-center rounded-[8px] bg-yellow-soft text-yellow-ink"><Icon name="zap" class="size-3.5" stroke={2.2} /></span>
               New inbound, mid-market
-              <span class="ml-auto rounded-md bg-green-soft px-1.5 text-[0.6875rem] font-semibold text-green-ink">Active</span>
+              <span class="ml-auto rounded-[8px] bg-green-soft px-1.5 text-[0.6875rem] font-semibold text-green-ink">Active</span>
             </p>
             <ol class="seq px-4 py-3">
               {
                 steps.map((step) => (
                   <li class="relative flex items-center gap-3 py-2 text-[0.8125rem]">
-                    <span class:list={["relative z-10 grid size-7 place-items-center rounded-lg", softTone[step.tone]]}>
+                    <span class:list={["relative z-10 grid size-7 place-items-center rounded-[8px]", softTone[step.tone]]}>
                       <Icon name={step.icon} class="size-3.5" stroke={2.1} />
                     </span>
                     <span class="min-w-0">
@@ -65,26 +65,26 @@ const actions = [
       <article class="card reveal grid overflow-hidden lg:row-span-2 lg:grid-rows-subgrid">
         <div class="stage dot-grid">
           <div class="grid w-full max-w-[24rem] justify-items-center" aria-hidden="true">
-            <div class="w-full rounded-xl bg-ink p-3.5 text-white shadow-(--shadow-float)">
+            <div class="w-full rounded-[8px] bg-ink p-3.5 text-white shadow-(--shadow-float)">
               <p class="mono-label text-[0.625rem] text-white/50">When</p>
               <p class="mt-1.5 flex flex-wrap items-center gap-1.5 text-[0.875rem] font-medium">
                 Deal stage changes to
-                <span class="inline-flex items-center gap-1 rounded-md bg-green-soft px-1.5 text-[0.75rem] text-green-ink">
-                  <span class="size-1.5 rounded-full bg-green" /> Won
+                <span class="inline-flex items-center gap-1 rounded-[8px] bg-green-soft px-1.5 text-[0.75rem] text-green-ink">
+                  <span class="size-1.5 rounded-[8px] bg-green" /> Won
                 </span>
               </p>
             </div>
             <span class="h-5 w-px bg-line-strong"></span>
-            <div class="w-full rounded-xl bg-surface p-1.5 shadow-(--shadow-float) ring-1 ring-black/5">
+            <div class="w-full rounded-[8px] bg-surface p-1.5 shadow-(--shadow-float) ring-1 ring-black/5">
               <p class="mono-label px-2 pt-1.5 pb-1 text-[0.625rem]">Then</p>
               <ul class="grid gap-px">
                 {
                   actions.map((action) => (
-                    <li class="flex items-center gap-2.5 rounded-lg px-2 py-2 text-[0.8125rem]">
+                    <li class="flex items-center gap-2.5 rounded-[8px] px-2 py-2 text-[0.8125rem]">
                       {action.app ? (
                         <AppIcon name={action.app} class="size-7" />
                       ) : (
-                        <span class:list={["grid size-7 place-items-center rounded-[28%]", softTone[action.tone ?? "ink"]]}>
+                        <span class:list={["grid size-7 place-items-center rounded-[8px]", softTone[action.tone ?? "ink"]]}>
                           <Icon name={action.icon ?? "zap"} class="size-3.5" stroke={2.1} />
                         </span>
                       )}
@@ -92,7 +92,7 @@ const actions = [
                         <span class="block font-semibold">{action.title}</span>
                         <span class="block text-[0.75rem] text-muted">{action.detail}</span>
                       </span>
-                      <span class="ml-auto grid size-4 place-items-center rounded-full bg-green text-white">
+                      <span class="ml-auto grid size-4 place-items-center rounded-[8px] bg-green text-white">
                         <Icon name="check" class="size-2.5" stroke={3.5} />
                       </span>
                     </li>

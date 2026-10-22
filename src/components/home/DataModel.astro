@@ -49,15 +49,15 @@ const imports = [
         <div class="visual">
           <Gradient position="20% 30%" class="inset-0 -z-10" />
           <div class="relative mx-auto w-full max-w-[26rem]">
-            <div class="rounded-xl bg-surface p-1.5 shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
+            <div class="rounded-[8px] bg-surface p-1.5 shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
               <p class="flex items-center justify-between px-2.5 pt-1.5 pb-2 text-[0.75rem] font-medium text-muted">
                 Objects <Icon name="plus" class="size-3.5" />
               </p>
               <ul class="grid gap-px">
                 {
                   objects.map((object) => (
-                    <li class:list={["flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[0.875rem]", object.name === "Investors" && "bg-violet-soft/60"]}>
-                      <span class:list={["grid size-6 place-items-center rounded-md", softTone[object.tone]]}>
+                    <li class:list={["flex items-center gap-2.5 rounded-[8px] px-2.5 py-1.5 text-[0.875rem]", object.name === "Investors" && "bg-violet-soft/60"]}>
+                      <span class:list={["grid size-6 place-items-center rounded-[8px]", softTone[object.tone]]}>
                         <Icon name={object.icon} class="size-3.5" stroke={2.1} />
                       </span>
                       <span class="font-medium">{object.name}</span>
@@ -68,14 +68,14 @@ const imports = [
                 }
               </ul>
             </div>
-            <div class="absolute -right-2 -bottom-6 w-52 rounded-xl bg-surface p-3 shadow-(--shadow-float) ring-1 ring-black/5 sm:-right-10" aria-hidden="true">
+            <div class="absolute -right-2 -bottom-6 w-52 rounded-[8px] bg-surface p-3 shadow-(--shadow-float) ring-1 ring-black/5 sm:-right-10" aria-hidden="true">
               <p class="text-[0.75rem] font-medium text-muted">New object</p>
-              <p class="mt-1.5 flex h-8 items-center rounded-lg px-2.5 text-[0.875rem] font-medium shadow-[0_0_0_1px_var(--blue),0_0_0_3px_var(--blue-soft)]">
+              <p class="mt-1.5 flex h-8 items-center rounded-[8px] px-2.5 text-[0.875rem] font-medium shadow-[0_0_0_1px_var(--blue),0_0_0_3px_var(--blue-soft)]">
                 Workspaces<span class="caret" />
               </p>
               <p class="mt-2.5 flex items-center gap-1.5">
                 {["bg-blue", "bg-violet", "bg-orange", "bg-green", "bg-pink", "bg-yellow"].map((color, index) => (
-                  <span class:list={["size-4 rounded-full", color, index === 4 && "ring-2 ring-pink ring-offset-2"]} />
+                  <span class:list={["size-4 rounded-[8px]", color, index === 4 && "ring-2 ring-pink ring-offset-2"]} />
                 ))}
               </p>
             </div>
@@ -89,8 +89,8 @@ const imports = [
           <ul class="flex max-w-[22rem] flex-wrap justify-center gap-2" aria-hidden="true">
             {
               fields.map((field, index) => (
-                <li class="field flex items-center gap-1.5 rounded-lg bg-surface py-1 pr-2.5 pl-1 text-[0.8125rem] font-medium shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--i:${index}`}>
-                  <span class:list={["grid size-5 place-items-center rounded-md", softTone[field.tone]]}>
+                <li class="field flex items-center gap-1.5 rounded-[8px] bg-surface py-1 pr-2.5 pl-1 text-[0.8125rem] font-medium shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--i:${index}`}>
+                  <span class:list={["grid size-5 place-items-center rounded-[8px]", softTone[field.tone]]}>
                     <Icon name={field.icon} class="size-3" stroke={2.2} />
                   </span>
                   {field.name}
@@ -116,7 +116,7 @@ const imports = [
             </span>
             <span class="node top-[18%] left-[20%] -translate-1/2"><Avatar name="Ava Lindqvist" class="size-5" /> Ava</span>
             <span class="node top-[82%] left-[20%] -translate-1/2"><Avatar name="Tom Reyes" class="size-5" /> Tom</span>
-            <span class="node top-[18%] left-[80%] -translate-1/2"><span class="size-2 rounded-full bg-orange" /> $84k deal</span>
+            <span class="node top-[18%] left-[80%] -translate-1/2"><span class="size-2 rounded-[8px] bg-orange" /> $84k deal</span>
             <span class="node top-[82%] left-[80%] -translate-1/2"><Icon name="handshake" class="size-3.5 text-muted" /> Partner</span>
           </div>
         </div>
@@ -126,11 +126,11 @@ const imports = [
       <article class="bento reveal lg:col-span-7">
         <div class="visual">
           <Gradient position="75% 60%" class="inset-0 -z-10" />
-          <div class="w-full max-w-[26rem] rounded-xl bg-surface p-4 shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
+          <div class="w-full max-w-[26rem] rounded-[8px] bg-surface p-4 shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
             <p class="flex items-center gap-2 text-[0.875rem] font-semibold">
               <AppIcon name="salesforce" class="size-7" />
               <Icon name="arrow-right" class="size-3.5 text-faint" />
-              <span class="grid size-7 place-items-center rounded-[28%] bg-ink text-white"><Icon name="import" class="size-3.5" stroke={2} /></span>
+              <span class="grid size-7 place-items-center rounded-[8px] bg-ink text-white"><Icon name="import" class="size-3.5" stroke={2} /></span>
               Importing from Salesforce
               <span class="ml-auto text-[0.75rem] font-medium text-muted tabular">2 min left</span>
             </p>
@@ -140,17 +140,17 @@ const imports = [
                   <li>
                     <span class="flex items-center gap-2">
                       {item.done === 100 ? (
-                        <span class="grid size-4 place-items-center rounded-full bg-green text-white">
+                        <span class="grid size-4 place-items-center rounded-[8px] bg-green text-white">
                           <Icon name="check" class="size-2.5" stroke={3.5} />
                         </span>
                       ) : (
-                        <span class="spinner size-4 rounded-full" />
+                        <span class="spinner size-4 rounded-[8px]" />
                       )}
                       <span class="font-medium">{item.label}</span>
                       <span class="ml-auto text-muted tabular">{item.value}</span>
                     </span>
-                    <span class="mt-1.5 block h-1 overflow-hidden rounded-full bg-sunken">
-                      <span class:list={["block h-full rounded-full", item.done === 100 ? "bg-green" : "bg-blue"]} style={`width:${item.done}%`} />
+                    <span class="mt-1.5 block h-1 overflow-hidden rounded-[8px] bg-sunken">
+                      <span class:list={["block h-full rounded-[8px]", item.done === 100 ? "bg-green" : "bg-blue"]} style={`width:${item.done}%`} />
                     </span>
                   </li>
                 ))
@@ -169,7 +169,7 @@ const imports = [
     display: grid;
     grid-template-rows: auto 1fr;
     overflow: hidden;
-    border-radius: var(--radius-card);
+    border-radius: 8px;
     background: var(--surface);
     box-shadow: inset 0 0 0 1px var(--line);
   }
@@ -210,7 +210,7 @@ const imports = [
     align-items: center;
     gap: 0.4rem;
     white-space: nowrap;
-    border-radius: 0.6rem;
+    border-radius: 8px;
     background: var(--surface);
     padding: 0.3rem 0.6rem 0.3rem 0.35rem;
     font-size: 0.8125rem;

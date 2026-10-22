@@ -9,7 +9,7 @@ const posts = await getPosts();
 <BaseLayout title="Search" description="Search every post on the blog." noindex>
   <section class="shell pt-12 pb-24 lg:pt-20 lg:pb-32">
     <h1 class="text-display-lg">Search the blog</h1>
-    <form class="mt-10 flex max-w-2xl items-center gap-3 rounded-xl bg-surface px-5 shadow-[inset_0_0_0_1px_var(--line-strong)] focus-within:shadow-[inset_0_0_0_1.5px_var(--ink),0_0_0_4px_var(--blue-soft)]" role="search" action="/insights/search/" data-search-page>
+    <form class="mt-10 flex max-w-2xl items-center gap-3 rounded-[8px] bg-surface px-5 shadow-[inset_0_0_0_1px_var(--line-strong)] focus-within:shadow-[inset_0_0_0_1.5px_var(--ink),0_0_0_4px_var(--blue-soft)]" role="search" action="/insights/search/" data-search-page>
       <Icon name="search" class="size-4 text-muted" />
       <label for="search-page-input" class="sr-only">Search posts</label>
       <input

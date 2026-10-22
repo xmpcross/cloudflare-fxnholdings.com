@@ -26,7 +26,7 @@ const { storyEyebrow, storiesLink } = solutionCopy;
       </a>
     </div>
 
-    <figure class="reveal mt-12 grid overflow-hidden rounded-[1.25rem] bg-wash ring-1 ring-line lg:mt-14 lg:grid-cols-12">
+    <figure class="reveal mt-12 grid overflow-hidden rounded-[8px] bg-wash ring-1 ring-line lg:mt-14 lg:grid-cols-12">
       <div class="flex flex-col p-7 sm:p-10 lg:col-span-8 lg:p-12">
         <CompanyLogo name={story.company} class="text-lg" />
         <blockquote class="mt-8 text-[clamp(1.4rem,1.1rem+1vw,2.15rem)] leading-[1.2] font-medium tracking-[-0.035em]">
@@ -34,7 +34,7 @@ const { storyEyebrow, storiesLink } = solutionCopy;
         </blockquote>
         <figcaption class="mt-auto flex flex-wrap items-end justify-between gap-6 pt-10">
           <span class="flex items-center gap-3">
-            <Image src={story.photo} alt="" widths={[96, 144]} sizes="3rem" class="size-12 rounded-full object-cover object-top lg:hidden" />
+            <Image src={story.photo} alt="" widths={[96, 144]} sizes="3rem" class="size-12 rounded-[8px] object-cover object-top lg:hidden" />
             <span>
               <span class="block font-semibold">{story.name}</span>
               <span class="block text-muted">{story.role}, {story.company}</span>

@@ -4,7 +4,7 @@ import Icon from "@/components/ui/Icon.astro";
 
 <dialog class="search-dialog m-0 w-full max-w-none bg-transparent p-0 backdrop:bg-ink/40" aria-label="Search the blog" data-search-dialog>
   <div class="shell pt-[12vh]">
-    <div class="mx-auto max-w-2xl overflow-hidden rounded-[1.125rem] bg-surface shadow-[0_0_0_1px_rgb(12_12_14/0.06),0_30px_80px_-20px_rgb(0_0_0/0.35)]">
+    <div class="mx-auto max-w-2xl overflow-hidden rounded-[8px] bg-surface shadow-[0_0_0_1px_rgb(12_12_14/0.06),0_30px_80px_-20px_rgb(0_0_0/0.35)]">
       <form class="flex items-center gap-3 pr-2 pl-4" role="search" action="/insights/search/" data-search-form>
         <Icon name="search" class="size-4 text-muted" />
         <label for="site-search" class="sr-only">Search posts</label>
@@ -21,7 +21,7 @@ import Icon from "@/components/ui/Icon.astro";
         />
         <button
           type="button"
-          class="grid size-9 place-items-center rounded-lg text-muted transition-colors hover:bg-sunken hover:text-ink"
+          class="grid size-9 place-items-center rounded-[8px] text-muted transition-colors hover:bg-sunken hover:text-ink"
           aria-label="Close search"
           title="Close (Esc)"
           data-search-close
@@ -114,7 +114,7 @@ import Icon from "@/components/ui/Icon.astro";
       : `No posts match “${query}”.`;
     list.innerHTML = results
       .map(
-        (item) => `<li><a href="${item.href}" class="block rounded-lg px-3 py-2">
+        (item) => `<li><a href="${item.href}" class="block rounded-[8px] px-3 py-2">
           <span class="result-title block truncate text-[0.95rem] font-medium">${escapeHtml(item.title)}</span>
           <span class="meta mt-0.5 block truncate text-xs!">${escapeHtml(item.topic)} · ${escapeHtml(item.date)} · ${escapeHtml(item.author)}</span>
         </a></li>`,

@@ -30,12 +30,12 @@ const team = [
     <div class="split grid lg:grid-cols-2">
       <div class="cell">
         <div class="visual">
-          <div class="w-full max-w-[30rem] overflow-hidden rounded-xl bg-surface shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
+          <div class="w-full max-w-[30rem] overflow-hidden rounded-[8px] bg-surface shadow-(--shadow-float) ring-1 ring-black/5" aria-hidden="true">
             <p class="flex items-center gap-2 border-b border-line px-4 py-2.5 text-[0.8125rem] font-semibold">
               <AppIcon name="gmail" class="size-4" bare />
               Inbox
               <span class="ml-auto inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-green-ink">
-                <span class="pulse size-1.5 rounded-full bg-green" /> Syncing
+                <span class="pulse size-1.5 rounded-[8px] bg-green" /> Syncing
               </span>
             </p>
             <ul class="divide-y divide-line">
@@ -52,7 +52,7 @@ const team = [
                     </span>
                     <span class="chip">
                       {email.isNew && (
-                        <span class="grid size-4 place-items-center rounded-[28%] bg-green-soft text-green-ink">
+                        <span class="grid size-4 place-items-center rounded-[8px] bg-green-soft text-green-ink">
                           <Icon name="plus" class="size-2.5" stroke={3} />
                         </span>
                       )}
@@ -70,7 +70,7 @@ const team = [
       <div class="cell">
         <div class="visual">
           <div class="grid w-full max-w-[22rem] gap-3" aria-hidden="true">
-            <div class="rounded-xl bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
+            <div class="rounded-[8px] bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
               <p class="flex items-center gap-2 text-[0.75rem] font-medium text-muted">
                 <AppIcon name="googlecalendar" class="size-4" bare /> Tue, Oct 14 · 10:30
               </p>
@@ -84,7 +84,7 @@ const team = [
                 </span>
               </p>
             </div>
-            <div class="rounded-xl bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
+            <div class="rounded-[8px] bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5">
               <p class="flex items-center gap-2 text-[0.8125rem] font-semibold">
                 <Avatar name="Ava Lindqvist" class="size-5" />
                 Who knows Ava best?
@@ -98,7 +98,7 @@ const team = [
                       <span class="text-[0.75rem] text-faint">{person.note}</span>
                       <span class="ml-auto flex items-end gap-0.5">
                         {[1, 2, 3, 4].map((bar) => (
-                          <span class:list={["w-[3px] rounded-[1px]", bar <= person.strength ? (person.strength > 2 ? "bg-green" : person.strength > 1 ? "bg-yellow" : "bg-orange") : "bg-line-strong"]} style={`height:${bar * 3 + 2}px`} />
+                          <span class:list={["w-[3px] rounded-[8px]", bar <= person.strength ? (person.strength > 2 ? "bg-green" : person.strength > 1 ? "bg-yellow" : "bg-orange") : "bg-line-strong"]} style={`height:${bar * 3 + 2}px`} />
                         ))}
                       </span>
                     </li>
@@ -116,7 +116,7 @@ const team = [
       {
         points.map((point) => (
           <li class="reveal px-(--gutter) py-8 sm:px-8">
-            <span class="grid size-8 place-items-center rounded-lg bg-pink-soft text-pink-ink">
+            <span class="grid size-8 place-items-center rounded-[8px] bg-pink-soft text-pink-ink">
               <Icon name={point.icon} class="size-4" stroke={2} />
             </span>
             <h3 class="mt-4 text-[1.0625rem] font-semibold tracking-[-0.02em]">{point.title}</h3>
@@ -192,7 +192,7 @@ const team = [
     flex: none;
     align-items: center;
     gap: 0.35rem;
-    border-radius: 0.45rem;
+    border-radius: 8px;
     padding: 0.15rem 0.45rem 0.15rem 0.25rem;
     font-size: 0.75rem;
     font-weight: 500;

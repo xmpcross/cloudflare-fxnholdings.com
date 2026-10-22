@@ -36,7 +36,7 @@ const used = members.filter((member) => member.seat).length;
           { label: "Objects", icon: "database" },
           { label: "Security", icon: "shield-check" },
         ].map((item) => (
-          <span class:list={["flex items-center gap-2 rounded-md px-2 py-1.5 font-medium", item.active ? "bg-sunken text-ink" : "text-ink-soft"]}>
+          <span class:list={["flex items-center gap-2 rounded-[8px] px-2 py-1.5 font-medium", item.active ? "bg-sunken text-ink" : "text-ink-soft"]}>
             <Icon name={item.icon} class="size-3.5 text-muted" stroke={2} />
             {item.label}
           </span>
@@ -48,7 +48,7 @@ const used = members.filter((member) => member.seat).length;
       <div class="flex h-11 items-center gap-2 border-b border-line px-4">
         <span class="font-semibold tracking-[-0.01em]">Members</span>
         <span class="text-faint tabular">{members.length}</span>
-        <span class="ml-auto inline-flex h-7 items-center gap-1.5 rounded-md bg-ink px-2.5 font-medium text-white">
+        <span class="ml-auto inline-flex h-7 items-center gap-1.5 rounded-[8px] bg-ink px-2.5 font-medium text-white">
           <Icon name="plus" class="size-3.5" stroke={2.25} /> Invite
         </span>
       </div>
@@ -60,7 +60,7 @@ const used = members.filter((member) => member.seat).length;
             <Pill tone="violet">Yearly</Pill>
           </p>
           <p class="mt-2 flex items-center gap-2 text-muted">
-            <span class="flex h-1.5 w-40 overflow-hidden rounded-full bg-sunken">
+            <span class="flex h-1.5 w-40 overflow-hidden rounded-[8px] bg-sunken">
               <span class="bg-violet" style={`width:${(used / 6) * 100}%`}></span>
             </span>
             <span class="tabular">{used} of 6 seats used</span>
@@ -96,7 +96,7 @@ const used = members.filter((member) => member.seat).length;
               </span>
               <span class="cell c-seat">
                 {member.seat ? (
-                  <span class="grid size-4 place-items-center rounded-full bg-ink text-white">
+                  <span class="grid size-4 place-items-center rounded-[8px] bg-ink text-white">
                     <Icon name="check" class="size-2.5" stroke={3.5} />
                   </span>
                 ) : (

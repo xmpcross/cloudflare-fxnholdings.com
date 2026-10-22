@@ -18,17 +18,17 @@ const { names } = Astro.props;
     names.map((name, i) => {
       const author = authorOf(name);
       return (
-        <div class="flex items-start gap-4 rounded-[1.125rem] bg-wash p-5 sm:p-6">
+        <div class="flex items-start gap-4 rounded-[8px] bg-wash p-5 sm:p-6">
           {author?.photo ? (
             <Image
               src={author.photo}
               alt={`Portrait of ${name}`}
               widths={[136, 204]}
               sizes="4.25rem"
-              class="size-17 shrink-0 rounded-xl object-cover object-top"
+              class="size-17 shrink-0 rounded-[8px] object-cover object-top"
             />
           ) : author?.initials ? (
-            <span class="grid size-14 shrink-0 place-items-center rounded-xl bg-blue-soft text-lg font-semibold text-blue-ink" aria-hidden="true">{author.initials}</span>
+            <span class="grid size-14 shrink-0 place-items-center rounded-[8px] bg-blue-soft text-lg font-semibold text-blue-ink" aria-hidden="true">{author.initials}</span>
           ) : (
             <Logomark class="size-17" />
           )}

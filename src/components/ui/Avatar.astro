@@ -24,9 +24,9 @@ const initials = name
 
 {
   photo ? (
-    <Image src={photo} alt="" widths={[48, 96]} sizes="1.5rem" class:list={["avatar shrink-0 rounded-full object-cover object-top", className]} />
+    <Image src={photo} alt="" widths={[48, 96]} sizes="1.5rem" class:list={["avatar shrink-0 rounded-[8px] object-cover object-top", className]} />
   ) : (
-    <span class:list={["avatar grid shrink-0 place-items-center rounded-full font-semibold [container-type:size]", softTone[person?.tone ?? "ink"], className]} aria-hidden="true">
+    <span class:list={["avatar grid shrink-0 place-items-center rounded-[8px] font-semibold [container-type:size]", softTone[person?.tone ?? "ink"], className]} aria-hidden="true">
       <span class="text-[42cqw] leading-none tracking-[-0.02em]">{initials}</span>
     </span>
   )

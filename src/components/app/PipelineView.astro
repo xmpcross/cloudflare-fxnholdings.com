@@ -14,9 +14,9 @@ const columns = stages.map((stage) => {
 
 <div class="pipeline flex min-w-0 flex-1 flex-col">
   <div class="flex h-11 items-center gap-2 border-b border-line px-4">
-    <span class="size-2.5 rounded-[3px] bg-orange"></span>
+    <span class="size-2.5 rounded-[8px] bg-orange"></span>
     <span class="text-[0.875rem] font-semibold tracking-[-0.01em]">Sales pipeline</span>
-    <span class="rounded-md bg-sunken px-1.5 text-[0.75rem] font-medium text-muted">Board</span>
+    <span class="rounded-[8px] bg-sunken px-1.5 text-[0.75rem] font-medium text-muted">Board</span>
     <span class="ml-auto hidden items-center gap-3 text-[0.8125rem] text-muted sm:flex">
       <span>Weighted <span class="font-semibold text-ink tabular">$214,800</span></span>
       <span class="flex -space-x-1.5">
@@ -29,16 +29,16 @@ const columns = stages.map((stage) => {
   <div class="board flex gap-2.5 overflow-hidden bg-[#fafafb] p-3">
     {
       columns.map((column, c) => (
-        <div class="column flex w-[13.25rem] shrink-0 flex-col gap-2 rounded-xl bg-sunken/60 p-1.5">
+        <div class="column flex w-[13.25rem] shrink-0 flex-col gap-2 rounded-[8px] bg-sunken/60 p-1.5">
           <div class="flex items-center gap-1.5 px-1.5 pt-1 text-[0.8125rem] font-semibold">
-            <span class:list={["size-2 rounded-full", dotTone[column.tone]]} />
+            <span class:list={["size-2 rounded-[8px]", dotTone[column.tone]]} />
             {column.name}
             <span class="font-normal text-faint tabular">{column.items.length}</span>
             <span class="ml-auto text-[0.75rem] font-medium text-muted tabular">{column.total}</span>
           </div>
           {column.items.map((deal, d) => {
             return (
-              <div class="deal rounded-lg bg-surface p-2.5 shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--d:${c * 90 + d * 60}ms`}>
+              <div class="deal rounded-[8px] bg-surface p-2.5 shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--d:${c * 90 + d * 60}ms`}>
                 <span class="block truncate text-[0.8125rem] font-semibold">{deal.company}</span>
                 <p class="mt-1 truncate text-[0.75rem] text-muted">{deal.title}</p>
                 <div class="mt-2 flex items-center gap-1.5">

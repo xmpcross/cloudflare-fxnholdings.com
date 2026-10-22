@@ -27,7 +27,7 @@ const { record, ask } = how;
       {
         how.steps.map((step, index) => (
           <li class="reveal flex gap-4 px-(--gutter) py-8 sm:px-8 lg:flex-1">
-            <span class:list={["grid size-9 shrink-0 place-items-center rounded-lg", softTone[tone]]}>
+            <span class:list={["grid size-9 shrink-0 place-items-center rounded-[8px]", softTone[tone]]}>
               <Icon name={step.icon} class="size-4" stroke={2} />
             </span>
             <span>
@@ -42,7 +42,7 @@ const { record, ask } = how;
 
     <div class="visual reveal lg:col-span-7" aria-hidden="true">
       <div class="w-full max-w-[25rem] sm:-translate-x-6">
-        <div class="overflow-hidden rounded-xl bg-surface shadow-(--shadow-float) ring-1 ring-black/5">
+        <div class="overflow-hidden rounded-[8px] bg-surface shadow-(--shadow-float) ring-1 ring-black/5">
           <p class="flex items-center gap-1.5 border-b border-line px-4 py-2.5 text-[0.75rem]">
             <span class="text-muted">{record.object}</span>
             <Icon name="chevron-right" class="size-3 text-faint" />
@@ -85,19 +85,19 @@ const { record, ask } = how;
           </dl>
         </div>
 
-        <div class="relative -mt-3 ml-auto w-[min(100%,20rem)] rounded-xl bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5 sm:translate-x-16">
+        <div class="relative -mt-3 ml-auto w-[min(100%,20rem)] rounded-[8px] bg-surface p-3.5 shadow-(--shadow-float) ring-1 ring-black/5 sm:translate-x-16">
           <p class="flex items-center gap-1.5 text-[0.75rem] font-semibold text-violet-ink">
-            <span class="grid size-5 place-items-center rounded-md bg-violet-soft">
+            <span class="grid size-5 place-items-center rounded-[8px] bg-violet-soft">
               <Icon name="sparkles" class="size-3" stroke={2.2} />
             </span>
             Ask Modal
           </p>
-          <p class="mt-2.5 rounded-lg bg-sunken px-2.5 py-1.5 text-[0.8125rem] font-medium">{ask.question}</p>
+          <p class="mt-2.5 rounded-[8px] bg-sunken px-2.5 py-1.5 text-[0.8125rem] font-medium">{ask.question}</p>
           <p class="mt-2 text-[0.8125rem] leading-snug text-ink-soft">{ask.answer}</p>
           <p class="mt-2.5 flex flex-wrap gap-1.5">
             {
               ask.sources.map((source) => (
-                <span class="inline-flex items-center gap-1 rounded-md px-1.5 text-[0.6875rem] leading-5 font-medium text-muted ring-1 ring-line">
+                <span class="inline-flex items-center gap-1 rounded-[8px] px-1.5 text-[0.6875rem] leading-5 font-medium text-muted ring-1 ring-line">
                   <Icon name="circle-check" class="size-3 text-green" stroke={2.2} />
                   {source}
                 </span>

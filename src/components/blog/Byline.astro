@@ -19,7 +19,7 @@ const role = names.length === 1 ? authorOf(names[0])?.role : undefined;
         const photo = author?.photo;
         return (
           <span
-            class:list={["byline-avatar relative size-10 overflow-hidden rounded-full", i > 0 && "-ml-3"]}
+            class:list={["byline-avatar relative size-10 overflow-hidden rounded-[8px]", i > 0 && "-ml-3"]}
             style={`z-index:${names.length - i}`}
           >
             {photo ? (

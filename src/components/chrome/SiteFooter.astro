@@ -50,12 +50,12 @@ const year = new Date().getFullYear();
         status.label &&
           (status.href ? (
             <a href={status.href} class="inline-flex items-center gap-2 hover:text-ink">
-              <span class="size-2 rounded-full bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
+              <span class="size-2 rounded-[8px] bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
               {status.label}
             </a>
           ) : (
             <p class="inline-flex items-center gap-2">
-              <span class="size-2 rounded-full bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
+              <span class="size-2 rounded-[8px] bg-green shadow-[0_0_0_3px_var(--green-soft)]" aria-hidden="true" />
               {status.label}
             </p>
           ))
@@ -64,7 +64,7 @@ const year = new Date().getFullYear();
         {
           siteConfig.socials.map((social) => (
             <li>
-              <a href={social.href} class="grid size-9 place-items-center rounded-lg transition-colors hover:bg-surface hover:text-ink" aria-label={social.label}>
+              <a href={social.href} class="grid size-9 place-items-center rounded-[8px] transition-colors hover:bg-surface hover:text-ink" aria-label={social.label}>
                 <Icon name={socialIcon(social.label)} class="size-4" />
               </a>
             </li>

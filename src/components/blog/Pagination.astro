@@ -13,14 +13,14 @@ const href = (page: number) => (page === 1 ? base : `${base}${page}/`);
 {
   last > 1 && (
     <nav aria-label="Pagination" class="mt-20 flex justify-center">
-      <ol class="flex gap-1 rounded-xl bg-surface p-1 text-sm font-medium shadow-[inset_0_0_0_1px_var(--line)] tabular">
+      <ol class="flex gap-1 rounded-[8px] bg-surface p-1 text-sm font-medium shadow-[inset_0_0_0_1px_var(--line)] tabular">
         {Array.from({ length: last }, (_, i) => i + 1).map((page) => (
           <li>
             <a
               href={href(page)}
               aria-current={page === current ? "page" : undefined}
               aria-label={`Page ${page}`}
-              class:list={["grid size-10 place-items-center rounded-lg", page === current ? "bg-ink text-white" : "hover:bg-wash"]}
+              class:list={["grid size-10 place-items-center rounded-[8px]", page === current ? "bg-ink text-white" : "hover:bg-wash"]}
             >
               {page}
             </a>

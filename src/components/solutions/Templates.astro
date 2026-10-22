@@ -27,7 +27,7 @@ const { tone, title, accent, items } = Astro.props;
           <div class="preview" aria-hidden="true">
             <div class="mini">
               <p class="flex items-center gap-2 border-b border-line px-3 py-2">
-                <span class:list={["grid size-5 shrink-0 place-items-center rounded-md", softTone[item.tone]]}>
+                <span class:list={["grid size-5 shrink-0 place-items-center rounded-[8px]", softTone[item.tone]]}>
                   <Icon name={item.icon} class="size-3" stroke={2.2} />
                 </span>
                 <span class="truncate text-[0.8125rem] font-semibold">{item.title}</span>
@@ -71,7 +71,7 @@ const { tone, title, accent, items } = Astro.props;
     place-items: center;
     min-height: 8rem;
     padding: 1rem;
-    border-radius: 0.875rem;
+    border-radius: 8px;
     background-color: var(--wash);
     background-image: radial-gradient(circle at 1px 1px, rgb(12 12 14 / 0.08) 1px, transparent 0);
     background-size: 14px 14px;
@@ -88,7 +88,7 @@ const { tone, title, accent, items } = Astro.props;
     width: 100%;
     max-width: 19rem;
     overflow: hidden;
-    border-radius: 0.75rem;
+    border-radius: 8px;
     background: var(--surface);
     box-shadow:
       0 0 0 1px rgb(12 12 14 / 0.05),
@@ -99,7 +99,7 @@ const { tone, title, accent, items } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    border-radius: 0.4rem;
+    border-radius: 8px;
     padding: 0.1rem 0.45rem 0.1rem 0.35rem;
     font-size: 0.75rem;
     font-weight: 500;

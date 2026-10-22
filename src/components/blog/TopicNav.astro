@@ -24,11 +24,11 @@ const links = [
             href={link.href}
             aria-current={link.active ? "page" : undefined}
             class:list={[
-              "topic-link flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[0.9375rem] font-medium whitespace-nowrap transition-colors",
+              "topic-link flex items-center gap-2 rounded-[8px] px-3.5 py-1.5 text-[0.9375rem] font-medium whitespace-nowrap transition-colors",
               link.active ? "bg-ink text-white" : "bg-wash text-ink-soft hover:bg-sunken hover:text-ink",
             ]}
           >
-            {link.dot && <span class:list={["size-1.5 rounded-full", link.dot]} />}
+            {link.dot && <span class:list={["size-1.5 rounded-[8px]", link.dot]} />}
             {link.label}
           </a>
         </li>

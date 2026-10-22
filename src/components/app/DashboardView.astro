@@ -52,10 +52,10 @@ const deals = [
       <p class="mt-0.5 text-[0.75rem] text-muted">Keep track of your pipeline and revenue</p>
     </div>
     <span class="ml-auto hidden text-[0.75rem] font-medium sm:inline">Invite team</span>
-    <span class="shrink-0 rounded-lg bg-ink px-3 py-1.5 text-[0.75rem] font-medium whitespace-nowrap text-white">New deal</span>
+    <span class="shrink-0 rounded-[8px] bg-ink px-3 py-1.5 text-[0.75rem] font-medium whitespace-nowrap text-white">New deal</span>
   </div>
 
-  <dl class="kpis mx-5 mt-4 grid shrink-0 grid-cols-2 overflow-hidden rounded-xl ring-1 ring-line">
+  <dl class="kpis mx-5 mt-4 grid shrink-0 grid-cols-2 overflow-hidden rounded-[8px] ring-1 ring-line">
     {
       kpis.map((kpi) => (
         <div class="kpi">
@@ -84,11 +84,11 @@ const deals = [
         </p>
       </div>
       <ul class="flex gap-4 pb-1 text-[0.6875rem] text-ink-soft">
-        <li class="flex items-center gap-1.5"><span class="size-2 rounded-[2px] bg-green"></span>Created</li>
-        <li class="flex items-center gap-1.5"><span class="size-2 rounded-[2px] bg-orange"></span>Closed won</li>
+        <li class="flex items-center gap-1.5"><span class="size-2 rounded-[8px] bg-green"></span>Created</li>
+        <li class="flex items-center gap-1.5"><span class="size-2 rounded-[8px] bg-orange"></span>Closed won</li>
       </ul>
-      <span class="ml-auto hidden gap-0.5 rounded-lg bg-wash p-0.5 text-[0.6875rem] font-medium text-muted ring-1 ring-line sm:flex">
-        <span class="rounded-md bg-surface px-2 py-0.5 text-ink shadow-[0_1px_2px_rgb(12_12_14/0.08)]">Year</span>
+      <span class="ml-auto hidden gap-0.5 rounded-[8px] bg-wash p-0.5 text-[0.6875rem] font-medium text-muted ring-1 ring-line sm:flex">
+        <span class="rounded-[8px] bg-surface px-2 py-0.5 text-ink shadow-[0_1px_2px_rgb(12_12_14/0.08)]">Year</span>
         <span class="px-2 py-0.5">Month</span>
         <span class="px-2 py-0.5">Week</span>
         <span class="px-2 py-0.5">Day</span>
@@ -119,7 +119,7 @@ const deals = [
             return <span class="marker" style={`left:${(x / width) * 100}%;top:${(y / height) * 100}%`} />;
           })
         }
-        <div class="tip absolute top-1 rounded-lg bg-surface/90 px-2.5 py-1.5 shadow-(--shadow-float) ring-1 ring-black/5 backdrop-blur-sm" style={`--x:${(focusX / width) * 100}%`}>
+        <div class="tip absolute top-1 rounded-[8px] bg-surface/90 px-2.5 py-1.5 shadow-(--shadow-float) ring-1 ring-black/5 backdrop-blur-sm" style={`--x:${(focusX / width) * 100}%`}>
           <p class="flex items-baseline gap-1.5 whitespace-nowrap">
             <span class="text-[0.9375rem] font-semibold tracking-[-0.02em] tabular">$ 146.8K</span>
             <span class="text-[0.625rem] text-green-ink tabular">+14%</span>
@@ -142,12 +142,12 @@ const deals = [
     <ul class="deal-grid mt-2.5 grid gap-3">
       {
         deals.map((deal, index) => (
-          <li class="deal rounded-xl bg-wash p-1 ring-1 ring-line" style={`--d:${index * 80}ms`}>
+          <li class="deal rounded-[8px] bg-wash p-1 ring-1 ring-line" style={`--d:${index * 80}ms`}>
             <p class="flex items-center justify-between px-2 py-1 text-[0.6875rem] text-ink-soft">
               {deal.stage}
               <Icon name="ellipsis-vertical" class="size-3.5 text-faint" />
             </p>
-            <div class="rounded-lg bg-surface p-2.5 ring-1 ring-line">
+            <div class="rounded-[8px] bg-surface p-2.5 ring-1 ring-line">
               <p class="flex items-center gap-2">
                 <Avatar name={deal.person} class="size-7" />
                 <span class="leading-tight">
@@ -158,7 +158,7 @@ const deals = [
               <p class="mt-2.5 flex items-center gap-2">
                 <span class="text-[0.875rem] font-semibold tracking-[-0.02em] tabular">{deal.value}</span>
                 <span class="inline-flex items-center gap-1 text-[0.6875rem] text-muted">
-                  <span class:list={["size-1.5 rounded-[1px]", deal.tone]} />
+                  <span class:list={["size-1.5 rounded-[8px]", deal.tone]} />
                   {deal.priority}
                 </span>
               </p>
@@ -269,7 +269,7 @@ const deals = [
     position: absolute;
     width: 0.5rem;
     height: 0.5rem;
-    border-radius: 999px;
+    border-radius: 8px;
     background: var(--green);
     box-shadow: 0 0 0 2px var(--surface);
     transform: translate(-50%, -50%);

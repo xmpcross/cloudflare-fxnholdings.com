@@ -31,7 +31,7 @@ const lists: { label: string; tone: Tone }[] = [
   { label: "Partners", tone: "teal" },
   { label: "Hiring", tone: "violet" },
 ];
-const item = "flex h-7 items-center gap-2.5 rounded-lg px-2 text-[0.8125rem]";
+const item = "flex h-7 items-center gap-2.5 rounded-[8px] px-2 text-[0.8125rem]";
 ---
 
 <div class="sidebar flex shrink-0 border-r border-line">
@@ -79,7 +79,7 @@ const item = "flex h-7 items-center gap-2.5 rounded-lg px-2 text-[0.8125rem]";
       {
         lists.map((link) => (
           <li class:list={[item, link.label === active ? "bg-wash font-medium text-ink ring-1 ring-line" : "text-ink-soft"]}>
-            <span class:list={["mx-[0.2rem] size-1.5 rounded-full", dotTone[link.tone]]} />
+            <span class:list={["mx-[0.2rem] size-1.5 rounded-[8px]", dotTone[link.tone]]} />
             {link.label}
           </li>
         ))

@@ -8,6 +8,6 @@ interface Props {
 const { class: className = "size-8" } = Astro.props;
 ---
 
-<span class:list={["grid shrink-0 place-items-center rounded-[28%] bg-ink text-white", className]} aria-hidden="true">
+<span class:list={["grid shrink-0 place-items-center rounded-[8px] bg-ink text-white", className]} aria-hidden="true">
   <span class="h-[54%] [&>svg]:h-full [&>svg]:w-auto" set:html={mark} />
 </span>

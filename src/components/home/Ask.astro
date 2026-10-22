@@ -26,13 +26,13 @@ const sources = [
     <SectionHead id={`${id}-title`} eyebrow={eyebrow} title={title} accent={accent} align="center" />
 
     <div class="reveal mx-auto mt-12 max-w-5xl lg:mt-16">
-      <div class="panel grid overflow-hidden rounded-[1.25rem] lg:grid-cols-[1fr_1.15fr]" aria-hidden="true">
+      <div class="panel grid overflow-hidden rounded-[8px] lg:grid-cols-[1fr_1.15fr]" aria-hidden="true">
         <div class="flex flex-col gap-4 p-5 sm:p-6">
           <p class="flex items-center gap-2 text-[0.8125rem] font-medium text-night-muted">
-            <span class="grid size-6 place-items-center rounded-md bg-violet text-white"><Icon name="sparkles" class="size-3.5" stroke={2.2} /></span>
+            <span class="grid size-6 place-items-center rounded-[8px] bg-violet text-white"><Icon name="sparkles" class="size-3.5" stroke={2.2} /></span>
             Ask Modal
           </p>
-          <div class="ml-auto flex max-w-[90%] items-start gap-2.5 rounded-2xl rounded-tr-md bg-white/8 px-3.5 py-2.5 text-[0.9375rem] ring-1 ring-white/10">
+          <div class="ml-auto flex max-w-[90%] items-start gap-2.5 rounded-[8px] rounded-[8px] bg-white/8 px-3.5 py-2.5 text-[0.9375rem] ring-1 ring-white/10">
             {question}
             <Avatar name="Maya Chen" class="mt-0.5 size-5" />
           </div>
@@ -40,7 +40,7 @@ const sources = [
             {
               steps.map((step) => (
                 <li class="step flex items-center gap-2">
-                  <span class="grid size-4 place-items-center rounded-full bg-green/20 text-green">
+                  <span class="grid size-4 place-items-center rounded-[8px] bg-green/20 text-green">
                     <Icon name="check" class="size-2.5" stroke={3.5} />
                   </span>
                   {step}
@@ -52,30 +52,30 @@ const sources = [
           <ul class="answer mt-auto flex flex-wrap gap-1.5">
             {
               sources.map((source) => (
-                <li class="inline-flex items-center gap-1.5 rounded-md bg-white/6 px-2 py-1 text-[0.75rem] text-night-muted ring-1 ring-white/10">
+                <li class="inline-flex items-center gap-1.5 rounded-[8px] bg-white/6 px-2 py-1 text-[0.75rem] text-night-muted ring-1 ring-white/10">
                   <Icon name={source.icon} class="size-3" />
                   {source.label}
                 </li>
               ))
             }
           </ul>
-          <div class="flex items-center gap-2 rounded-xl bg-white/5 px-3 py-2.5 text-[0.875rem] text-night-muted ring-1 ring-white/10">
+          <div class="flex items-center gap-2 rounded-[8px] bg-white/5 px-3 py-2.5 text-[0.875rem] text-night-muted ring-1 ring-white/10">
             Ask a follow-up…
-            <span class="ml-auto grid size-7 place-items-center rounded-lg bg-white text-ink"><Icon name="arrow-up" class="size-3.5" stroke={2.5} /></span>
+            <span class="ml-auto grid size-7 place-items-center rounded-[8px] bg-white text-ink"><Icon name="arrow-up" class="size-3.5" stroke={2.5} /></span>
           </div>
         </div>
 
         <div class="results border-t border-white/8 bg-white/[0.03] p-5 sm:p-6 lg:border-t-0 lg:border-l">
           <p class="flex items-center justify-between text-[0.8125rem]">
             <span class="font-medium">3 deals · <span class="tabular">$186,200</span></span>
-            <span class="inline-flex items-center gap-1.5 rounded-md bg-white/8 px-2 py-1 text-[0.75rem] text-night-muted">
+            <span class="inline-flex items-center gap-1.5 rounded-[8px] bg-white/8 px-2 py-1 text-[0.75rem] text-night-muted">
               <Icon name="table-2" class="size-3" /> Save as view
             </span>
           </p>
           <ul class="mt-4 grid gap-2.5">
             {
               results.map((row) => (
-                <li class="row rounded-xl bg-surface p-3 text-ink">
+                <li class="row rounded-[8px] bg-surface p-3 text-ink">
                   <span class="flex items-center gap-2.5">
                     <span class="min-w-0">
                       <span class="block text-[0.875rem] font-semibold">{row.name}</span>
@@ -101,7 +101,7 @@ const sources = [
       </div>
     </div>
 
-    <ul class="mt-14 grid gap-px overflow-hidden rounded-2xl bg-night-line sm:grid-cols-3 lg:mt-20">
+    <ul class="mt-14 grid gap-px overflow-hidden rounded-[8px] bg-night-line sm:grid-cols-3 lg:mt-20">
       {
         points.map((point) => (
           <li class="reveal bg-night p-6 sm:p-7">

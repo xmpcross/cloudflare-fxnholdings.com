@@ -30,14 +30,14 @@ const strengthTone = (strength: number) => (strength > 2 ? "bg-green" : strength
   <div class="board flex gap-2.5 overflow-hidden bg-[#fafafb] p-3">
     {
       columns.map((column, c) => (
-        <div class="column flex w-[13.25rem] shrink-0 flex-col gap-2 rounded-xl bg-sunken/60 p-1.5">
+        <div class="column flex w-[13.25rem] shrink-0 flex-col gap-2 rounded-[8px] bg-sunken/60 p-1.5">
           <div class="flex items-center gap-1.5 px-1.5 pt-1 text-[0.8125rem] font-semibold">
-            <span class:list={["size-2 rounded-full", dotTone[column.tone]]} />
+            <span class:list={["size-2 rounded-[8px]", dotTone[column.tone]]} />
             {column.name}
             <span class="font-normal text-faint tabular">{column.cards.length}</span>
           </div>
           {column.cards.map((card, d) => (
-            <div class="deal rounded-lg bg-surface p-2.5 shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--d:${c * 90 + d * 60}ms`}>
+            <div class="deal rounded-[8px] bg-surface p-2.5 shadow-[0_0_0_1px_var(--line),0_1px_2px_rgb(12_12_14/0.05)]" style={`--d:${c * 90 + d * 60}ms`}>
               <span class="block truncate text-[0.8125rem] font-semibold">{card.company}</span>
               <p class="mt-1 truncate text-[0.75rem] text-muted">{card.pitch}</p>
               <div class="mt-2 flex items-center gap-1.5">
@@ -55,7 +55,7 @@ const strengthTone = (strength: number) => (strength > 2 ? "bg-green" : strength
                 <span class="truncate font-medium text-ink-soft">{card.intro.via}</span>
                 <span class="ml-auto flex items-end gap-0.5">
                   {[1, 2, 3, 4].map((bar) => (
-                    <span class:list={["w-[3px] rounded-[1px]", bar <= card.intro.strength ? strengthTone(card.intro.strength) : "bg-line-strong"]} style={`height:${bar * 2 + 2}px`} />
+                    <span class:list={["w-[3px] rounded-[8px]", bar <= card.intro.strength ? strengthTone(card.intro.strength) : "bg-line-strong"]} style={`height:${bar * 2 + 2}px`} />
                   ))}
                 </span>
               </div>

@@ -34,7 +34,7 @@ const path = (node: (typeof nodes)[number]) =>
   {
     nodes.map((node) => (
       <span class="tile absolute" style={`left:${(node.x / 600) * 100}%;top:${(node.y / 240) * 100}%`}>
-        <AppIcon name={node.name} class="size-full rounded-[28%] shadow-(--shadow-card)" />
+        <AppIcon name={node.name} class="size-full rounded-[8px] shadow-(--shadow-card)" />
       </span>
     ))
   }
@@ -60,7 +60,7 @@ const path = (node: (typeof nodes)[number]) =>
     width: 14%;
     aspect-ratio: 1;
     translate: -50% -50%;
-    border-radius: 28%;
+    border-radius: 8px;
     box-shadow:
       0 0 0 8px var(--page),
       0 0 0 9px var(--line);

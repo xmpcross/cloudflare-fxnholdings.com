@@ -16,23 +16,23 @@ const fields = [
 <BaseLayout title="Page not found" description="The page you were looking for does not exist or has moved." noindex>
   <section class="shell grid min-h-[calc(100svh-var(--header-h))] content-center justify-items-center py-20 text-center sm:py-24">
     <div class="rise relative w-full max-w-sm" aria-hidden="true">
-      <span class="absolute inset-x-8 -bottom-3 h-full rounded-2xl bg-surface ring-1 ring-line"></span>
-      <span class="absolute inset-x-4 -bottom-1.5 h-full rounded-2xl bg-surface ring-1 ring-line"></span>
-      <div class="relative rounded-2xl bg-surface p-1.5 text-left shadow-(--shadow-float) ring-1 ring-black/5">
+      <span class="absolute inset-x-8 -bottom-3 h-full rounded-[8px] bg-surface ring-1 ring-line"></span>
+      <span class="absolute inset-x-4 -bottom-1.5 h-full rounded-[8px] bg-surface ring-1 ring-line"></span>
+      <div class="relative rounded-[8px] bg-surface p-1.5 text-left shadow-(--shadow-float) ring-1 ring-black/5">
         <p class="flex items-center gap-2 px-2.5 pt-1.5 pb-2 text-[0.75rem] text-muted">
           <Icon name="link-2" class="size-3.5" stroke={2} />
           <span class="truncate font-mono" data-missing-path>/this-page/</span>
           <Pill tone="pink" class="ml-auto">404</Pill>
         </p>
-        <div class="rounded-xl bg-wash p-4 ring-1 ring-line">
+        <div class="rounded-[8px] bg-wash p-4 ring-1 ring-line">
           <p class="flex items-center gap-3">
-            <CompanyMark icon="circle-alert" class="size-9 rounded-[28%]" />
+            <CompanyMark icon="circle-alert" class="size-9 rounded-[8px]" />
             <span class="leading-tight">
               <span class="block font-semibold tracking-[-0.02em]">Page not found</span>
               <span class="block text-[0.8125rem] text-muted">No record matches this link</span>
             </span>
           </p>
-          <dl class="mt-4 grid gap-px overflow-hidden rounded-lg bg-line text-[0.8125rem] ring-1 ring-line">
+          <dl class="mt-4 grid gap-px overflow-hidden rounded-[8px] bg-line text-[0.8125rem] ring-1 ring-line">
             {
               fields.map((field) => (
                 <div class="flex h-9 items-center gap-2 bg-surface px-3">

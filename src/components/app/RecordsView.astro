@@ -29,7 +29,7 @@ const strength = ["Weak", "Fair", "Good", "Strong"];
   <div class="flex h-9 flex-wrap content-start items-center gap-x-1 gap-y-4 overflow-hidden border-b border-line px-3 pt-1.5 text-[0.8125rem]">
     {
       views.map((view, index) => (
-        <span class:list={["shrink-0 rounded-md px-2 py-0.5 font-medium whitespace-nowrap", index === 0 ? "bg-sunken text-ink" : "text-muted"]}>{view}</span>
+        <span class:list={["shrink-0 rounded-[8px] px-2 py-0.5 font-medium whitespace-nowrap", index === 0 ? "bg-sunken text-ink" : "text-muted"]}>{view}</span>
       ))
     }
     <span class="ml-1 text-faint"><Icon name="plus" class="size-3.5" /></span>
@@ -93,7 +93,7 @@ const strength = ["Weak", "Fair", "Good", "Strong"];
     gap: 0.35rem;
     height: 1.75rem;
     padding: 0 0.55rem;
-    border-radius: 0.45rem;
+    border-radius: 8px;
     font-size: 0.8125rem;
     font-weight: 500;
     color: var(--ink-soft);
@@ -150,7 +150,7 @@ const strength = ["Weak", "Fair", "Good", "Strong"];
     width: 0.8rem;
     height: 0.8rem;
     flex: none;
-    border-radius: 0.2rem;
+    border-radius: 8px;
     box-shadow: inset 0 0 0 1.25px var(--line-strong);
   }
 
@@ -170,12 +170,12 @@ const strength = ["Weak", "Fair", "Good", "Strong"];
 
   .bars > span {
     width: 3px;
-    border-radius: 1px;
+    border-radius: 8px;
   }
 
   .ai-value {
     display: inline-block;
-    border-radius: 0.35rem;
+    border-radius: 8px;
     padding: 0 0.4rem;
     background: var(--violet-soft);
     color: var(--violet-ink);

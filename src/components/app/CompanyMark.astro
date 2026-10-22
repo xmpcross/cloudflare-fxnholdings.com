@@ -6,7 +6,7 @@ interface Props {
   class?: string;
 }
 
-const { icon = "building-2", class: className = "size-10 rounded-xl" } = Astro.props;
+const { icon = "building-2", class: className = "size-10 rounded-[8px]" } = Astro.props;
 ---
 
 <span class:list={["grid shrink-0 place-items-center bg-wash text-muted ring-1 ring-line", className]} aria-hidden="true">

@@ -35,10 +35,10 @@ const extraTargets = [
 ---
 
 <dialog class="sheet" aria-labelledby="share-title" data-share-sheet>
-  <div class="sheet-panel rounded-2xl bg-surface p-6 sm:p-7">
+  <div class="sheet-panel rounded-[8px] bg-surface p-6 sm:p-7">
     <div class="flex items-center justify-between gap-4">
       <h2 id="share-title" class="text-xl tracking-tight">Share this post</h2>
-      <button type="button" class="grid size-10 place-items-center rounded-lg bg-wash hover:bg-sunken" aria-label="Close sharing options" data-share-close>
+      <button type="button" class="grid size-10 place-items-center rounded-[8px] bg-wash hover:bg-sunken" aria-label="Close sharing options" data-share-close>
         <Icon name="x" class="size-4" />
       </button>
     </div>
@@ -74,9 +74,9 @@ const extraTargets = [
 
     <div class="mt-7">
       <label for="share-url" class="text-sm text-muted">Page link</label>
-      <div class="mt-2 flex rounded-lg bg-wash p-1 shadow-[inset_0_0_0_1px_var(--line)]">
+      <div class="mt-2 flex rounded-[8px] bg-wash p-1 shadow-[inset_0_0_0_1px_var(--line)]">
         <input id="share-url" class="min-w-0 flex-1 bg-transparent px-3 py-2 font-mono text-[0.8rem] text-muted outline-none" type="text" readonly value={url} data-share-url />
-        <button type="button" class="flex items-center gap-2 rounded-md bg-ink px-4 text-sm font-medium text-page hover:bg-ink-soft" data-share-copy>
+        <button type="button" class="flex items-center gap-2 rounded-[8px] bg-ink px-4 text-sm font-medium text-page hover:bg-ink-soft" data-share-copy>
           <Icon name="copy" class="size-4" />
           <span aria-live="polite" data-share-copy-label>Copy</span>
         </button>
@@ -156,7 +156,7 @@ const extraTargets = [
     width: 3rem;
     height: 3rem;
     place-items: center;
-    border-radius: 1rem;
+    border-radius: 8px;
     background: var(--network);
     color: #fff;
     transition: transform 0.25s var(--ease-out-expo);

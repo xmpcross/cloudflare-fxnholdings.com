@@ -8,7 +8,7 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<fieldset class:list={["billing flex w-fit rounded-xl bg-wash p-1 shadow-[inset_0_0_0_1px_var(--line)]", className]}>
+<fieldset class:list={["billing flex w-fit rounded-[8px] bg-wash p-1 shadow-[inset_0_0_0_1px_var(--line)]", className]}>
   <legend class="sr-only">Billing period</legend>
   <label class="billing-option">
     <input type="radio" name="billing" value="monthly" class="sr-only" checked data-billing />
@@ -26,7 +26,7 @@ const { class: className } = Astro.props;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--muted);
@@ -43,7 +43,7 @@ const { class: className } = Astro.props;
 
   .billing-option .billing-save {
     padding: 0.05rem 0.45rem;
-    border-radius: 0.3rem;
+    border-radius: 8px;
     background: var(--green-soft);
     color: var(--green-ink);
     font-size: 0.8125rem;

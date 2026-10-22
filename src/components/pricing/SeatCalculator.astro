@@ -37,9 +37,9 @@ const money = (value: number) => `$${value.toLocaleString("en-US")}`;
   <dl class="mt-5 grid gap-2">
     {
       plans.map((plan) => (
-        <div class="flex items-center gap-3 rounded-xl bg-wash px-4 py-3 ring-1 ring-line">
+        <div class="flex items-center gap-3 rounded-[8px] bg-wash px-4 py-3 ring-1 ring-line">
           <dt class="flex items-center gap-2 font-medium">
-            <span class:list={["size-2 rounded-full", solidTone[plan.tone ?? "ink"]]} aria-hidden="true" />
+            <span class:list={["size-2 rounded-[8px]", solidTone[plan.tone ?? "ink"]]} aria-hidden="true" />
             {plan.name}
           </dt>
           <dd class="ml-auto text-right">
@@ -67,13 +67,13 @@ const money = (value: number) => `$${value.toLocaleString("en-US")}`;
 
   .seat-range::-webkit-slider-runnable-track {
     height: 6px;
-    border-radius: 999px;
+    border-radius: 8px;
     background: linear-gradient(var(--ink), var(--ink)) 0 / var(--fill) 100% no-repeat, var(--sunken);
   }
 
   .seat-range::-moz-range-track {
     height: 6px;
-    border-radius: 999px;
+    border-radius: 8px;
     background: linear-gradient(var(--ink), var(--ink)) 0 / var(--fill) 100% no-repeat, var(--sunken);
   }
 
@@ -82,7 +82,7 @@ const money = (value: number) => `$${value.toLocaleString("en-US")}`;
     width: 1.25rem;
     height: 1.25rem;
     margin-top: calc(3px - 0.625rem);
-    border-radius: 999px;
+    border-radius: 8px;
     background: #fff;
     box-shadow:
       0 0 0 1px var(--line-strong),
@@ -93,7 +93,7 @@ const money = (value: number) => `$${value.toLocaleString("en-US")}`;
     width: 1.25rem;
     height: 1.25rem;
     border: 0;
-    border-radius: 999px;
+    border-radius: 8px;
     background: #fff;
     box-shadow:
       0 0 0 1px var(--line-strong),

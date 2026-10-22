@@ -58,7 +58,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
         <a href={primary.href} class="btn btn-primary btn-sm hidden sm:inline-flex">{primary.label}</a>
         <button
           type="button"
-          class="-mr-2 grid size-11 place-items-center rounded-lg transition-colors hover:bg-black/5 lg:hidden"
+          class="-mr-2 grid size-11 place-items-center rounded-[8px] transition-colors hover:bg-black/5 lg:hidden"
           aria-expanded="false"
           aria-controls="mobile-nav"
           aria-label="Open menu"
@@ -110,7 +110,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
               <div class="mega-col" style="--i:2">
                 {featureOf(item) === "product" && (
                   <a href="/#product-tour" class="feature group bg-[linear-gradient(160deg,#e9efff,#f6f0ff_55%,#fff1e8)]" data-menu-link>
-                    <span class="block rounded-xl bg-white p-3 shadow-(--shadow-float) ring-1 ring-black/5">
+                    <span class="block rounded-[8px] bg-white p-3 shadow-(--shadow-float) ring-1 ring-black/5">
                       <span class="flex items-center gap-2">
                         <span class="text-[0.8125rem] font-semibold">Lumen Labs</span>
                         <Icon name="star" class="ml-auto size-3.5 text-yellow" stroke={2} />
@@ -161,7 +161,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
                 )}
                 {featureOf(item) === "latest" && latest && (
                   <a href={postHref(latest)} class="feature group bg-wash p-1.5!" data-menu-link>
-                    <span class="block aspect-16/10 overflow-hidden rounded-lg">
+                    <span class="block aspect-16/10 overflow-hidden rounded-[8px]">
                       <Image src={latest.data.cover} alt="" width={480} height={300} class="size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                     </span>
                     <span class="block p-2.5">
@@ -178,7 +178,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
                 <ul class="shell flex items-center gap-1 py-2.5">
                   {item.footer.map((link) => (
                     <li>
-                      <a href={link.href} class="inline-flex items-center gap-2 rounded-md px-2.5 py-1.5 text-[0.8125rem] font-medium text-muted transition-colors hover:bg-surface hover:text-ink" data-menu-link>
+                      <a href={link.href} class="inline-flex items-center gap-2 rounded-[8px] px-2.5 py-1.5 text-[0.8125rem] font-medium text-muted transition-colors hover:bg-surface hover:text-ink" data-menu-link>
                         {link.icon && <Icon name={link.icon} class="size-3.5" />}
                         {link.label}
                       </a>
@@ -199,8 +199,8 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
           menus.map((item) => (
             <li>
               {"columns" in item ? (
-                <details class="mobile-group rounded-2xl" name="mobile-menu">
-                  <summary class="flex items-center justify-between rounded-2xl px-3 py-3.5 text-xl font-semibold tracking-[-0.03em]">
+                <details class="mobile-group rounded-[8px]" name="mobile-menu">
+                  <summary class="flex items-center justify-between rounded-[8px] px-3 py-3.5 text-xl font-semibold tracking-[-0.03em]">
                     {item.label}
                     <Icon name="chevron-down" class="mobile-chevron size-5 text-muted" stroke={2} />
                   </summary>
@@ -211,9 +211,9 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
                         <ul class="mt-1.5 grid gap-0.5">
                           {column.links.map((link) => (
                             <li>
-                              <a href={link.href} class="flex items-center gap-3 rounded-xl px-2 py-2 text-[1.0625rem] font-medium" data-menu-link>
+                              <a href={link.href} class="flex items-center gap-3 rounded-[8px] px-2 py-2 text-[1.0625rem] font-medium" data-menu-link>
                                 {link.icon ? (
-                                  <span class:list={["grid size-8 place-items-center rounded-lg", softTone[link.tone ?? "ink"]]}>
+                                  <span class:list={["grid size-8 place-items-center rounded-[8px]", softTone[link.tone ?? "ink"]]}>
                                     <Icon name={link.icon} class="size-4" stroke={2} />
                                   </span>
                                 ) : (
@@ -231,7 +231,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
                   </div>
                 </details>
               ) : (
-                <a href={item.href} class="block rounded-2xl px-3 py-3.5 text-xl font-semibold tracking-[-0.03em]" data-menu-link>
+                <a href={item.href} class="block rounded-[8px] px-3 py-3.5 text-xl font-semibold tracking-[-0.03em]" data-menu-link>
                   {item.label}
                 </a>
               )}
@@ -280,7 +280,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
     align-items: center;
     gap: 0.3rem;
     padding: 0.45rem 0.75rem;
-    border-radius: 0.6rem;
+    border-radius: 8px;
     font-size: 0.9375rem;
     font-weight: 500;
     letter-spacing: -0.01em;
@@ -347,7 +347,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
     align-items: center;
     gap: 0.75rem;
     padding: 0.5rem 0.6rem;
-    border-radius: 0.75rem;
+    border-radius: 8px;
     transition: background-color 0.15s;
   }
 
@@ -362,7 +362,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
     place-items: center;
     width: 2.25rem;
     height: 2.25rem;
-    border-radius: 0.6rem;
+    border-radius: 8px;
     transition: transform 0.3s var(--ease-out-expo);
   }
 
@@ -375,7 +375,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 0.625rem;
-    border-radius: 0.6rem;
+    border-radius: 8px;
     font-size: 0.9375rem;
     font-weight: 500;
     transition: background-color 0.15s;
@@ -392,7 +392,7 @@ const featureOf = (item: (typeof menus)[number]): MenuFeature | undefined => ("c
     height: 100%;
     overflow: hidden;
     padding: 1rem;
-    border-radius: 0.9rem;
+    border-radius: 8px;
   }
 
   .story-glow {

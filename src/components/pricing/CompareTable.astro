@@ -62,7 +62,7 @@ const isFeatured = (id: string) => id === featured;
             <th scope="colgroup" class="compare-group text-left">
               <span class="flex items-center gap-2.5">
                 {group.icon && (
-                  <span class:list={["grid size-7 shrink-0 place-items-center rounded-lg", softTone[group.tone ?? "ink"]]}>
+                  <span class:list={["grid size-7 shrink-0 place-items-center rounded-[8px]", softTone[group.tone ?? "ink"]]}>
                     <Icon name={group.icon} class="size-3.5" stroke={2.1} />
                   </span>
                 )}
@@ -83,7 +83,7 @@ const isFeatured = (id: string) => id === featured;
                 <td class:list={["compare-cell", isFeatured(plans[i].id) && "is-featured"]} data-col={plans[i].id} data-off={isFeatured(plans[i].id) ? undefined : ""}>
                   {value === true ? (
                     <>
-                      <span class="grid size-5 place-items-center rounded-full bg-ink text-white" aria-hidden="true">
+                      <span class="grid size-5 place-items-center rounded-[8px] bg-ink text-white" aria-hidden="true">
                         <Icon name="check" class="size-3" stroke={3} />
                       </span>
                       <span class="sr-only">Included</span>
@@ -122,7 +122,7 @@ const isFeatured = (id: string) => id === featured;
   }
 
   .compare-head.is-featured {
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 8px;
     background: var(--wash);
   }
 
@@ -163,13 +163,13 @@ const isFeatured = (id: string) => id === featured;
   }
 
   tbody:last-of-type tr:last-child .compare-cell.is-featured {
-    border-radius: 0 0 1rem 1rem;
+    border-radius: 8px;
   }
 
   .compare-tab {
     height: 2.5rem;
     padding-inline: 0.25rem;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--muted);
@@ -255,7 +255,7 @@ const isFeatured = (id: string) => id === featured;
     .compare-head.is-featured,
     .compare-cell.is-featured {
       background: none;
-      border-radius: 0;
+      border-radius: 8px;
       box-shadow: inset 0 -1px 0 var(--line);
     }
 

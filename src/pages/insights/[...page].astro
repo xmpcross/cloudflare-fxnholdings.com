@@ -24,12 +24,12 @@ const description = blogDescription;
 ---
 
 <BaseLayout
-  title={first ? "Blog" : `Blog, page ${page.currentPage}`}
+  title={first ? "Latest Blog" : `Latest Blog, page ${page.currentPage}`}
   description={description}
   prevUrl={page.url.prev}
   nextUrl={page.url.next}
 >
-  <BlogHeader title="Blog" description={description} />
+  <BlogHeader title="Latest Blog" description={description} />
   <div class="shell pb-24 lg:pb-32">
     {lead && <PostCard post={lead} variant="lead" headingLevel="h2" eager />}
     {

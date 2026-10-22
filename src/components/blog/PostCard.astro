@@ -20,10 +20,10 @@ const lead = variant === "lead";
 <article
   class:list={[
     "post-card group relative flex h-full flex-col",
-    lead && "gap-8 overflow-hidden rounded-[1.25rem] bg-wash p-2 ring-1 ring-line lg:grid lg:grid-cols-12 lg:items-center lg:gap-10",
+    lead && "gap-8 overflow-hidden rounded-[8px] bg-wash p-2 ring-1 ring-line lg:grid lg:grid-cols-12 lg:items-center lg:gap-10",
   ]}
 >
-  <div class:list={["overflow-hidden bg-sunken ring-1 ring-black/5", lead ? "aspect-16/10 rounded-2xl lg:col-span-7" : "aspect-16/10 rounded-xl"]}>
+  <div class:list={["overflow-hidden bg-sunken ring-1 ring-black/5", lead ? "aspect-16/10 rounded-[8px] lg:col-span-7" : "aspect-16/10 rounded-[8px]"]}>
     <Image
       src={cover}
       alt={coverAlt}
@@ -73,7 +73,7 @@ const lead = variant === "lead";
   .post-card:has(a:focus-visible) {
     outline: 2px solid var(--blue);
     outline-offset: 6px;
-    border-radius: 1rem;
+    border-radius: 8px;
   }
 
   .post-card a:focus-visible {

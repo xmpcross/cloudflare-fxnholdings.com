@@ -22,10 +22,10 @@ const { id = "faq", title, items, class: className } = Astro.props;
     <div class="grid gap-2 lg:col-span-8">
       {
         items.map((item) => (
-          <details class="faq group rounded-2xl bg-wash transition-colors open:bg-surface open:shadow-[inset_0_0_0_1px_var(--line-strong)]" name={id}>
+          <details class="faq group rounded-[8px] bg-wash transition-colors open:bg-surface open:shadow-[inset_0_0_0_1px_var(--line-strong)]" name={id}>
             <summary class="flex cursor-pointer items-center justify-between gap-6 px-5 py-4.5 text-[1.0625rem] font-medium tracking-[-0.02em] sm:px-6">
               {item.q}
-              <span class="grid size-7 shrink-0 place-items-center rounded-full bg-surface shadow-[inset_0_0_0_1px_var(--line)] transition-colors group-open:bg-ink group-open:text-white group-open:shadow-none">
+              <span class="grid size-7 shrink-0 place-items-center rounded-[8px] bg-surface shadow-[inset_0_0_0_1px_var(--line)] transition-colors group-open:bg-ink group-open:text-white group-open:shadow-none">
                 <Icon name="plus" class="faq-plus size-3.5" stroke={2.25} />
               </span>
             </summary>
